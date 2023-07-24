@@ -1,0 +1,57 @@
+.card {
+    border: 2px solid #c3c6ce;
+    -webkit-transition: 0.5s ease-out;
+    transition: 0.5s ease-out;
+    overflow: visible;
+  }
+  
+  .card-details {
+    color: rgb(255, 0, 0);
+    height: 100%;
+    gap: .5em;
+    display: grid;
+    place-content: center;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  .text-body {
+    color: rgb(134, 134, 134);
+  }
+  
+  /*Text*/
+  .text-title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  button {
+    background-color: #f81500;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+  
+  button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  button span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -15px;
+    transition: 0.5s;
+  }
+  
+  button:hover span {
+    padding-right: 15px;
+  }
+  
+  button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  

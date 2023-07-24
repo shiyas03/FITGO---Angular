@@ -1,0 +1,76 @@
+<div>
+    <img src="assets/images/header.png" alt="not found" class="w-full h-full">
+    <div class="absolute top-5 left-0 w-full">
+        <app-nav-bar></app-nav-bar>
+    </div>
+</div>
+
+<div class="lg:px-40 md:px-20 px-10">
+    <div class="relative flex flex-col min-w-0 break-words bg-gray-100 w-full shadow-sm rounded-lg lg:-my-64 "
+        *ngIf="(details$ | async) as user">
+        <div class="flex flex-wrap justify-center">
+            <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+                <div class="">
+                    <label for="imageInput" class="items-center bg-black">
+                        <div class="lg:w-40 lg:h-40 w-20 h-20 rounded-full cursor-pointer ">
+                            <img src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-image-700-205124837.jpg"
+                                class="w-full h-full rounded-full -mt-16 border-2 border-red-500" *ngIf="user.imageUrl == ''">
+                                <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt="image" *ngIf="user.imageUrl" class="w-full h-full rounded-full -mt-16 border-2 border-red-500">
+                            <input id="imageInput" type="file" class="hidden" (change)="onFileSelected($event)">
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <p class="text-center">click on photo to change</p>
+        <div class="mx-auto flex mt-3">
+            <!-- <button type="button"
+                class="text-white bg-gradient-to-r from-gray-400 via-gray-500 to-gray-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-1 text-center mx-3" (click)="openPreview(user.imageUrl)">Preview</button> -->
+            <button type="button"
+                class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-sm px-5 py-2 text-center" (click)="removeImage(user._id)">Remove</button>
+            <button type="button"
+                class="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-500 font-medium rounded-lg text-sm mx-3 px-5 py-2 text-center" (click)="editUser(user._id)">Edit Profile</button>
+        </div>
+        <div class="text-center mt-10">
+            <h3 class="text-4xl font-bold" style="font-family: 'Kanit', sans-serif;">
+                {{user.name}}
+            </h3>
+            <div class="text-md mt-2" style="font-family: 'Kanit', sans-serif;">
+                {{user.email}}
+            </div>
+        </div>
+        <div class="mt-10">
+            <div class="mx-auto w-2/4">
+                <ul class="bg-gray-300 grid grid-flow-col gap-10 text-center text-gray-500 bg-gray-100 rounded-lg p-1">
+                    <li>
+                        <a [class.active]="activeLink === 'Details'" (click)="setActiveLink('Details')"
+                            class="flex justify-center py-2 text-md cursor-pointer"
+                            style="font-family: 'Kanit', sans-serif;">Details</a>
+                    </li>
+                    <li>
+                        <a [class.active]="activeLink === 'Status'" (click)="setActiveLink('Status')"
+                            class="flex justify-center py-2 text-md cursor-pointer"
+                            style="font-family: 'Kanit', sans-serif;">Status</a>
+                    </li>
+                    <li>
+                        <a [class.active]="activeLink === 'History'" (click)="setActiveLink('History')"
+                            class="flex justify-center py-2 text-md cursor-pointer"
+                            style="font-family: 'Kanit', sans-serif;">History</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <app-user-info *ngIf="activeLink == 'Details'" [userData$]="details$"></app-user-info>
+        <app-user-status *ngIf="activeLink == 'Status'" [userData$]="details$"></app-user-status>
+    </div>
+
+</div>
+<div class="my-72">
+    <app-footer></app-footer>
+</div>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,400;0,500;0,700;0,800;1,200;1,300&display=swap"
+    rel="stylesheet">

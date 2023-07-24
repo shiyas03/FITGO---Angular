@@ -1,0 +1,43 @@
+<app-sidebar-layout></app-sidebar-layout>
+<div class="lg:w-4/5 mt-28 lg:mx-72 w-full overflow-x-auto">
+    <div class="my-5 text-md font-semibold">
+        Add new blog
+        <button class="bg-red-500 py-1 px-3 text-white rounded-lg hover:scale-105 shadow-md"
+            (click)="showForm()">Here!</button>
+    </div>
+    <table class="w-full text-sm text-left text-gray-500 border border-red-500">
+        <thead class="text-sm text-gray-950 bg-gray-300">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    NO
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Template
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Title
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Category
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="(blogs$ | async) as blogs;">
+            <tr *ngFor="let b of blogs; let i = index" class="bg-white border-b text-gray-900 text-sm">
+                <td class="px-6 py-4 font-medium whitespace-nowrap">{{i+1}}</td>
+                <td class="p-3">
+                    <img [src]="'http://localhost:3000/uploads/'+b.template" width="100px" alt="">
+                </td>
+                <td class="px-6 py-4 font-medium whitespace-nowrap">{{b.title}}</td>
+                <td class="px-6 py-4 font-medium whitespace-nowrap">{{b.category}}</td>
+                <td class="px-6 py-4 font-medium whitespace-nowrap">
+                    <button class="px-2 py-1 bg-blue-500 text-white mx-3 rounded-md" (click)="showBlog(b._id)">View</button>
+                    <!-- <button class="px-2 py-1 bg-red-500 text-white rounded-md">Cancel</button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

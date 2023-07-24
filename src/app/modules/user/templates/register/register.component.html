@@ -1,0 +1,96 @@
+<app-background></app-background>
+<div class="sm:mx-auto sm:w-full sm:max-w-md mt-6">
+    <div class="bg-gray-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <img class="mx-auto h-10 w-auto" src="assets/images/logo.png" alt="Workflow">
+        </div>
+        <hr class="w-full border border-red-500 mt-3">
+        <form [formGroup]="registerForm" class="mt-6" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="name" class="block text-sm font-medium leading-5  text-gray-700">Name</label>
+                <div class="mt-1 relative rounded-md shadow-sm">
+                    <input id="name" name="name" placeholder="John Doe" type="text" required="" value=""
+                        formControlName="name"
+                        class="appearance-none outline-none block w-full px-3 py-2 border border-white rounded-md placeholder-gray-400 hover:border-red-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                </div>
+                <!-- <div *ngIf="registerForm.controls['name'].errors">
+                    <p *ngIf="submit&&registerForm.controls['name'].hasError('required')" class="text-red-500 text-xs">Name required</p>
+                </div> -->
+                <p *ngIf="nameError" class="text-red-500 text-xs">Name required</p>
+            </div>
+            <div class="mt-6">
+                <label for="email" class="block text-sm font-medium leading-5  text-gray-700">
+                    Email address
+                </label>
+                <div class="mt-1 relative rounded-md shadow-sm">
+                    <input id="email" name="email" placeholder="user@example.com" type="email" required="" value=""
+                        formControlName="email" class="appearance-none outline-none block w-full px-3 py-2 border border-white rounded-md placeholder-gray-400 hover:border-red-300 transition 
+                        duration-150 ease-in-out sm:text-sm sm:leading-5">
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors">
+                    <p *ngIf="submit&&registerForm.controls['email'].hasError('required')" class="text-red-500 text-xs">Email
+                        Required
+                    <p>
+                    <p *ngIf="registerForm.controls['email'].hasError('email')" class="text-red-500 text-xs">Invalid Email Format
+                    <p>
+                </div>
+                <p *ngIf="emailUsed" class="text-xs text-red-500">Email alrady used</p>
+            </div>
+            <div class="mt-6">
+                <label for="phone" class="block text-sm font-medium leading-5 text-gray-700">Phone</label>
+                <div class="mt-1 relative rounded-md shadow-sm">
+                    <input id="phone" name="phone" placeholder="+91 9876543210" type="text" required=""
+                        formControlName="phone"
+                        class="appearance-none outline-none block w-full px-3 py-2 border border-white rounded-md placeholder-gray-400 hover:border-red-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                </div>
+                <div *ngIf="registerForm.controls['phone'].errors">
+                    <p *ngIf="submit&&registerForm.controls['phone'].hasError('required')" class="text-red-500 text-xs">Phone number required<p>
+                    <p *ngIf="registerForm.controls['phone'].hasError('minlength')" class="text-red-500 text-xs">At least 10 digits</p>
+                    <p *ngIf="registerForm.controls['phone'].hasError('maxlength')" class="text-red-500 text-xs">No more than 10 digits</p>
+                </div>
+                <p *ngIf="phoneUsed" class="text-xs text-red-500">Phone number already used</p>
+            </div>
+            <div class="mt-6">
+                <label for="password" class="block text-sm font-medium leading-5 text-gray-700">
+                    Password
+                </label>
+                <div class="mt-1 rounded-md shadow-sm">
+                    <input id="password" name="password" type="password" required="" placeholder="includes capital & special character"
+                        formControlName="password"
+                        class="appearance-none outline-none block w-full px-3 py-2 border border-white rounded-md placeholder-gray-400 hover:border-red-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                </div>
+                <div *ngIf="registerForm.controls['password'].errors">
+                    <p *ngIf="submit&&registerForm.controls['password'].hasError('required')" class="text-red-500 text-xs">Password
+                        Required
+                    </p>
+                    <p *ngIf="registerForm.controls['password'].hasError('pattern')" class="text-red-500 text-xs">Invalid Password
+                        Format</p>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <label for="password_confirmation" class="block text-sm font-medium leading-5 text-gray-700">
+                    Confirm Password
+                </label>
+                <div class="mt-1 rounded-md shadow-sm" >
+                    <input id="password_confirmation" name="password_confirmation" type="password" required=""
+                        placeholder="............" formControlName="cpassword"
+                        class="appearance-none outline-none block w-full px-3 py-2 border border-white rounded-md placeholder-gray-400 hover:border-red-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                </div>
+                <p *ngIf="inCorrect" class="text-red-500 text-xs">password not match</p>
+            </div>
+
+            <div class="mt-8">
+                <button class="w-full py-3 text-xs uppercase font-semibold rounded-md duration-300">
+                    Create account
+                </button>
+            </div>
+            <div class="mt-3">
+                <p class="text-sm">Already a member? <a class="courser-pointer text-sm text-red-500 underline"
+                    routerLink="/login">Login Here</a></p>
+            </div>
+        </form>
+
+    </div>
+</div> 
+

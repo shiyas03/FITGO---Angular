@@ -1,0 +1,85 @@
+<div class="bg-gray-950 h-screen lg:h-screen">
+    <div class="mx-auto w-full  sm:w-2/3 md:w-2/3 lg:w-1/3 py-10 p-8">
+        <div class="bg-gray-100 py-8 px-5 shadow rounded-lg sm:px-10">
+            <div class="w-full">
+                <img class="mx-auto h-10 w-auto" src="assets/images/logo.png" alt="Workflow">
+            </div>
+            <hr class="w-full border border-red-500 mt-3">
+            <form [formGroup]="registerForm" class="mt-6" (ngSubmit)="onSubmit()">
+                <div>
+                    <label for="name" class="block text-sm font-medium leading-5 mx-1 text-gray-700">Name</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <input id="name" name="name" placeholder="John Doe" type="text" required="" value=""
+                            formControlName="name"
+                            class="appearance-none outline-none block w-full px-3 py-2 border rounded-md placeholder-gray-400 hover:border-red-500 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                    </div>
+                    <div *ngIf="registerForm.controls['name'].errors">
+                        <p *ngIf="submit&&registerForm.controls['name'].hasError('required')"
+                            class="text-red-500 text-xs">Name
+                            Required</p>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <label for="email" class="block text-sm font-medium leading-5 mx-1 text-gray-700">
+                        Email address
+                    </label>
+                    <div class="mt-1 relative">
+                        <input id="email" name="email" placeholder="user@example.com" type="email" required="" value=""
+                            formControlName="email" class="appearance-none outline-none block w-full px-3 py-2 border rounded placeholder-gray-400 hover:border-red-500 transition 
+                        duration-150 ease-in-out sm:text-sm sm:leading-5">
+                    </div>
+                    <div *ngIf="registerForm.controls['email'].errors">
+                        <p *ngIf="submit&&registerForm.controls['email'].hasError('required')"
+                            class="text-red-500 text-xs">Email
+                            Required
+                        <p>
+                        <p *ngIf="registerForm.controls['email'].hasError('email')" class="text-red-500 text-xs">Invalid
+                            Email Format
+                        <p>
+                    </div>
+                    <p *ngIf="emailUsed" class="text-xs text-red-500">Email already used</p>
+                </div>
+                <div class="mt-6">
+                    <label for="password" class="block text-sm font-medium mx-1 leading-5 text-gray-700">
+                        Password
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                        <input id="password" name="password" type="password" required=""
+                            placeholder="includes capital & special character" formControlName="password"
+                            class="appearance-none outline-none block w-full px-3 py-2 border rounded-md placeholder-gray-400 hover:border-red-500 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                    </div>
+                    <div *ngIf="registerForm.controls['password'].errors">
+                        <p *ngIf="submit&&registerForm.controls['password'].hasError('required')"
+                            class="text-red-500 text-xs">Password
+                            Required
+                        </p>
+                        <p *ngIf="registerForm.controls['password'].hasError('pattern')" class="text-red-500 text-xs">
+                            Invalid Password
+                            Format</p>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <label for="password_confirmation" class="block text-sm font-medium mx-1 leading-5 text-gray-700">
+                        Confirm Password
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                        <input id="password_confirmation" name="password_confirmation" type="password" required=""
+                            placeholder="............" formControlName="cpassword"
+                            class="appearance-none outline-none block w-full px-3 py-2 border rounded-md placeholder-gray-400 hover:border-red-500 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                    </div>
+                    <p *ngIf="inCorrect" class="text-red-500 text-xs">Password not match</p>
+                </div>
+
+                <div class="mt-8">
+                    <button
+                        class="w-full py-3 text-xs text-white uppercase font-semibold rounded-md duration-300 bg-red-500 hover:text-black"
+                        type="submit">
+                        Create account
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

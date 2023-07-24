@@ -1,0 +1,9 @@
+.active {
+  background: #D32F2F;
+  transform: scale(1.05);
+}
+
+#dropdown-user {
+  width: 200px;
+
+}

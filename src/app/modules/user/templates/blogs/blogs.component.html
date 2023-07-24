@@ -1,0 +1,32 @@
+<div>
+    <img src="assets/images/header-crop.png" alt="not found" class="w-full h-full">
+    <div class="absolute top-5 left-0 w-full">
+        <app-nav-bar></app-nav-bar>
+    </div>
+</div>
+
+<div class="m-10">
+    <section class="cards flex" *ngIf="(blogs$|async)as blogs">
+        <div *ngFor="let b of blogs;" class="w-1/4   justify-center">
+            <div *ngIf="b.approve == true" class=" m-5">
+                <article class="card card--1 " [style.background-image]="'url(http://localhost:3000/uploads/' + b.template + ')'">
+                    <div class="card__info-hover absolute p-20"></div>
+                    <div class="card__img"></div>
+                    <a href="#" class="card_link">
+                        <div class="card__img--hover"></div>
+                    </a>
+                    <div class="card__info">
+                        <span class="card__category">{{b.category}}</span>
+                        <h3 class="card__title">{{b.title}}</h3>
+                        <span class="card__by">
+                            by
+                            <a href="#" class="card__author" title="author">{{b.trainerId.name}}</a>
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- 750&w=1260 -->

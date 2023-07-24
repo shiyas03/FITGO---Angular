@@ -1,0 +1,13 @@
+.side-bars:hover{
+    box-shadow: 5px 5px 10px #bebebe,
+               -5px -5px 10px #ffffff;
+}
+
+.active{
+    background-color: rgb(212, 212, 212);
+    color: black;
+    box-shadow: 5px 5px 10px #bebebe,
+               -5px -5px 10px #ffffff;
+               
+}
+

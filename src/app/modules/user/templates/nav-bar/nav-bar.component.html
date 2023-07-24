@@ -1,0 +1,85 @@
+<header>
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div class="flex lg:hidden">
+            <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-300"
+                (click)="toggle()">
+                <span class="sr-only">Open main menu</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                    aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+        <div class="flex lg:flex-1">
+            <a href="#" class="-m-1.5 p-1.5">
+                <span class="sr-only">Your Company</span>
+                <img class="2xl:h-12 lg:h-10 md:h-8 sm:h-6 xs:h-6 h-4 w-auto w-auto lg:w-auto md:w-auto sm:w-auto xs:w-auto"
+                    src="assets/images/logo.png" alt="">
+            </a>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-12" *ngIf="islogged">
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/home" routerLinkActive="active">Home</a>
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/workouts" routerLinkActive="active">Workouts</a>
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/blogs" routerLinkActive="active">Blogs</a>
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/trainers" routerLinkActive="active">Trainers</a>
+            <!-- <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/about" routerLinkActive="active">About</a> -->
+        </div>
+
+        <div class="flex lg:flex lg:flex-1 lg:justify-end" *ngIf="!islogged">
+            <button class="m-button md:h-10 sm:h-8 xs:h-8 lg:h-10 2xl:h-10" (click)="toggleDropdown()">
+                <span class="xs:text-xs sm:text-sm md:text-sm lg:text-sm 2xl:text-sm text-xs uppercase" style="font-family: 'Kanit', sans-serif;">Join the
+                    team</span>
+            </button>
+            <div [class.hidden]="!isDropdownOpen" class="absolute top-14 md:top-16 hs-dropdown-menu hidden transform origin-top transition duration-300 ease-out hs-dropdown-open:opacity-100 min-w-8  lg:min-w-[8rem] 
+              bg-gray-950 shadow-md p-2 mt-2 divide-y border border-red-500"
+                aria-labelledby="hs-dropdown-with-dividers">
+                <div class="py-1 first:pt-0 last:pb-0">
+                    <a class="flex items-center gap-x-3.5 py-0 px-3 lg:py-2  rounded-md text-sm text-white droplink uppercase"
+                        routerLink="/login">
+                        User
+                    </a>
+                    <a class="flex items-center gap-x-3.5 py-1 px-3 rounded-md text-sm text-white droplink uppercase"
+                        routerLink="/trainer/register">
+                        Trainer
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="flex lg:flex-1 lg:justify-end" *ngIf="islogged">
+            <button class="m-button md:h-10 sm:h-8 xs:h-8 lg:h-10 2xl:h-10" (click)="toggleDropdown()">
+                <span class="xs:text-xs sm:text-sm md:text-sm lg:text-sm 2xl:text-sm text-xs uppercase" *ngIf="(user$|async) as user">Hey! {{user?.name}}</span>
+            </button>
+            <div [class.hidden]="!isDropdownOpen" class="absolute top-16 hs-dropdown-menu hidden transform origin-top transition duration-300 ease-out hs-dropdown-open:opacity-100 min-w-5  lg:min-w-[6.5rem] 
+              bg-gray-950 shadow-md p-2 mt-2 divide-y border border-red-500"
+                aria-labelledby="hs-dropdown-with-dividers">
+                <div class="py-1 first:pt-0 last:pb-0">
+                    <a href=""
+                        class="flex items-center gap-x-3.5 py-0 px-3 lg:py-1  rounded-md text-sm text-white droplink uppercase"
+                        routerLink="/profile">
+                        Profile
+                    </a>
+                    <a href=""
+                        class="flex items-center gap-x-3.5 py-0 px-3 lg:py-1  rounded-md text-sm text-white droplink uppercase"
+                        (click)="signOut()">
+                        Sign out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="bg-gray-950 lg:hidden border rounded-md border-red-500 mx-5" [class.hidden]="!showToggle">
+    <div class="flex flex-col gap-y-4 p-4 text-white">
+        <a routerLink="/home" class="hover:text-red-500 text-white">Home</a>
+        <a routerLink="/workouts" class="hover:text-red-500 text-white">Workouts</a>
+        <a routerLink="/blogs" class="hover:text-red-500 text-white">Blogs</a>
+        <a routerLink="/trainers" class="hover:text-red-500 text-white">Trainers</a>
+
+    </div>
+</div>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,700;1,200;1,300&display=swap" rel="stylesheet">
