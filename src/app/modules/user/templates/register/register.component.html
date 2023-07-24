@@ -1,6 +1,6 @@
 <app-background></app-background>
-<div class="sm:mx-auto sm:w-full sm:max-w-md mt-6">
-    <div class="bg-gray-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+<div class="sm:mx-auto sm:w-full sm:max-w-md py-10">
+    <div class="bg-gray-100 py-10 px-4 shadow sm:rounded-lg sm:px-10">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <img class="mx-auto h-10 w-auto" src="assets/images/logo.png" alt="Workflow">
         </div>
@@ -34,7 +34,6 @@
                     <p *ngIf="registerForm.controls['email'].hasError('email')" class="text-red-500 text-xs">Invalid Email Format
                     <p>
                 </div>
-                <p *ngIf="emailUsed" class="text-xs text-red-500">Email alrady used</p>
             </div>
             <div class="mt-6">
                 <label for="phone" class="block text-sm font-medium leading-5 text-gray-700">Phone</label>
@@ -48,7 +47,7 @@
                     <p *ngIf="registerForm.controls['phone'].hasError('minlength')" class="text-red-500 text-xs">At least 10 digits</p>
                     <p *ngIf="registerForm.controls['phone'].hasError('maxlength')" class="text-red-500 text-xs">No more than 10 digits</p>
                 </div>
-                <p *ngIf="phoneUsed" class="text-xs text-red-500">Phone number already used</p>
+                <p *ngIf="phoneError" class="text-red-500 text-xs">Must be numerics</p>
             </div>
             <div class="mt-6">
                 <label for="password" class="block text-sm font-medium leading-5 text-gray-700">

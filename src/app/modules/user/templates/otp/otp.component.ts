@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { User } from '../../store/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,22 +13,20 @@ import { Router } from '@angular/router';
 import { UserAuthService } from '../../services/user-auth.service';
 import { fetchUserData } from '../../store/user.action';
 import { userSelectorData } from '../../store/user.selector';
-
+import { swal } from '../../../../helpers/swal.popup';
 
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.component.html',
-  styleUrls: ['./otp.component.css']
+  styleUrls: ['./otp.component.css'],
 })
 export class OtpComponent implements OnInit, OnDestroy {
-
   userEmail!: string;
   otpForm!: FormGroup;
-  user$!: Observable<User | null>
-  otpError: boolean = false
-  submit: boolean = false
-  userId!: string | null
-  email!: string | null
+  user$!: Observable<User | null>;
+  submit: boolean = false;
+  userId!: string | null;
+  email!: string | null;
   private subscription!: Subscription;
 
   @ViewChild('input1') input1!: ElementRef;
@@ -32,68 +36,65 @@ export class OtpComponent implements OnInit, OnDestroy {
   @ViewChild('input5') input5!: ElementRef;
   @ViewChild('input6') input6!: ElementRef;
 
-  constructor(private store: Store<User>,
+  constructor(
+    private store: Store<User>,
     private fb: FormBuilder,
     private router: Router,
-    private userServices: UserAuthService) {
-    this.submit = false
+    private userServices: UserAuthService,
+  ) {
+    this.submit = false;
     this.otpForm = this.fb.group({
       input1: ['', [Validators.required]],
       input2: ['', [Validators.required]],
       input3: ['', [Validators.required]],
       input4: ['', [Validators.required]],
       input5: ['', [Validators.required]],
-      input6: ['', [Validators.required]]
-    })
+      input6: ['', [Validators.required]],
+    });
   }
 
   ngOnInit(): void {
-    const id = localStorage.getItem('id')
+    const id = localStorage.getItem('userId');
     if (id) {
-      this.store.dispatch(fetchUserData({ id }))
-      this.user$ = this.store.pipe(select(userSelectorData))
+      this.store.dispatch(fetchUserData({ id }));
+      this.user$ = this.store.pipe(select(userSelectorData));
     }
   }
 
   onSubmit() {
-    this.submit = true
-    this.otpError = false
-    const enteredotp = Object.values(this.otpForm.value)
-    let combinedOTP = ''
+    this.submit = true;
+    const enteredotp = Object.values(this.otpForm.value);
+    let combinedOTP = '';
     for (let value of enteredotp) {
-      combinedOTP += value
+      combinedOTP += value;
     }
 
     if (this.otpForm.valid) {
-      this.verifyOtp(combinedOTP)
+      this.verifyOtp(combinedOTP);
     } else {
-      this.otpError = true
-      setTimeout(() => {
-        this.otpError = false
-      })
+      swal('error', 'Enter 6 digit OTP');
     }
   }
 
   verifyOtp(otp: string) {
-    const generatedOtp = <string>localStorage.getItem('otp')
-    const id = <string>localStorage.getItem('id')
-    const details = {
-      id: id,
-      access: true
-    }
+    const generatedOtp = <string>localStorage.getItem('otp');
+    const id = <string>localStorage.getItem('userId');
     if (generatedOtp == otp) {
-      this.subscription = this.userServices.verifyOTP(details).subscribe(res => {
-        if (res.success) {
-          this.router.navigate(['/details'])
-          localStorage.removeItem('otp')
-        }
-      })
+      const details = { id: id, access: true };
+      this.subscription = this.userServices
+        .verifyOTP(details)
+        .subscribe((res) => {
+          if (res.success) {
+            this.router.navigate(['/details']);
+            localStorage.removeItem('otp');
+          }
+        });
     } else {
-      this.otpError = true
+      swal('error', 'Incorrect OTP');
     }
   }
 
-  //auto focus on input fields 
+  //auto focus on input fields
   onInput(event: Event, inputName: string): void {
     const input = event.target as HTMLInputElement;
     const value = input.value;
@@ -141,7 +142,6 @@ export class OtpComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-   if(this.subscription) this.subscription.unsubscribe()
+    if (this.subscription) this.subscription.unsubscribe();
   }
-
 }

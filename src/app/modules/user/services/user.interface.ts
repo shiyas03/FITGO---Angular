@@ -7,10 +7,9 @@ export interface Register {
 }
 
 export interface RegisterReturn {
-    emailError?: boolean;
-    phoneError?: boolean;
     id?: string,
     success?: boolean
+    message?:string;
 }
 
 export interface EmailReturn {
@@ -54,4 +53,10 @@ export interface UpdateDetails{
     age: number;
     height: number;
     weight: number;
+}
+
+export interface Error{
+    statusText:string;
+    status:number;
+    error:{}
 }

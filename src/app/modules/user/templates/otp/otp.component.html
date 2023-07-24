@@ -31,7 +31,6 @@
                     [class.border-red-500]="otpForm.controls['input6'].invalid && submit" formControlName="input6"
                     (input)="onInput($event, 'input6')" #input6>
             </div>
-            <p *ngIf="otpError&&submit" class="text-xs text-red-500 mt-3">Incorrect otp</p>
             <button class="w-full bg-red-600 rounded-md text-white py-2 mt-5">verify</button>
         </form>
     </div>
