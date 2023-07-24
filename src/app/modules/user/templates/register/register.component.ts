@@ -4,10 +4,9 @@ import { UserAuthService } from '../../services/user-auth.service';
 import { Router } from '@angular/router';
 import { Register, RegisterReturn, Error } from '../../services/user.interface';
 import { Subscription } from 'rxjs';
-import { swal } from '../../../../helpers/swal.popup';
+import { showError, swal } from '../../../../helpers/swal.popup';
 import { pattern } from '../../../../helpers/regex.pattern';
 import { HttpErrorResponse } from '@angular/common/http';
-import { swalError } from '../../../../helpers/swal.popup';
 
 @Component({
   selector: 'app-register',
@@ -90,14 +89,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 }
               },
               (error: HttpErrorResponse) => {
-                this.error(error);
+                showError(error)
               },
             );
           }
         }
       },
       (error: HttpErrorResponse) => {
-        this.error(error);
+        showError(error)
       },
     );
   }
@@ -109,16 +108,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.phoneError = false;
       this.inCorrect = false;
     }, 3000);
-  }
-
-  error(error: Error) {
-    if (error.error instanceof ErrorEvent) {
-      swalError(error.error.message);
-      console.error('Client-side error:', error.error.message);
-    } else {
-      swalError(error.statusText);
-      console.error('Server-side error:', error.status, error.statusText);
-    }
   }
 
   ngOnDestroy(): void {

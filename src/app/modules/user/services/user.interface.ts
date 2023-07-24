@@ -20,13 +20,13 @@ export interface EmailReturn {
 export interface DetailsReturn {
     success: boolean,
     token: string,
-    id: string
 }
 
 export interface LoginReturn {
     error: string
     token: string,
     id: string
+    message:string
 }
 
 export interface ProfileDetails {

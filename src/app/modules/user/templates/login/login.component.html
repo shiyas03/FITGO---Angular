@@ -21,8 +21,6 @@
                     <p *ngIf="loginForm.controls['email'].hasError('email')" class="text-red-500 text-xs">Invalid email format!
                     <p>
                 </div>
-                <p *ngIf="emailError" class="text-xs text-red-500">Email not found</p>
-                <p *ngIf="accessError" class="text-xs text-red-500">Account blocked by admin</p>
             </div>
             <div class="mt-6">
                 <label for="password" class="block text-sm font-medium mx-1 leading-5 text-gray-700">
@@ -39,7 +37,6 @@
                     <p *ngIf="loginForm.controls['password'].hasError('pattern')" class="text-red-500 text-xs">Invalid Password
                         Format</p>
                 </div>
-                <p *ngIf="passwordError" class="text-xs text-red-500">Incorrect password</p>
             </div>
             <div class="mt-3">
                 <a href="" class="text-sm text-black px-1">Forget password?</a>

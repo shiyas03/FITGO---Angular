@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { UserAuthService } from '../../services/user-auth.service';
 import { fetchUserData } from '../../store/user.action';
 import { userSelectorData } from '../../store/user.selector';
-import { swal } from '../../../../helpers/swal.popup';
+import { showError, swal } from '../../../../helpers/swal.popup';
 
 @Component({
   selector: 'app-otp',
@@ -81,14 +81,17 @@ export class OtpComponent implements OnInit, OnDestroy {
     const id = <string>localStorage.getItem('userId');
     if (generatedOtp == otp) {
       const details = { id: id, access: true };
-      this.subscription = this.userServices
-        .verifyOTP(details)
-        .subscribe((res) => {
+      this.subscription = this.userServices.verifyOTP(details).subscribe(
+        (res) => {
           if (res.success) {
             this.router.navigate(['/details']);
             localStorage.removeItem('otp');
           }
-        });
+        },
+        (error) => {
+          showError(error)
+        },
+      );
     } else {
       swal('error', 'Incorrect OTP');
     }
