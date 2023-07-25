@@ -8,31 +8,33 @@ import { UserAuthService } from '../../services/user-auth.service';
 import Swal from 'sweetalert2';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { decodeToken } from '../../../../helpers/token.decode';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-
-  details: boolean = true
-  workouts: boolean = false
-  history: boolean = false
+  details: boolean = true;
+  workouts: boolean = false;
+  history: boolean = false;
   activeLink: string = 'Details';
-  details$!: Observable<ProfileDetails | null>
+  details$!: Observable<ProfileDetails | null>;
   private subscription1!: Subscription;
   private subscription2!: Subscription;
   private subscription3!: Subscription;
 
-  constructor(private store: Store<ProfileDetails>,
+  constructor(
+    private store: Store<ProfileDetails>,
     private userServices: UserAuthService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
-    const id = localStorage.getItem('id')
+    const id = this.getId()
     if (id) {
-      this.fetchData(id)
+      this.fetchData(id);
     }
   }
 
@@ -45,37 +47,40 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (file && this.isValidFileType(file)) {
       const formData = new FormData();
       formData.append('image', file, file.name);
-      const id = <string>localStorage.getItem('id')
-      this.subscription1 = this.userServices.profileUpload(formData, id).subscribe(() => {
-        this.fetchData(id)
-      })
+      const id = this.getId()
+      this.subscription1 = this.userServices
+        .profileUpload(formData, id)
+        .subscribe(() => {
+          this.fetchData(id);
+        });
     } else {
-      Swal.fire('Only PNG and JPG are allowed')
+      Swal.fire('Only PNG and JPG are allowed');
     }
   }
 
   removeImage(id: string) {
     this.subscription3 = this.userServices.removeImage(id).subscribe((res) => {
       if (res.success == true) {
-        this.fetchData(id)
+        this.fetchData(id);
       }
-    })
+    });
   }
 
-  editUser(id:string){
-    const dialogRef: MatDialogRef<EditUserComponent> = this.dialog.open(EditUserComponent)
-    dialogRef.afterClosed().subscribe((res)=>{
-      this.userServices.updateDetails(res,id).subscribe((res)=>{
-        if(res.success == true){
-          this.fetchData(id)
+  editUser(id: string) {
+    const dialogRef: MatDialogRef<EditUserComponent> =
+      this.dialog.open(EditUserComponent);
+    dialogRef.afterClosed().subscribe((res) => {
+      this.userServices.updateDetails(res, id).subscribe((res) => {
+        if (res.success == true) {
+          this.fetchData(id);
         }
-      })
-    })
+      });
+    });
   }
 
   fetchData(id: string) {
-    this.store.dispatch(fetchProfileDetails({ id }))
-    this.details$ = this.store.pipe(select(profileSelectorData))
+    this.store.dispatch(fetchProfileDetails({ id }));
+    this.details$ = this.store.pipe(select(profileSelectorData));
   }
 
   isValidFileType(file: File): boolean {
@@ -83,10 +88,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return allowedTypes.includes(file.type);
   }
 
-  ngOnDestroy(): void {
-    if (this.subscription1) this.subscription1.unsubscribe()
-    if (this.subscription2) this.subscription2.unsubscribe()
-    if (this.subscription3) this.subscription3.unsubscribe()
+  getId(){
+    const token = <string>localStorage.getItem('userToken')
+    const decode = decodeToken(token);
+    return decode.id
   }
 
+  ngOnDestroy(): void {
+    if (this.subscription1) this.subscription1.unsubscribe();
+    if (this.subscription2) this.subscription2.unsubscribe();
+    if (this.subscription3) this.subscription3.unsubscribe();
+  }
 }

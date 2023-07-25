@@ -48,7 +48,7 @@ export class LoginComponent implements OnDestroy {
           swal('error', res.message);
         }else{
           localStorage.setItem('userToken', res.token);
-          localStorage.setItem('id', res.id);
+          localStorage.setItem('userId', res.id);
           this.router.navigate(['/']);
         }
       },(error)=>{

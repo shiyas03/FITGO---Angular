@@ -5,11 +5,9 @@ import { Blog, ProfileDetails, User } from "./user";
 export const fetchUserData = createAction("[User API] Fetch User",
     props<{ id: string }>()
 )
-
 export const fetchUserDataSuccess = createAction("[User API] Fetch User Success",
     props<{ user: User }>()
 )
-
 export const fetchUserFailure = createAction("[User API] Fetch Error",
     props<{ error: string }>()
 )
@@ -17,7 +15,6 @@ export const fetchUserFailure = createAction("[User API] Fetch Error",
 export const fetchProfileDetails = createAction("[Profile API] Fetch Profile Details",
     props<{ id: string }>()
 )
-
 export const fetchProfileSuccess = createAction('[Profile API] Fetch Profile Success',
     props<{ details: ProfileDetails }>()
 )

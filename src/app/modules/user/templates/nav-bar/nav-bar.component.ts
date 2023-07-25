@@ -5,6 +5,7 @@ import { fetchUserData } from '../../store/user.action';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../store/user';
 import { userSelectorData } from '../../store/user.selector';
+import { decodeToken } from '../.../../../../../helpers/token.decode'
 
 @Component({
   selector: 'app-nav-bar',
@@ -25,20 +26,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('userToken')) {
+    const token = <string>localStorage.getItem('userToken')
+    if (token) {
       this.islogged = true;
-    }
-    const id = <string>localStorage.getItem('id')
-    if (id.trim() !== '') {
+      const decode = decodeToken(token) 
+      const id = <string>decode.id
       this.store.dispatch(fetchUserData({ id }))
       this.user$ = this.store.pipe(select(userSelectorData))
-      this.subscription = this.user$.subscribe((res) => {
-        if (res?.access == false) {
-          this.islogged = false
-        } else {
-          this.islogged = true
-        }
-      })
+      this.userAccess()
     }
   }
 
@@ -54,8 +49,18 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   signOut() {
     localStorage.removeItem('userToken')
-    localStorage.removeItem('id')
+    localStorage.removeItem('userId')
     this.router.navigate(['/'])
+  }
+
+  userAccess(){
+    this.subscription = this.user$.subscribe((res) => {
+      if (res?.access == false) {
+        this.islogged = false
+      } else {
+        this.islogged = true
+      }
+    })
   }
 
   ngOnDestroy(): void {
