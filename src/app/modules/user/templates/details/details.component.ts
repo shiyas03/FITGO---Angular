@@ -52,7 +52,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     const calories = this.calorieCalculator();
     details.calorieBurn = Math.floor(calories.caloriesBurn);
     details.calorieNeed = Math.floor(calories.caloriesNeed);
-    details.id = localStorage.getItem('id');
+    details.id = localStorage.getItem('userId');
     this.subscription = this.userService.uploadDetails(details).subscribe(
       (res: DetailsReturn) => {
         if (res.success) {

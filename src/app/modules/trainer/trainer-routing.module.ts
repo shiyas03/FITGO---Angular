@@ -16,10 +16,10 @@ const routes: Routes = [
     path: 'dashboard', component: DashboardComponent, canActivate: [TrainerAuthGuard]
   },
   {
-    path: 'login', component: LoginComponent, canActivate: [TrainerLoginGuard]
+    path: 'login', component: LoginComponent, 
   },
   {
-    path: 'register', component: SignupComponent, 
+    path: 'register', component: SignupComponent, canActivate: [TrainerLoginGuard]
   },
   {
     path: 'details', component: DetailsComponent, canActivate: [TrainerAuthGuard]

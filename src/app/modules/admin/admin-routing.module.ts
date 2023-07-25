@@ -6,31 +6,43 @@ import { AdminLoginGuard } from './guards/admin-login.guard';
 import { UsersComponent } from './templates/users/users.component';
 import { TrainersComponent } from './templates/trainers/trainers.component';
 import { BlogsComponent } from './templates/blogs/blogs.component';
-
+import { AdminAuthGuard } from './guards/admin-auth.guard';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: 'dashboard', pathMatch: 'full'
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
   {
-    path: 'dashboard', component: DashboardComponent,
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AdminAuthGuard],
   },
   {
-    path: 'login', component: LoginComponent, canActivate: [AdminLoginGuard]
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [AdminLoginGuard],
   },
   {
-    path: 'users', component: UsersComponent,
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AdminAuthGuard],
   },
   {
-    path: 'trainers', component: TrainersComponent
+    path: 'trainers',
+    component: TrainersComponent,
+    canActivate: [AdminAuthGuard],
   },
   {
-    path: 'blogs', component: BlogsComponent
+    path: 'blogs',
+    component: BlogsComponent,
+    canActivate: [AdminAuthGuard],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}
