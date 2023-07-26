@@ -14,40 +14,61 @@ import { SingleViewComponent } from './templates/blogs/single-view/single-view.c
 
 const routes: Routes = [
   {
-    path: '', redirectTo: '/home', pathMatch: 'full'
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
   },
   {
-    path: 'home', component: HomeComponent
+    path: 'home',
+    component: HomeComponent,
   },
   {
-    path: 'login', component: LoginComponent, canActivate: [UserLoginGuard]
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [UserLoginGuard],
   },
   {
-    path: 'register', component: RegisterComponent, canActivate: [UserLoginGuard]
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [UserLoginGuard],
   },
   {
-    path: 'details', component: DetailsComponent, canActivate: [UserLoginGuard]
+    path: 'details',
+    component: DetailsComponent,
   },
   {
-    path: 'otp', component: OtpComponent, canActivate: [UserLoginGuard]
+    path: 'otp',
+    component: OtpComponent,
+    canActivate: [UserLoginGuard],
   },
   {
-    path: 'profile', component: ProfileComponent, canActivate: [UserAuthGuard]
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [UserAuthGuard],
   },
   {
-    path: 'edit-user', component: EditUserComponent, canActivate: [UserAuthGuard]
+    path: 'edit-user',
+    component: EditUserComponent,
+    canActivate: [UserAuthGuard],
   },
   {
-    path: 'blogs', component: BlogsComponent, canActivate: [UserAuthGuard], children: [
+    path: 'blogs',
+    canActivate: [UserAuthGuard],
+    children: [
       {
-        path: 'view', component: SingleViewComponent
-      }
-    ]
-  }
+        path:'',
+        component:BlogsComponent
+      },
+      {
+        path: 'single-view',
+        component: SingleViewComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

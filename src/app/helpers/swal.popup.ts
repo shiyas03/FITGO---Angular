@@ -37,3 +37,16 @@ export function showError(error: Error) {
     console.error('Server-side error:', error.status, error.statusText);
   }
 }
+
+export function swalConfirm(text?: string) {
+  let message = text ? text : 'You can change this later!';
+  return Swal.fire({
+    title: 'Are you sure?',
+    text: message,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, change it!',
+  });
+}

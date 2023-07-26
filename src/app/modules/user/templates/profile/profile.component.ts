@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const id = this.getId()
+    const id = <string>localStorage.getItem('userId')
     if (id) {
       this.fetchData(id);
     }
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (file && this.isValidFileType(file)) {
       const formData = new FormData();
       formData.append('image', file, file.name);
-      const id = this.getId()
+      const id = <string>localStorage.getItem('userId')
       this.subscription1 = this.userServices
         .profileUpload(formData, id)
         .subscribe(() => {
@@ -86,12 +86,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isValidFileType(file: File): boolean {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     return allowedTypes.includes(file.type);
-  }
-
-  getId(){
-    const token = <string>localStorage.getItem('userToken')
-    const decode = decodeToken(token);
-    return decode.id
   }
 
   ngOnDestroy(): void {

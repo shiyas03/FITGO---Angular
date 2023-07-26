@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserAuthService } from '../../services/user-auth.service';
 import { Blog } from '../../store/user';
 import { Store, select } from '@ngrx/store';
 import { fetchBlogData } from '../../store/user.action';
 import { blogSelectorData } from '../../store/user.selector';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blogs',
@@ -15,7 +15,7 @@ export class BlogsComponent implements OnInit {
 
   blogs$!: Observable<Blog[]>
 
-  constructor(private userService: UserAuthService, private store: Store<Blog>) { }
+  constructor( private store: Store<Blog>, private router: Router) { }
 
   ngOnInit(): void {
     this.store.dispatch(fetchBlogData())

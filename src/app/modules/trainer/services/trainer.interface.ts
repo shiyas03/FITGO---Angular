@@ -17,7 +17,7 @@ export interface Details {
 
 export interface Verify {
   token?: string;
-  error?: string
+  message: string
 }
 
 export interface Registeration {

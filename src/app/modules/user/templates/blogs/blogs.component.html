@@ -1,32 +1,53 @@
 <div>
-    <img src="assets/images/header-crop.png" alt="not found" class="w-full h-full">
-    <div class="absolute top-5 left-0 w-full">
-        <app-nav-bar></app-nav-bar>
+  <img
+    src="assets/images/header-crop.png"
+    alt="not found"
+    class="w-full lg:h-full h-24"
+  />
+  <div class="absolute lg:top-5 top-2 left-0 w-full">
+    <app-nav-bar></app-nav-bar>
+  </div>
+</div>
+
+<div *ngIf="blogs$ | async as blogs" class="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:mr-28 lg:ml-28 lg:mb-20 lg:mt-10">
+  <div *ngFor="let b of blogs; let i = index">
+    <div *ngIf="b.approve == true" class="m-5">
+        <div class="justify-center cursor-pointer" routerLink="/blogs/single-view">
+          <article
+            class="card hover:text-white overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl duration-200 hover:scale-110"
+            [style.background-image]="
+              'url(http://localhost:3000/uploads/' + b.template + ')'
+            "
+          >
+            <div class="card__info-hover absolute p-20"></div>
+            <div
+              class="card__img h-60 rounded-2xl hover:absolute hover:scale-110"
+            ></div>
+            <a href="#" class="card_link">
+              <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info bg-white p-6">
+              <span
+                class="card__category uppercase text-sm tracking-widest text-red-600"
+                >{{ b.category }}</span
+              >
+              <h3 class="card__title mt-2 mb-2 h-12 overflow-hidden">{{ b.title }}</h3>
+              <span class="font-thin text-xs h-5">
+                by
+                <a
+                  href="#"
+                  class="text-red-700 text-xs font-semibold"
+                  title="author"
+                  >{{ b.trainerId.name }}</a
+                >
+              </span>
+            </div>
+          </article>
+        </div>
+      </div>
     </div>
 </div>
 
-<div class="m-10">
-    <section class="cards flex" *ngIf="(blogs$|async)as blogs">
-        <div *ngFor="let b of blogs;" class="w-1/4   justify-center">
-            <div *ngIf="b.approve == true" class=" m-5">
-                <article class="card card--1 " [style.background-image]="'url(http://localhost:3000/uploads/' + b.template + ')'">
-                    <div class="card__info-hover absolute p-20"></div>
-                    <div class="card__img"></div>
-                    <a href="#" class="card_link">
-                        <div class="card__img--hover"></div>
-                    </a>
-                    <div class="card__info">
-                        <span class="card__category">{{b.category}}</span>
-                        <h3 class="card__title">{{b.title}}</h3>
-                        <span class="card__by">
-                            by
-                            <a href="#" class="card__author" title="author">{{b.trainerId.name}}</a>
-                        </span>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-</div>
+<app-footer></app-footer>
 
 <!-- 750&w=1260 -->

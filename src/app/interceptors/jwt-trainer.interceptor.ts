@@ -17,7 +17,6 @@ export class JwtTrainerInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('trainerToken');
     if (
-      request.url.includes('/trainer') &&
       !request.url.includes('/admin') &&
       token
     ) {

@@ -17,9 +17,7 @@ export class JwtUserInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('userToken');
     if (
-      request.url.includes('/user') &&
       !request.url.includes('/admin') &&
-      !request.url.includes('/trainer') &&
       token
     ) {
       const clonedReq = request.clone({

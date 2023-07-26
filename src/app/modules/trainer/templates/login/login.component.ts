@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { pattern } from '../../../../helpers/regex.pattern'
+import { showError, swal } from 'src/app/helpers/swal.popup';
+import { ErrorDialogComponent } from '../details/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +18,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   submit: boolean = false;
   incorrectPassword: boolean = false
   incorrectEmail: boolean = false
-  passwordPattern: string = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
   private subscription!: Subscription;
 
   constructor(private fb: FormBuilder, private trainerService: TrainerAuthService, private router: Router) {
@@ -23,9 +25,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log(ErrorDialogComponent);
+    
     this.loginForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
+      password: ['', [Validators.required, Validators.pattern(pattern.password)]],
     })
   }
 
@@ -35,17 +39,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginTrainer() {
-    this.subscription = this.trainerService.trainerLogin(this.loginForm.value).subscribe((response) => {
-      if (response.token) {
-        localStorage.setItem('trainerToken', response.token)
+    this.subscription = this.trainerService.trainerLogin(this.loginForm.value).subscribe(
+      (res) => {
+      if (res.token) {
+        localStorage.setItem('trainerToken', res.token)
         this.router.navigate(['trainer/dashboard']);
       } else {
-        response.error == 'password' ? this.incorrectPassword = true : this.incorrectEmail = true
-        setTimeout(() => {
-          this.incorrectPassword = false
-          this.incorrectEmail = false
-        }, 2000)
+        swal('error',res.message)
       }
+    },(error)=>{
+      showError(error)
     })
   }
 

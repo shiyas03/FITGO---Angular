@@ -1,26 +1,47 @@
-<nav class="fixed top-0 z-50 w-full bg-gray-900">
-    <div class="px-3 py-5 lg:px-5 lg:pl-3">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center justify-start">
-                <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" (click)="toggle()"
-                    type="button"
-                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                    <span class="sr-only">Open sidebar</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd" fill-rule="evenodd"
-                            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-                        </path>
-                    </svg>
-                </button>
-                <a href="" class="flex ml-2 md:mr-24">
-                    <img src="assets/images/logo.png" class="h-8 mr-3 px-3" alt="logo" />
-                </a>
-            </div>
-            <div class="flex items-center">
-                <div class="flex items-center ml-3">
-                    <button class="bg-red-600 rounded lg:p-2 w-16 h-5 lg:h-10 lg:text-sm lg:w-20 text-gray-100 hover:scale-105 duration-200 text-xs " (click)="singOut()">Sign Out</button>
-                    <!-- <div>
+<nav class="relative top-0 z-50 w-full bg-gray-900">
+  <div class="px-3 py-5 lg:px-5 lg:pl-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center justify-start">
+        <button
+          data-drawer-target="logo-sidebar"
+          data-drawer-toggle="logo-sidebar"
+          aria-controls="logo-sidebar"
+          (click)="toggle()"
+          type="button"
+          class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+        >
+          <span class="sr-only">Open sidebar</span>
+          <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              fill-rule="evenodd"
+              d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+            ></path>
+          </svg>
+        </button>
+        <a href="" class="flex ml-2 md:mr-24">
+          <img
+            src="assets/images/logo.png"
+            class="h-6 lg:h-8 mr-3 px-0 lg:px-3"
+            alt="logo"
+          />
+        </a>
+      </div>
+      <div class="flex items-center">
+        <div class="flex items-center ml-3">
+          <button
+            class="bg-red-600 rounded lg:p-2 p-1 lg:text-sm lg:w-20 text-gray-100 hover:scale-105 duration-200 text-xs"
+            (click)="singOut()"
+          >
+            Sign Out
+          </button>
+          <!-- <div>
                         <button type="button" (click)="toggle()"
                             class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -30,7 +51,7 @@
                     </div>
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow absolute"
                         id="dropdown-user" [class.hidden]="!showToggle"> -->
-                        <!-- <div class="px-4 py-3" role="none">
+          <!-- <div class="px-4 py-3" role="none">
                             <p class="text-sm text-gray-900 dark:text-white" role="none">
                                 Neil Sims
                             </p>
@@ -38,7 +59,7 @@
                                 neil.sims@flowbite.com
                             </p>
                         </div> -->
-                        <!-- <ul class="py-1" role="none">
+          <!-- <ul class="py-1" role="none">
                             <li>
                                 <a href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -46,69 +67,126 @@
                             </li>
                         </ul>
                     </div> -->
-                </div>
-            </div>
         </div>
+      </div>
     </div>
+  </div>
 </nav>
 
-<aside class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-gray-900 sm:translate-x-0"
-    aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-900">
-        <ul class="space-y-2 font-medium">
-            <li>
-                <a routerLink="/admin/dashboard" routerLinkActive="active"
-                    class="active:bg-red-600 flex items-center p-2 text-white rounded-lg hover:scale-105 duration-300">
-                    <svg aria-hidden="true" class="w-6 h-6 text-black transition duration-75" fill="white"
-                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                        <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                    </svg>
-                    <span class="ml-3">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a routerLink="/admin/users" routerLinkActive="active"
-                    class="flex items-center p-2 text-white rounded-lg hover:scale-105 duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        style="fill: white;">
-                        <path
-                            d="M17.997 18h-11.995l-.002-.623c0-1.259.1-1.986 1.588-2.33 1.684-.389 3.344-.736 2.545-2.209-2.366-4.363-.674-6.838 1.866-6.838 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l-.002.619zm4.811-2.214c-1.29-.298-2.49-.559-1.909-1.657 1.769-3.342.469-5.129-1.4-5.129-1.265 0-2.248.817-2.248 2.324 0 3.903 2.268 1.77 2.246 6.676h4.501l.002-.463c0-.946-.074-1.493-1.192-1.751zm-22.806 2.214h4.501c-.021-4.906 2.246-2.772 2.246-6.676 0-1.507-.983-2.324-2.248-2.324-1.869 0-3.169 1.787-1.399 5.129.581 1.099-.619 1.359-1.909 1.657-1.119.258-1.193.805-1.193 1.751l.002.463z" />
-                    </svg>
-                    <span class="ml-3">Users</span>
-                </a>
-            </li>
-            <li>
-                <a routerLink="/admin/trainers" routerLinkActive="active"
-                    class="flex items-center p-2 text-white rounded-lg  hover:scale-105 duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        style="fill: white;">
-                        <path
-                            d="M17.997 18h-11.995l-.002-.623c0-1.259.1-1.986 1.588-2.33 1.684-.389 3.344-.736 2.545-2.209-2.366-4.363-.674-6.838 1.866-6.838 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l-.002.619zm4.811-2.214c-1.29-.298-2.49-.559-1.909-1.657 1.769-3.342.469-5.129-1.4-5.129-1.265 0-2.248.817-2.248 2.324 0 3.903 2.268 1.77 2.246 6.676h4.501l.002-.463c0-.946-.074-1.493-1.192-1.751zm-22.806 2.214h4.501c-.021-4.906 2.246-2.772 2.246-6.676 0-1.507-.983-2.324-2.248-2.324-1.869 0-3.169 1.787-1.399 5.129.581 1.099-.619 1.359-1.909 1.657-1.119.258-1.193.805-1.193 1.751l.002.463z" />
-                    </svg>
-                    <span class="ml-3">Trainers</span>
-                </a>
-            </li>
-            <li>
-                <a routerLink="/admin/blogs" routerLinkActive="active"
-                    class="flex items-center p-2 text-white rounded-lg  hover:scale-105 duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        style="fill: white;">
-                        <path
-                            d="M17.997 18h-11.995l-.002-.623c0-1.259.1-1.986 1.588-2.33 1.684-.389 3.344-.736 2.545-2.209-2.366-4.363-.674-6.838 1.866-6.838 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l-.002.619zm4.811-2.214c-1.29-.298-2.49-.559-1.909-1.657 1.769-3.342.469-5.129-1.4-5.129-1.265 0-2.248.817-2.248 2.324 0 3.903 2.268 1.77 2.246 6.676h4.501l.002-.463c0-.946-.074-1.493-1.192-1.751zm-22.806 2.214h4.501c-.021-4.906 2.246-2.772 2.246-6.676 0-1.507-.983-2.324-2.248-2.324-1.869 0-3.169 1.787-1.399 5.129.581 1.099-.619 1.359-1.909 1.657-1.119.258-1.193.805-1.193 1.751l.002.463z" />
-                    </svg>
-                    <span class="ml-3">Blogs</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+<aside
+  class="absolute top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-gray-900 sm:translate-x-0"
+  aria-label="Sidebar"
+>
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-900">
+    <ul class="space-y-2 font-medium">
+      <li>
+        <a
+          routerLink="/admin/dashboard"
+          routerLinkActive="active"
+          class="active:bg-red-600 flex items-center p-2 text-white rounded-lg hover:scale-105 duration-300"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-6 h-6 text-black transition duration-75"
+            fill="white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+          </svg>
+          <span class="ml-3">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/admin/users"
+          routerLinkActive="active"
+          class="flex items-center p-2 text-white rounded-lg hover:scale-105 duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            style="fill: white"
+          >
+            <path
+              d="M17.997 18h-11.995l-.002-.623c0-1.259.1-1.986 1.588-2.33 1.684-.389 3.344-.736 2.545-2.209-2.366-4.363-.674-6.838 1.866-6.838 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l-.002.619zm4.811-2.214c-1.29-.298-2.49-.559-1.909-1.657 1.769-3.342.469-5.129-1.4-5.129-1.265 0-2.248.817-2.248 2.324 0 3.903 2.268 1.77 2.246 6.676h4.501l.002-.463c0-.946-.074-1.493-1.192-1.751zm-22.806 2.214h4.501c-.021-4.906 2.246-2.772 2.246-6.676 0-1.507-.983-2.324-2.248-2.324-1.869 0-3.169 1.787-1.399 5.129.581 1.099-.619 1.359-1.909 1.657-1.119.258-1.193.805-1.193 1.751l.002.463z"
+            />
+          </svg>
+          <span class="ml-3">Users</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/admin/trainers"
+          routerLinkActive="active"
+          class="flex items-center p-2 text-white rounded-lg hover:scale-105 duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            style="fill: white"
+          >
+            <path
+              d="M17.997 18h-11.995l-.002-.623c0-1.259.1-1.986 1.588-2.33 1.684-.389 3.344-.736 2.545-2.209-2.366-4.363-.674-6.838 1.866-6.838 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l-.002.619zm4.811-2.214c-1.29-.298-2.49-.559-1.909-1.657 1.769-3.342.469-5.129-1.4-5.129-1.265 0-2.248.817-2.248 2.324 0 3.903 2.268 1.77 2.246 6.676h4.501l.002-.463c0-.946-.074-1.493-1.192-1.751zm-22.806 2.214h4.501c-.021-4.906 2.246-2.772 2.246-6.676 0-1.507-.983-2.324-2.248-2.324-1.869 0-3.169 1.787-1.399 5.129.581 1.099-.619 1.359-1.909 1.657-1.119.258-1.193.805-1.193 1.751l.002.463z"
+            />
+          </svg>
+          <span class="ml-3">Trainers</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/admin/blogs"
+          routerLinkActive="active"
+          class="flex items-center p-2 text-white rounded-lg hover:scale-105 duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            style="fill: white"
+          >
+            <path
+              d="M17.997 18h-11.995l-.002-.623c0-1.259.1-1.986 1.588-2.33 1.684-.389 3.344-.736 2.545-2.209-2.366-4.363-.674-6.838 1.866-6.838 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l-.002.619zm4.811-2.214c-1.29-.298-2.49-.559-1.909-1.657 1.769-3.342.469-5.129-1.4-5.129-1.265 0-2.248.817-2.248 2.324 0 3.903 2.268 1.77 2.246 6.676h4.501l.002-.463c0-.946-.074-1.493-1.192-1.751zm-22.806 2.214h4.501c-.021-4.906 2.246-2.772 2.246-6.676 0-1.507-.983-2.324-2.248-2.324-1.869 0-3.169 1.787-1.399 5.129.581 1.099-.619 1.359-1.909 1.657-1.119.258-1.193.805-1.193 1.751l.002.463z"
+            />
+          </svg>
+          <span class="ml-3">Blogs</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </aside>
 
-<div class="relative bg-gray-900 lg:hidden rounded" [class.hidden]="!showToggle">
-    <div class="flex flex-col gap-y-4 p-4 text-white pt-24">
-        <a routerLink="/admin/dashboard" routerLinkActive="active" class="hover:text-red-400 text-white">Dashboard</a>
-        <a routerLink="/admin/users" routerLinkActive="active" class="hover:text-red-400 text-white">Users</a>
-        <a routerLink="/admin/users" routerLinkActive="active" class="hover:text-red-400 text-white">Trainers</a>
-        <a routerLink="/admin/users" routerLinkActive="active" class="hover:text-red-400 text-white">Blogs</a>
-    </div>
+<div class="relative bg-gray-900 lg:hidden" [class.hidden]="!showToggle">
+  <div class="flex flex-col gap-y-4 p-4 text-white">
+    <a
+      routerLink="/admin/dashboard"
+      routerLinkActive="active"
+      class="hover:text-red-400 text-white"
+      >Dashboard</a
+    >
+    <a
+      routerLink="/admin/users"
+      routerLinkActive="active"
+      class="hover:text-red-400 text-white"
+      >Users</a
+    >
+    <a
+      routerLink="/admin/trainers"
+      routerLinkActive="active"
+      class="hover:text-red-400 text-white"
+      >Trainers</a
+    >
+    <a
+      routerLink="/admin/blogs"
+      routerLinkActive="active"
+      class="hover:text-red-400 text-white"
+      >Blogs</a
+    >
+  </div>
 </div>

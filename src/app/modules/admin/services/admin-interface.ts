@@ -35,7 +35,7 @@ export interface Blog {
 }
 
 export interface Auth {
-  error?: string;
+  message: string;
   token?: string;
   success?:boolean
 }

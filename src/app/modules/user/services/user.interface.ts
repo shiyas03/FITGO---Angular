@@ -44,7 +44,9 @@ export interface ProfileDetails {
     activity: string;
     caloriesBurn: number;
     caloriesNeed: number;
-    imageUrl: string
+    imageUrl: string;
+    isUpload?:boolean;
+    joinDate?:Date;
 }
 
 export interface UpdateDetails{

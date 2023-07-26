@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { fetchBlogData } from '../../../store/admin.action';
-import { blogFilterData, blogSelectorData } from '../../../store/admin.selector';
+import { blogFilterData } from '../../../store/admin.selector';
 import { Blog } from '../../../store/admin.interface';
 
 @Component({
@@ -13,7 +12,7 @@ import { Blog } from '../../../store/admin.interface';
 })
 export class ViewBlogComponent implements OnInit {
 
-  blogs$!: Observable<Blog[] | null>
+  @Input() blogs$!: Observable<Blog[] | null>
   blog$!: Observable<Blog | undefined>
 
   constructor(private store: Store<Blog[] | Blog>,
@@ -21,8 +20,6 @@ export class ViewBlogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public id: string) { }
 
   ngOnInit(): void {
-    this.store.dispatch(fetchBlogData())
-    this.blogs$ = this.store.pipe(select(blogSelectorData))
     this.blog$ = this.store.pipe(select(blogFilterData(this.id)))
   }
 

@@ -11,13 +11,11 @@ export class NewBlogComponent implements OnInit {
 
   blogForm!: FormGroup
   submit: boolean = false
-  titleError: boolean = false
   formatError: boolean = false
   file!: File
 
   constructor(private fb: FormBuilder, private dialog: MatDialogRef<NewBlogComponent>) {
     this.submit = false
-    this.titleError = false
   }
 
   ngOnInit(): void {
@@ -41,10 +39,8 @@ export class NewBlogComponent implements OnInit {
       this.dialog.close(formData)
     } else {
       this.formatError = true
-      setTimeout(() => {
-        this.formatError = false
-      }, 2000)
     }
+    this.destroyError()
   }
 
   onFileSelected(event: Event) {
@@ -63,4 +59,10 @@ export class NewBlogComponent implements OnInit {
     return null;
   }
 
+  destroyError(){
+    setTimeout(() => {
+      this.submit = false
+      this.formatError = false
+    }, 2000)
+  }
 }

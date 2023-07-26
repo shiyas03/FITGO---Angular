@@ -13,7 +13,7 @@ export class AdminAuthService {
   constructor(private http: HttpClient) { }
 
   adminLogin(adminData: Admin): Observable<Auth> {
-    return this.http.post(`${this.apiUrl}/admin/login`, adminData)
+    return this.http.post<Auth>(`${this.apiUrl}/admin/login`, adminData)
   }
 
   fetchUsers(): Observable<Users[]> {
@@ -21,7 +21,7 @@ export class AdminAuthService {
   }
 
   userAccess(id: string, access: boolean): Observable<Auth> {
-    return this.http.patch(`${this.apiUrl}/admin/user-access`, { id, access })
+    return this.http.patch<Auth>(`${this.apiUrl}/admin/user-access`, { id, access })
   }
 
   fetchTrainers(): Observable<Trainers[]> {

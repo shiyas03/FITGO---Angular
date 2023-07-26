@@ -1,78 +1,96 @@
 <app-sidebar-layout></app-sidebar-layout>
 
-<div class="lg:w-4/5 mt-28 lg:mx-72 w-full overflow-x-auto border border-gray-900">
-    <table class="w-full text-sm text-gray-500">
-        <thead class="text-sm text-white bg-gray-900">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    NO
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Template
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Title
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    trainer
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Actions
-                </th>
-            </tr>
-        </thead>
-        <tbody *ngIf="(blogs$|async) as blogs">
-            <tr class="bg-white border-b text-gray-900 text-sm" *ngFor="let b of blogs; let i = index">
-                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-                    {{i+1}}
-                </th>
-                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-                    <img [src]="'http://localhost:3000/uploads/'+b.template" width="100px" alt="">
-                </th>
-                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-                    {{b.title}}
-                </th>
-                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-                    {{b.category}}
-                </th>
-                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-                    {{b.trainerId.name}}
-                </th>
-                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-                    <button (click)="showBlog(b._id)"
-                        class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2">
-                        <span
-                            class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"></span>
-                        <span
-                            class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-blue-600 to-blue-500"></span>
-                        <span
-                            class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-blue-500 from-blue-500"></span>
-                        <span class="relative">View</span>
-                    </button>
-                    <button (click)="publishChange(b._id, true)" *ngIf="b.approve == false"
-                        class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20">
-                        <span
-                            class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"></span>
-                        <span
-                            class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"></span>
-                        <span
-                            class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-red-500 from-red-500"></span>
-                        <span class="relative">Publish</span>
-                    </button>
-                    <button (click)="publishChange(b._id, false)" *ngIf="b.approve === true"
-                        class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20">
-                        <span
-                            class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"></span>
-                        <span
-                            class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"></span>
-                        <span
-                            class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"></span>
-                        <span class="relative">Remove</span>
-                    </button>
-                </th>
-        </tbody>
-    </table>
+<div
+  class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full h-3/4 overflow-hidden overflow-y-auto overflow-x-auto"
+>
+  <table class="w-full text-sm text-left text-gray-500">
+    <thead class="text-sm text-center text-white bg-gray-900">
+      <tr>
+        <th scope="col" class="px-6 py-3">NO</th>
+        <th scope="col" class="px-6 py-3">Template</th>
+        <th scope="col" class="px-6 py-3">Title</th>
+        <th scope="col" class="px-6 py-3">category</th>
+        <th scope="col" class="px-6 py-3">trainer</th>
+        <th scope="col" class="px-6 py-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="blogs$ | async as blogs">
+      <tr
+        class="bg-white border-b text-gray-900 text-sm"
+        *ngFor="let b of blogs; let i = index"
+      >
+        <th scope="row" class="px-6 py-4 font-medium">
+          {{ i + 1 }}
+        </th>
+        <th scope="row" class="px-6 py-4 font-medium ">
+          <img
+            [src]="'http://localhost:3000/uploads/' + b.template"
+            width="100px"
+            alt=""
+          />
+        </th>
+        <th scope="row" class="px-6 py-4 font-medium ">
+          {{ b.title }}
+        </th>
+        <th scope="row" class="px-6 py-4 font-medium ">
+          {{ b.category }}
+        </th>
+        <th scope="row" class="px-6 py-4 font-medium ">
+          {{ b.trainerId.name }}
+        </th>
+        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+          <button
+            (click)="showBlog(b._id)"
+            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2"
+          >
+            <span
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"
+            ></span>
+            <span
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-blue-600 to-blue-500"
+            ></span>
+            <span
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-blue-500 from-blue-500"
+            ></span>
+            <span class="relative">View</span>
+          </button>
+          <button
+            (click)="publishChange(b._id, true)"
+            *ngIf="b.approve == false"
+            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20"
+          >
+            <span
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"
+            ></span>
+            <span
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"
+            ></span>
+            <span
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-red-500 from-red-500"
+            ></span>
+            <span class="relative">Publish</span>
+          </button>
+          <button
+            (click)="publishChange(b._id, false)"
+            *ngIf="b.approve === true"
+            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20"
+          >
+            <span
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"
+            ></span>
+            <span
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"
+            ></span>
+            <span
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"
+            ></span>
+            <span class="relative">Conceal</span>
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="blogs$ | async">
+    <app-view-blog [blogs$]="blogs$" hidden></app-view-blog>
+  </div>
 </div>

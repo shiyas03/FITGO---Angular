@@ -1,19 +1,22 @@
-<div class="p-5">
+<div class="lg:p-5 p-2">
     <div class="border border-red-500" *ngIf="(blog$|async) as b">
-        <div class="p-5 mx-auto">
+        <div class="lg:p-5 p-2 mx-auto">
             <img [src]="'http://localhost:3000/uploads/'+b.template" width="200px" alt="">
         </div>
-        <div class="p-5">
+        <div class="lg:p-5 p-2">
             <p class="text-xl font-semibold underline">Title</p>
             <p class="mt-2 text-base ">{{b.title}}</p>
         </div>
-        <div class="p-5">
+        <div class="lg:p-5 p-2">
             <p class="text-xl font-semibold underline">Category</p>
             <p class="mt-2 text-base ">{{b.category}}</p>
         </div>
-        <div class="p-5">
+        <div class="lg:p-5 p-2">
             <p class="text-xl font-semibold underline">Blog</p>
             <p class="mt-2 text-base ">{{b.blog}}</p>
+        </div>
+        <div class="lg:p-5 p-2 flex">
+            <p class="text-base">Written by : <b>{{b.trainerId.name}}</b></p>
         </div>
         <button class="text-white bg-red-500 px-5 py-1 rounded-lg m-5" (click)="close()">Close</button>
     </div>

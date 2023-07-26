@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Register, Registeration } from '../../services/trainer.interface';
 import { Subscription } from 'rxjs';
+import { swalError } from 'src/app/helpers/swal.popup';
 
 @Component({
   selector: 'app-signup',
@@ -54,7 +55,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   registerUser(): void {
     const details: Register = this.registerForm.value
-    this.subscription = this.trainerService.registration(details).subscribe((res: Registeration) => {
+    this.subscription = this.trainerService.registration(details).subscribe(
+      (res: Registeration) => {
       if (res.email == true) {
         this.emailUsed = true
         setTimeout(() => {
@@ -64,7 +66,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         localStorage.setItem('trainerId', res.id)
         this.router.navigate(['/trainer/details'])
       }
-
+    },(error)=>{
+      swalError(error)
     })
   }
 

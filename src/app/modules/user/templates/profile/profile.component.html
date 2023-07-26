@@ -39,7 +39,7 @@
                 {{user.email}}
             </div>
         </div>
-        <div class="mt-10">
+        <div class="mt-10" *ngIf="user.isUpload == true">
             <div class="mx-auto w-2/4">
                 <ul class="bg-gray-300 grid grid-flow-col gap-10 text-center text-gray-500 bg-gray-100 rounded-lg p-1">
                     <li>
@@ -59,9 +59,14 @@
                     </li>
                 </ul>
             </div>
+            <app-user-info *ngIf="activeLink == 'Details'" [userData$]="details$"></app-user-info>
+            <app-user-status *ngIf="activeLink == 'Status'" [userData$]="details$"></app-user-status>
         </div>
-        <app-user-info *ngIf="activeLink == 'Details'" [userData$]="details$"></app-user-info>
-        <app-user-status *ngIf="activeLink == 'Status'" [userData$]="details$"></app-user-status>
+
+        <div class="mt-6 mx-auto mb-3">
+            <button type="button"
+                class="text-white bg-red-500 font-medium rounded-lg text-sm mx-3 px-5 py-2 text-center" routerLink="/details">upload your details</button>
+        </div>
     </div>
 
 </div>

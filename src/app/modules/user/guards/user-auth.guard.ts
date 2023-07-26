@@ -14,12 +14,13 @@ export class UserAuthGuard implements CanActivate {
   
   constructor(private router: Router, private store: Store<{ userData: User }>) {
     this.access = false
-    if (localStorage.getItem('userToken')) {
-      const id = <string>localStorage.getItem('id')
+    const token = localStorage.getItem('userToken')
+    if (token) {
+      const id = <string>localStorage.getItem('userId')
       this.store.dispatch(fetchUserData({ id }))
       this.store.pipe(select(userSelectorData)).subscribe((res) => {
         if (res?.access == false) {
-          localStorage.removeItem('id')
+          localStorage.removeItem('userId')
           localStorage.removeItem('userToken')
         }else{
           this.access = true

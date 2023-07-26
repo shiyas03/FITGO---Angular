@@ -5,44 +5,47 @@ import { fetchUsersAction } from '../../store/admin.action';
 import { usersSelectorData } from '../../store/admin.selector';
 import { Observable, Subscription } from 'rxjs';
 import { AdminAuthService } from '../../services/admin-auth.service';
+import { swalConfirm, swalError } from 'src/app/helpers/swal.popup';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit, OnDestroy {
-
   users$!: Observable<Users[]>;
-  private subscription1!: Subscription;
-  private subscription2!: Subscription;
+  private subscription!: Subscription;
 
-  constructor(private store: Store<{ users: Users[] }>, private adminServices: AdminAuthService) { }
+  constructor(
+    private store: Store<{ users: Users[] }>,
+    private adminServices: AdminAuthService,
+  ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(fetchUsersAction())
-    this.users$ = this.store.pipe(select(usersSelectorData))
+    this.fetchUsers()
   }
 
-  blockUser(id: string) {
-    this.subscription1 = this.adminServices.userAccess(id, false).subscribe((res) => {
-      if (res.success == true) {
-        this.store.dispatch(fetchUsersAction())
-        this.users$ = this.store.pipe(select(usersSelectorData))
+  accessUser(id: string, access: boolean) {
+    swalConfirm().then((res)=>{
+      if(res.isConfirmed){
+        this.subscription = this.adminServices.userAccess(id, access).subscribe(
+          (res) => {
+            if (res.success == true) {
+              this.fetchUsers()
+            }
+          },(error)=>{
+            swalError(error)
+          });
       }
     })
   }
-  unblockUser(id: string) {
-    this.subscription2 = this.adminServices.userAccess(id, true).subscribe((res) => {
-      if (res.success == true) {
-        this.store.dispatch(fetchUsersAction())
-        this.users$ = this.store.pipe(select(usersSelectorData))
-      }
-    })
+
+  fetchUsers(){
+    this.store.dispatch(fetchUsersAction());
+    this.users$ = this.store.pipe(select(usersSelectorData));
   }
 
   ngOnDestroy(): void {
-    if (this.subscription1) this.subscription1.unsubscribe()
-    if (this.subscription2) this.subscription2.unsubscribe()
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }

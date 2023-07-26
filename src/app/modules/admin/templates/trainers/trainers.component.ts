@@ -5,6 +5,7 @@ import { fetchTrainersData } from '../../store/admin.action';
 import { trainersSelectorData } from '../../store/admin.selector';
 import { Observable, Subscription } from 'rxjs';
 import { AdminAuthService } from '../../services/admin-auth.service';
+import { swal, swalConfirm, swalError } from 'src/app/helpers/swal.popup';
 
 @Component({
   selector: 'app-trainers',
@@ -16,46 +17,55 @@ export class TrainersComponent implements OnInit, OnDestroy {
   trainers$!: Observable<Trainers[]>
   private subscription1!: Subscription;
   private subscription2!: Subscription;
-  private subscription3!: Subscription;
 
   constructor(private store: Store<Trainers[]>, private adminService: AdminAuthService) { }
 
   ngOnInit(): void {
-    this.store.dispatch(fetchTrainersData())
-    this.trainers$ = this.store.pipe(select(trainersSelectorData))
+    this.fetchTrainers()
   }
 
   approveTrainer(id: string) {
-    this.subscription1 = this.adminService.approveTrainer(id, true).subscribe((res) => {
-      if (res.success == true) {
-        this.store.dispatch(fetchTrainersData())
-        this.trainers$ = this.store.pipe(select(trainersSelectorData))
+    swalConfirm("You won't be able to revert this!").then((res)=>{
+      if(res.isConfirmed){
+        this.subscription1 = this.adminService.approveTrainer(id, true).subscribe(
+          (res) => {
+          if (res.success == true) {
+            this.fetchTrainers()
+          }else{
+            swal('error','Trainer not found')
+          }
+        },(error)=>{
+          swalError(error)
+        })
       }
     })
+    
   }
 
-  blockTrainer(id: string) {
-    this.subscription2 = this.adminService.trainerAccess(id,false).subscribe((res)=>{
-      if(res.success == true){
-        this.store.dispatch(fetchTrainersData())
-        this.trainers$ = this.store.pipe(select(trainersSelectorData))
-      }
-    })
+  accessTrainer(id:string,access:boolean){
+    swalConfirm().then((res)=>{
+      if(res.isConfirmed){
+        this.subscription2 = this.adminService.trainerAccess(id,access).subscribe(
+          (res)=>{
+          if(res.success == true){
+            this.fetchTrainers()
+          }else{
+            swal('error','Trainer not found')
+          }
+        },(error)=>{
+          swalError(error)
+        })
+      }})
   }
 
-  unblockTrainer(id: string) { 
-    this.subscription3 = this.adminService.trainerAccess(id,true).subscribe((res)=>{
-      if(res.success == true){
-        this.store.dispatch(fetchTrainersData())
-        this.trainers$ = this.store.pipe(select(trainersSelectorData))
-      }
-    })
+  fetchTrainers(){
+    this.store.dispatch(fetchTrainersData())
+    this.trainers$ = this.store.pipe(select(trainersSelectorData))
   }
 
   ngOnDestroy(): void {
       if(this.subscription1) this.subscription1.unsubscribe()
       if(this.subscription2) this.subscription2.unsubscribe()
-      if(this.subscription3) this.subscription3.unsubscribe()
   }
 
 }

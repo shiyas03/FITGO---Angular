@@ -52,6 +52,8 @@ export interface ProfileDetails {
     caloriesBurn: number;
     caloriesNeed: number;
     imageUrl:string;
+    isUpload?:boolean;
+    joinDate?:Date
 }
 
 export interface profileInital {
@@ -69,5 +71,6 @@ export interface Blog {
       name: string;
     };
     approve: boolean;
+    publishedDate:Date
   }
   

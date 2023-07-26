@@ -8,7 +8,13 @@ import { Router } from '@angular/router';
 })
 export class SidebarLayoutComponent {
 
+  showToggle:boolean = false
+
   constructor(private router:Router){}
+
+  toggle(){
+    this.showToggle = !this.showToggle
+  }
 
   singOut(){
     localStorage.removeItem('trainerToken')
