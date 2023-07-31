@@ -11,6 +11,7 @@ import { UserAuthGuard } from './guards/user-auth.guard';
 import { EditUserComponent } from './templates/profile/edit-user/edit-user.component';
 import { BlogsComponent } from './templates/blogs/blogs.component';
 import { SingleViewComponent } from './templates/blogs/single-view/single-view.component';
+import { TrainerComponent } from './templates/trainers/trainer.component';
 
 const routes: Routes = [
   {
@@ -56,19 +57,24 @@ const routes: Routes = [
     canActivate: [UserAuthGuard],
     children: [
       {
-        path:'',
-        component:BlogsComponent
+        path: '',
+        component: BlogsComponent
       },
       {
-        path: 'single-view',
+        path: 'view',
         component: SingleViewComponent,
       },
     ],
   },
+  {
+    path: 'trainers', 
+    component: TrainerComponent, 
+    canActivate: [UserAuthGuard]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }

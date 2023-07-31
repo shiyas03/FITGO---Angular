@@ -19,6 +19,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   selectedFiles: string = '';
   selectedCertificates!: FileList;
   about!: string;
+  experience!: string
+  specialized!: string
   formatError: boolean = false;
   selectedCV!: File;
   private subscription1!: Subscription;
@@ -35,6 +37,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.detailForm = this.fb.group({
+      experience: ['', [Validators.required]],
+      specialized: ['', [Validators.required]],
       about: ['', [Validators.required]],
       cv: [null, [Validators.required, this.fileTypeValidator]],
       certificates: [null, [Validators.required, this.fileTypeValidator]],
@@ -42,15 +46,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.formatError = false;
     this.submit = true;
     if (this.detailForm.valid) {
       this.sendDetails();
     } else {
       this.formatError = true;
-      setTimeout(() => {
-        this.formatError = false;
-      }, 2000);
+      this.destroyError()
     }
   }
 
@@ -75,8 +76,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   sendDetails() {
+    const { experience, specialized, about } = this.detailForm.value
     const formData = new FormData();
     const id = <string>localStorage.getItem('trainerId');
+    formData.append('details', experience);
+    formData.append('details', specialized);
     formData.append('details', this.about);
     formData.append('details', this.selectedCV, this.selectedCV.name);
     for (let i = 0; i < this.selectedCertificates.length; i++) {
@@ -101,13 +105,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.router.navigate(['/']);
           });
         }
-      },(error)=>{
+      }, (error) => {
         showError(error)
       });
   }
 
   fileTypeValidator(control: FormControl): { [key: string]: boolean } | null {
-    const allowedFileTypes = ['pdf', 'doc'];
+    const allowedFileTypes = ['pdf'];
 
     if (control.value) {
       const fileExtension = control.value.split('.').pop().toLowerCase();
@@ -116,6 +120,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
       }
     }
     return null;
+  }
+
+  destroyError() {
+    setTimeout(() => {
+      this.formatError = false;
+      this.submit = false
+    }, 2000);
   }
 
   ngOnDestroy(): void {

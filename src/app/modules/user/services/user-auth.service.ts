@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Blog, Details, Login, User } from '../store/user';
+import { Blog, Details, Login, Trainer, User } from '../store/user';
 import { environment } from '../../../../environments/environment'
 import { EmailReturn, Register, RegisterReturn, DetailsReturn, LoginReturn, ProfileDetails, UpdateDetails } from './user.interface';
 
@@ -55,5 +55,9 @@ export class UserAuthService {
 
   fetchBlogs(): Observable<Blog[]> {
     return this.http.get<Blog[]>(`${this.apiUrl}/blogs/fetch`)
+  }
+  
+  fetchTrainers():Observable<Trainer[]>{
+    return this.http.get<Trainer[]>(`${this.apiUrl}/trainer/fetchAll`)
   }
 }

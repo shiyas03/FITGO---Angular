@@ -1,0 +1,80 @@
+<app-sidebar-layout></app-sidebar-layout>
+<div class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full overflow-hidden overflow-y-auto overflow-x-auto">
+    <div class="w-full flex justify-center" *ngIf="trainer$|async as trainer">
+        <div class="p-5 w-1/5 bg-gray-100 rounded-lg shadow-sm ">
+            <div class="flex items-center w-full">
+                <label for="dropzone-file" *ngIf="trainer.imageUrl == '' || !trainer.imageUrl"
+                    class="flex flex-col items-center justify-center w-full h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                    <div class="flex flex-col items-center justify-center">
+                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
+                                upload</span> your image</p>
+                    </div>
+                    <p class="mb-2 text-sm text-black text-bold"></p>
+                    <input  #fileInput id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)"/>
+                </label>
+                <div  *ngIf="trainer.imageUrl" >
+                    <input  #fileInput id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)"/>
+                    <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="image"class="w-full h-full">
+                    <div>
+                        Add new photo 
+                        <button (click)="openFileInput()" class="bg-red-500 text-white rounded px-2 mt-2">Here!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mx-5 bg-gray-100 rounded-lg shadow-sm w-3/5 ">
+            <div class="m-10">
+                <div>
+                    <p class="text-md font-bold text-red-500 underline">Contact Details</p>
+                </div>
+                <div class="flex mt-5">
+                    <p class="font-semibold text-gray-700">Name </p>
+                    <p class="text-base mx-20">{{trainer.name}}</p>
+                </div>
+                <div class="flex mt-2">
+                    <p class="font-semibold text-gray-700">Email </p>
+                    <p class="text-base mx-20">{{trainer.email}}</p>
+                </div>
+                <div class="flex mt-2">
+                    <p class="font-semibold text-gray-700">Phone</p>
+                    <p class="text-base mx-20">{{trainer.phone}}</p>
+                </div>
+            </div>
+            <div class="m-10">
+                <button></button>
+            </div>
+        </div>
+    </div>
+    <div class="w-full flex justify-center mt-3"  *ngIf="trainer$|async as trainer">
+        <div class="bg-gray-100 w-5/6 rounded-lg shadow-sm">
+            <div class="m-10">
+                <p class="font-semibold text-red-500 underline">More informations</p>
+                <div class="flex mt-5">
+                    <p class="font-semibold text-gray-700">About</p>
+                    <p class="text-base px-4 mx-28">{{trainer.about}}</p>
+                </div>
+                <div class="flex mt-2">
+                    <p class="font-semibold text-gray-700">Specialized</p>
+                    <p class="text-base mx-20 px-2 uppercase">{{trainer.specialized}} Trainer</p>
+                </div>
+                <div class="flex mt-2">
+                    <p class="font-semibold text-gray-700">Experiences</p>
+                    <p class="text-base mx-20 uppercase">{{trainer.experience}} Year experience</p>
+                </div>
+                <div class="flex mt-2">
+                    <p class="font-semibold text-gray-700">Joined since</p>
+                    <p class="text-base mx-20 uppercase">{{ trainer.joinDate | date: 'yyyy-MM-dd ' }}</p>
+                </div>
+                <!-- <div class="mt-1 flex">
+                    Update more details 
+                    <button class="mx-1 bg-red-500 px-2 rounded-md text-white">Here</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

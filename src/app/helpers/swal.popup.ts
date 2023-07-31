@@ -21,11 +21,14 @@ export function swal(status: SweetAlertIcon, title: string) {
 }
 
 export function swalError(error: string) {
+  if(typeof error != 'string'){
+    error = ''
+  }
   Swal.fire({
     icon: 'error',
     title: 'Oops...',
     text: error + ', Please try again!',
-  });
+  }); 
 }
 
 export function showError(error: Error) {

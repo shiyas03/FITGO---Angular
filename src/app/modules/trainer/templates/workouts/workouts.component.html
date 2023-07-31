@@ -1,0 +1,39 @@
+<app-sidebar-layout></app-sidebar-layout>
+
+<div class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full overflow-hidden overflow-y-auto overflow-x-auto">
+    <div class="my-5 text-md font-semibold">
+        Add new workout
+        <button class="bg-red-500 py-1 px-3 text-white rounded-lg hover:scale-105 shadow-md duration-300" (click)="showForm()">
+            Here!
+        </button>
+    </div>
+    <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-sm text-gray-950 bg-gray-300">
+            <tr>
+                <th scope="col" class="px-6 py-3">NO</th>   
+                <th scope="col" class="px-6 py-3">Template</th>
+                <th scope="col" class="px-6 py-3">Title</th>
+                <th scope="col" class="px-6 py-3">Category</th>
+                <th scope="col" class="px-6 py-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b text-gray-900 text-sm">
+                <td class="px-6 py-4 font-medium"></td>
+                <td class="p-3">
+                    <img [src]="'http://localhost:3000/uploads/'" width="100px" alt="" />
+                </td>
+                <td class="px-6 py-4 font-medium"></td>
+                <td class="px-6 py-4 font-medium">
+                    
+                </td>
+                <td class="px-6 py-2 font-medium">
+                    <!-- <button class="px-4 py-2 bg-blue-500 text-white mx-3 rounded-md" >
+                        View
+                    </button> -->
+                    <!-- <button class="px-2 py-1 bg-red-500 text-white rounded-md">Cancel</button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,8 +1,8 @@
 <div>
   <img
-    src="assets/images/header-crop.png"
+    src="assets/images/header2.png"
     alt="not found"
-    class="w-full lg:h-full h-24"
+    class="w-full lg:h-full h-20"
   />
   <div class="absolute lg:top-5 top-2 left-0 w-full">
     <app-nav-bar></app-nav-bar>
@@ -12,7 +12,7 @@
 <div *ngIf="blogs$ | async as blogs" class="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:mr-28 lg:ml-28 lg:mb-20 lg:mt-10">
   <div *ngFor="let b of blogs; let i = index">
     <div *ngIf="b.approve == true" class="m-5">
-        <div class="justify-center cursor-pointer" routerLink="/blogs/single-view">
+        <div class="justify-center cursor-pointer" (click)="ShowBlog(b._id)">
           <article
             class="card hover:text-white overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl duration-200 hover:scale-110"
             [style.background-image]="
@@ -47,6 +47,7 @@
       </div>
     </div>
 </div>
+
 
 <app-footer></app-footer>
 

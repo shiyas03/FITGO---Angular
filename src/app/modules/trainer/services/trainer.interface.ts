@@ -6,6 +6,7 @@ export interface Trainer {
 export interface Register {
   name: string;
   email: string;
+  phone:number;
   password: string;
 }
 
@@ -55,4 +56,10 @@ export interface EventData {
   }
   timeStamp: number;
   type: string;
+}
+
+export interface Token{
+  name: string;
+  email:string;
+  id:string
 }

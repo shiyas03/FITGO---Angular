@@ -8,7 +8,6 @@ import { UserAuthService } from '../../services/user-auth.service';
 import Swal from 'sweetalert2';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { decodeToken } from '../../../../helpers/token.decode';
 
 @Component({
   selector: 'app-profile',

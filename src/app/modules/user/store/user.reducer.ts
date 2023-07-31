@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
-import { Blog, UserInitail, profileInital } from "./user";
-import { fetchUserFailure, fetchUserDataSuccess, fetchProfileSuccess, fetchBlogDataSuccess } from "./user.action";
+import { Blog, UserInitail, profileInital, Trainer } from "./user";
+import { fetchUserFailure, fetchUserDataSuccess, fetchProfileSuccess, fetchBlogDataSuccess, fetchTrainersDataSuccess } from "./user.action";
 
 
 export const InitialUserState: UserInitail = {
@@ -31,4 +31,12 @@ export const blogsReducer = createReducer(
     on(fetchBlogDataSuccess, (_state, { blogs }) => {
         return blogs
     })
+)
+
+const InitialTrainerState: Trainer[] = []
+export const trainerReducer = createReducer(
+    InitialTrainerState,
+    on(fetchTrainersDataSuccess, (_state, { trainers }) => {
+        return trainers
+    } )
 )

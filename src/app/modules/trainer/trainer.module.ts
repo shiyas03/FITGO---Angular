@@ -3,22 +3,29 @@ import { CommonModule } from '@angular/common';
 
 import { TrainerRoutingModule } from './trainer-routing.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import {MatIconModule} from '@angular/material/icon';
+import { blogsReducer, profileReducer } from './store/trainer.reducer';
+import { trainerEffects } from './store/trainer.effects';
+import { StoreModule } from '@ngrx/store';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { DetailsComponent } from './templates/details/details.component';
 import { DashboardComponent } from './templates/dashboard/dashboard.component';
 import { LoginComponent } from './templates/login/login.component';
 import { SidebarLayoutComponent } from './templates/sidebar-layout/sidebar-layout.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './templates/signup/signup.component';
 import { SuccessComponent } from './templates/details/success/success.component';
 import { ErrorDialogComponent } from './templates/details/error-dialog/error-dialog.component';
 import { BlogsComponent } from './templates/blogs/blogs.component';
 import { NewBlogComponent } from './templates/blogs/new-blog/new-blog.component';
-import { EffectsModule } from '@ngrx/effects';
-import { trainerEffects } from './store/trainer.effects';
-import { StoreModule } from '@ngrx/store';
-import { blogsReducer } from './store/trainer.reducer';
 import { ViewBlogComponent } from './templates/blogs/view-blog/view-blog.component';
+import { ProfileComponent } from './templates/profile/profile.component';
+import { WorkoutsComponent } from './templates/workouts/workouts.component';
+
 
 
 @NgModule({
@@ -33,13 +40,20 @@ import { ViewBlogComponent } from './templates/blogs/view-blog/view-blog.compone
     BlogsComponent,
     NewBlogComponent,
     ViewBlogComponent,
+    ProfileComponent,
+    WorkoutsComponent,
   ],
   imports: [
     CommonModule,
     TrainerRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     MatDialogModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
     StoreModule.forFeature('blogs', blogsReducer),
+    StoreModule.forFeature('profile', profileReducer),
     EffectsModule.forFeature([trainerEffects])
   ] 
 })

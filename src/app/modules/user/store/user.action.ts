@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Blog, ProfileDetails, User } from "./user";
+import { Blog, ProfileDetails, Trainer, User } from "./user";
 
 
 export const fetchUserData = createAction("[User API] Fetch User",
@@ -22,4 +22,9 @@ export const fetchProfileSuccess = createAction('[Profile API] Fetch Profile Suc
 export const fetchBlogData = createAction('[Blog API] Fetch Blog Data')
 export const fetchBlogDataSuccess = createAction('[Blog API] Fetch Blog Data Success',
     props<{ blogs: Blog[] }>()
+)
+
+export const fetchTrainersData = createAction('[Trainers API] Fetch Trainers Data')
+export const fetchTrainersDataSuccess = createAction('[Trainers API] Fetch Trainers Data Success',
+    props<{ trainers: Trainer[] }>()
 )

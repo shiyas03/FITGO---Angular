@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { pattern } from '../../../../helpers/regex.pattern';
 import { Register, Registeration } from '../../services/trainer.interface';
 import { Subscription } from 'rxjs';
 import { swalError } from 'src/app/helpers/swal.popup';
@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   submit: boolean = false
   inCorrect: boolean = false
   emailUsed: boolean = false;
+  phoneError: boolean = false;
   registerForm!: FormGroup;
   passwordPattern: string = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
   private subscription!: Subscription;
@@ -32,6 +33,15 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.email, Validators.required]],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern(pattern.phone),
+        ],
+      ],
       password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
       cpassword: ['', [Validators.required]]
     })
@@ -39,18 +49,17 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.submit = true
-    const { name, email, password, cpassword } = this.registerForm.value
-
-    if (cpassword === password) {
+    const { name, email,phone, password, cpassword } = this.registerForm.value
+    if(isNaN(phone)){
+      this.phoneError = true
+    }else if (cpassword === password) {
       if (this.registerForm.valid) {
         this.registerUser()
       }
     } else {
       this.inCorrect = true
-      setTimeout(() => {
-        this.inCorrect = false
-      }, 2000)
     }
+    this.destroyError()
   }
 
   registerUser(): void {
@@ -69,6 +78,14 @@ export class SignupComponent implements OnInit, OnDestroy {
     },(error)=>{
       swalError(error)
     })
+  }
+
+  destroyError(){
+    setTimeout(() => {
+      this.submit = false
+      this.phoneError = false
+      this.inCorrect = false
+    }, 2000)
   }
 
   ngOnDestroy(): void {

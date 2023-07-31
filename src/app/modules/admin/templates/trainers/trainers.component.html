@@ -1,93 +1,73 @@
 <app-sidebar-layout></app-sidebar-layout>
 
-<div
-  class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full h-3/4 overflow-hidden overflow-y-auto overflow-x-auto"
->
-  <table class="w-full text-sm text-left text-gray-500">
+<div class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full h-3/4 overflow-hidden overflow-y-auto overflow-x-auto">
+  <table class="w-full text-sm text-center text-gray-500">
     <thead class="text-sm text-white bg-gray-900">
       <tr>
         <th scope="col" class="px-6 py-3">NO</th>
         <th scope="col" class="px-6 py-3">Name</th>
         <th scope="col" class="px-6 py-3">Email</th>
+        <th scope="col" class="px-6 py-3">Documents</th>
         <th scope="col" class="px-6 py-3">Requests</th>
         <th scope="col" class="px-6 py-3">Actions</th>
       </tr>
     </thead>
     <tbody *ngIf="trainers$ | async as trainersData">
-      <tr
-        class="bg-white border-b text-gray-900 text-sm"
-        *ngFor="let trainer of trainersData; let i = index"
-      >
-        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+      <tr class="bg-white border-b text-gray-900 text-sm" *ngFor="let trainer of trainersData; let i = index">
+        <th scope="row" class="px-6 py-4 font-medium">
           {{ i + 1 }}
         </th>
-        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+        <th scope="row" class="px-6 py-4 font-medium">
           {{ trainer.name }}
         </th>
-        <td class="px-6 py-4 font-medium whitespace-nowrap">
+        <td class="px-6 py-4 font-medium">
           {{ trainer.email }}
         </td>
+        <td class="px-6 py-4 font-medium">
+          <a class="text-blue-500 underline cursor-pointer" (click)="show(trainer.cv)">Resume</a>
+          <div *ngFor="let pdf of trainer.certificate; let i = index">
+            <a class="text-blue-500 underline cursor-pointer" (click)="show(pdf)">Certificate {{i+1}}</a>
+          </div>
+        </td>
         <td class="px-6 py-4 font-medium whitespace-nowrap">
-          <button
-            (click)="approveTrainer(trainer._id)"
-            *ngIf="trainer.approve == false"
-            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20"
-          >
+          <button (click)="approveTrainer(trainer._id)" *ngIf="trainer.approve == false"
+            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20">
             <span
-              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"
-            ></span>
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"></span>
             <span
-              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"
-            ></span>
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"></span>
             <span
-              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-red-500 from-red-500"
-            ></span>
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-red-500 from-red-500"></span>
             <span class="relative">Approve</span>
           </button>
-          <button
-            *ngIf="trainer.approve == true"
-            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20"
-          >
+          <button *ngIf="trainer.approve == true"
+            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20">
             <span
-              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"
-            ></span>
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"></span>
             <span
-              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-blue-500 from-blue-500"
-            ></span>
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-blue-500 from-blue-500"></span>
             <span class="relative">Approved</span>
           </button>
         </td>
         <td class="px-6 py-4">
-          <button
-            (click)="accessTrainer(trainer._id, false)"
-            *ngIf="trainer.access === true"
-            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20"
-          >
+          <button (click)="accessTrainer(trainer._id, false)" *ngIf="trainer.access === true"
+            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20">
             <span
-              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"
-            ></span>
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"></span>
             <span
-              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"
-            ></span>
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"></span>
             <span
-              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-red-500 from-red-500"
-            ></span>
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-red-500 from-red-500"></span>
             <span class="relative">Block</span>
           </button>
-          <button
-            (click)="accessTrainer(trainer._id, true)"
-            *ngIf="trainer.access === false"
-            class="lg:py-2 py-0 relative rounded group font-medium text-white font-medium inline-block w-20"
-          >
+          <button (click)="accessTrainer(trainer._id, true)" *ngIf="trainer.access === false"
+            class="lg:py-2 py-0 relative rounded group font-medium text-white font-medium inline-block w-20">
             <span
-              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"
-            ></span>
+              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"></span>
             <span
-              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"
-            ></span>
+              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"></span>
             <span
-              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"
-            ></span>
+              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"></span>
             <span class="relative">Unblock</span>
           </button>
         </td>

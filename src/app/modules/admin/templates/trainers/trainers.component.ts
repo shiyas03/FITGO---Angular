@@ -14,6 +14,7 @@ import { swal, swalConfirm, swalError } from 'src/app/helpers/swal.popup';
 })
 export class TrainersComponent implements OnInit, OnDestroy {
 
+  pdfShow: boolean = false;
   trainers$!: Observable<Trainers[]>
   private subscription1!: Subscription;
   private subscription2!: Subscription;
@@ -25,47 +26,57 @@ export class TrainersComponent implements OnInit, OnDestroy {
   }
 
   approveTrainer(id: string) {
-    swalConfirm("You won't be able to revert this!").then((res)=>{
-      if(res.isConfirmed){
+    swalConfirm("You won't be able to revert this!").then((res) => {
+      if (res.isConfirmed) {
         this.subscription1 = this.adminService.approveTrainer(id, true).subscribe(
           (res) => {
-          if (res.success == true) {
-            this.fetchTrainers()
-          }else{
-            swal('error','Trainer not found')
-          }
-        },(error)=>{
-          swalError(error)
-        })
+            if (res.success == true) {
+              this.fetchTrainers()
+            } else {
+              swal('error', 'Trainer not found')
+            }
+          }, (error) => {
+            swalError(error)
+          })
       }
     })
-    
+
   }
 
-  accessTrainer(id:string,access:boolean){
-    swalConfirm().then((res)=>{
-      if(res.isConfirmed){
-        this.subscription2 = this.adminService.trainerAccess(id,access).subscribe(
-          (res)=>{
-          if(res.success == true){
-            this.fetchTrainers()
-          }else{
-            swal('error','Trainer not found')
-          }
-        },(error)=>{
-          swalError(error)
-        })
-      }})
+  accessTrainer(id: string, access: boolean) {
+    swalConfirm().then((res) => {
+      if (res.isConfirmed) {
+        this.subscription2 = this.adminService.trainerAccess(id, access).subscribe(
+          (res) => {
+            if (res.success == true) {
+              this.fetchTrainers()
+            } else {
+              swal('error', 'Trainer not found')
+            }
+          }, (error) => {
+            swalError(error)
+          })
+      }
+    })
   }
 
-  fetchTrainers(){
+  fetchTrainers() {
     this.store.dispatch(fetchTrainersData())
     this.trainers$ = this.store.pipe(select(trainersSelectorData))
   }
 
+  show(file: string) {
+    this.adminService.getPdfFileUrl(file).subscribe((data) => {
+      const file = new Blob([data], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+      this.pdfShow = true
+    })
+  }
+
   ngOnDestroy(): void {
-      if(this.subscription1) this.subscription1.unsubscribe()
-      if(this.subscription2) this.subscription2.unsubscribe()
+    if (this.subscription1) this.subscription1.unsubscribe()
+    if (this.subscription2) this.subscription2.unsubscribe()
   }
 
 }

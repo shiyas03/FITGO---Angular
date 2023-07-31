@@ -10,6 +10,10 @@ const routes: Routes = [
   },
   {
     path: 'trainer', loadChildren: () => import('./modules/trainer/trainer.module').then((m) => m.TrainerModule)
+  },
+  {
+    path: '**', redirectTo: '',
+    pathMatch: 'full',
   }
 ];
 

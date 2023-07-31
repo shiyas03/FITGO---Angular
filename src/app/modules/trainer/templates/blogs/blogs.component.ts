@@ -17,6 +17,7 @@ import { swalError } from 'src/app/helpers/swal.popup';
   styleUrls: ['./blogs.component.css'],
 })
 export class BlogsComponent implements OnInit, OnDestroy {
+  
   blogs$!: Observable<Blog[]>;
   private subscription!: Subscription;
 

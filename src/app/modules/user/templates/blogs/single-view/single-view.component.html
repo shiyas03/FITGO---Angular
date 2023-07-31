@@ -1,11 +1,43 @@
-<div>
-    <img
-      src="assets/images/header-crop.png"
-      alt="not found"
-      class="w-full lg:h-full h-24"
-    />
-    <div class="absolute lg:top-5 top-2 left-0 w-full">
-      <app-nav-bar></app-nav-bar>
+<header>
+  <img
+    src="assets/images/header2.png"
+    alt="not found"
+    class="w-full lg:h-full h-20"
+  />
+  <div class="absolute lg:top-5 top-2 left-0 w-full">
+    <app-nav-bar></app-nav-bar>
+  </div>
+</header>
+<div *ngIf="blog$ | async as blog" class="w-full">
+  <div class="flex justify-center">
+    <div class="w-2/4">
+      <div class="mt-10">
+        <p class="text-3xl font-semibold text-center text-gray-900 tracking-tight">{{blog.title}}</p>
+      </div>
+      <div class="mt-10">
+        <img [src]="'http://localhost:3000/uploads/' + blog.template" alt="" class="w-full h-[400px]">
+      </div>
+      <div class="mt-20">
+        <div class="mt-1" *ngFor="let b of blogs; let i = index">
+          <p class="text-md font-medium text-gray-700">{{b}}</p>
+          <div class="h-12" *ngIf="i%5==0"></div>
+        </div>
+      </div>
+      <div class="mt-10 border-t border-b mb-10 border-red-600 flex justify-center">
+        <div class="w-3/5 bg-gray-200 rounded-lg drop-shadow-lg m-5 flex items-center justify-center">
+          <div class="w-1/2 bg-red-500 p-5 rounded-l">
+            <p class="text-xs underline mb-5 text-white text-center">Blog by</p>  
+            <div class="w-40 h-40 rounded-full bg-gray-300 overflow-hidden">
+              <img [src]="'http://localhost:3000/uploads/'+blog.trainerId.imageUrl" alt="" class="w-fit h-fit">
+            </div>
+          </div>
+          <div class="mx-5">
+            <p class="text-sm font-medium">Hey, I am {{blog.trainerId.name}}</p>
+            <p class="text-sm font-medium">Dedicated {{blog.trainerId.specialized}} Trainer with {{blog.trainerId.experience}} years of experience</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
+</div>
+<app-footer></app-footer>

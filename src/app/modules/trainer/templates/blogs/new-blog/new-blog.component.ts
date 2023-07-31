@@ -48,7 +48,7 @@ export class NewBlogComponent implements OnInit {
   }
 
   fileTypeValidator(control: FormControl): { [key: string]: boolean } | null {
-    const allowedFileTypes = ['png', 'jpg'];
+    const allowedFileTypes = ['png', 'jpg','jpeg'];
 
     if (control.value) {
       const fileExtension = control.value.split('.').pop().toLowerCase();

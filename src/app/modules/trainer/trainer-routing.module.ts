@@ -7,30 +7,53 @@ import { TrainerAuthGuard } from './guards/trainer-auth.guard';
 import { TrainerLoginGuard } from './guards/trainer-login.guard';
 import { SignupComponent } from './templates/signup/signup.component';
 import { BlogsComponent } from './templates/blogs/blogs.component';
+import { ProfileComponent } from './templates/profile/profile.component';
+import { WorkoutsComponent } from './templates/workouts/workouts.component';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: 'dashboard', pathMatch: 'full'
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
   {
-    path: 'dashboard', component: DashboardComponent, canActivate: [TrainerAuthGuard]
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [TrainerAuthGuard],
   },
   {
-    path: 'login', component: LoginComponent, 
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [TrainerLoginGuard],
   },
   {
-    path: 'register', component: SignupComponent, canActivate: [TrainerLoginGuard]
+    path: 'register',
+    component: SignupComponent,
+    canActivate: [TrainerLoginGuard],
   },
   {
-    path: 'details', component: DetailsComponent, canActivate: [TrainerAuthGuard]
+    path: 'details',
+    component: DetailsComponent,
+    canActivate: [TrainerLoginGuard],
   },
   {
-    path: 'blogs', component:BlogsComponent, canActivate: [TrainerAuthGuard]
+    path: 'blogs',
+    component: BlogsComponent,
+    canActivate: [TrainerAuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [TrainerAuthGuard],
+  },
+  {
+    path: 'workouts', component: WorkoutsComponent, 
+    canActivate: [TrainerAuthGuard]
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class TrainerRoutingModule { }
+export class TrainerRoutingModule {}

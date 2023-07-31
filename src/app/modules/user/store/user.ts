@@ -9,7 +9,7 @@ export interface User {
     _id: string;
     name: string;
     email: string;
-    access:boolean
+    access: boolean
 }
 
 export interface UserInitail {
@@ -37,7 +37,7 @@ export interface Login {
 }
 
 export interface ProfileDetails {
-    _id:string;
+    _id: string;
     name: string;
     email: string;
     phone: string;
@@ -51,9 +51,9 @@ export interface ProfileDetails {
     activity: string;
     caloriesBurn: number;
     caloriesNeed: number;
-    imageUrl:string;
-    isUpload?:boolean;
-    joinDate?:Date
+    imageUrl: string;
+    isUpload?: boolean;
+    joinDate?: Date
 }
 
 export interface profileInital {
@@ -67,10 +67,23 @@ export interface Blog {
     blog: string;
     template: string;
     trainerId: {
-      _id: string;
-      name: string;
+        _id: string;
+        name: string;
+        experience: number,
+        specialized: string,
+        about: string;
+        imageUrl: string;
     };
     approve: boolean;
-    publishedDate:Date
-  }
-  
+    publishedDate: Date
+}
+
+export interface Trainer {
+    _id: string;
+    name: string;
+    experience: number
+    specialized: string
+    about: string;
+    imageUrl: string;
+    joinDate: Date;
+}
