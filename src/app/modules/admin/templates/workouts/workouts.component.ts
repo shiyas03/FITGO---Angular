@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NewWorkoutComponent } from './new-workout/new-workout.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Workout } from '../../services/trainer.interface';
+import { Workout } from '../../services/admin-interface';
 import { Store, select } from '@ngrx/store';
-import { fetchWorkoutsData } from '../../store/trainer.action';
-import { workoutsSelectorData } from '../../store/trainer.selector';
+import { fetchWorkoutsData } from '../../store/admin.action';
+import { workoutsSelectorData } from '../../store/admin.selector';
 import { Observable } from 'rxjs';
+import { AdminAuthService } from '../../services/admin-auth.service';
 import { ShowWorkoutComponent } from './show-workout/show-workout.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-workouts',
@@ -15,27 +15,15 @@ import { ShowWorkoutComponent } from './show-workout/show-workout.component';
 })
 export class WorkoutsComponent implements OnInit {
 
-  workouts$!: Observable<Workout[]>
+  workouts$!:Observable<Workout[]>
 
-  constructor(private dialog: MatDialog, private store: Store<Workout[]>) { }
+  constructor(private store:Store<Workout[]>,private adminServices : AdminAuthService,private dialog: MatDialog ){}
 
   ngOnInit(): void {
     this.fetchData()
   }
 
-  showForm() {
-    const dialogRef: MatDialogRef<NewWorkoutComponent> = this.dialog.open(
-      NewWorkoutComponent,
-      {
-        width: '700px',
-      },
-    );
-    dialogRef.afterClosed().subscribe(()=>{
-      this.fetchData()
-    });
-  }
-
-  showWorkout(id: string) {
+  showWorkout(id:string){
     const dialogRef: MatDialogRef<ShowWorkoutComponent> = this.dialog.open(
       ShowWorkoutComponent,
       {
@@ -45,6 +33,14 @@ export class WorkoutsComponent implements OnInit {
       },
     );
     dialogRef.afterClosed().subscribe();
+  }
+
+  publishChange(id:string,change:boolean){
+    this.adminServices.publishWorkout(id,change).subscribe(res=>{
+      if(res == true){
+        this.fetchData()
+      }
+    })
   }
 
   fetchData(){

@@ -12,7 +12,7 @@
 <div *ngIf="blogs$ | async as blogs" class="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:mr-28 lg:ml-28 lg:mb-20 lg:mt-10">
   <div *ngFor="let b of blogs; let i = index">
     <div *ngIf="b.approve == true" class="m-5">
-        <div class="justify-center cursor-pointer" (click)="ShowBlog(b._id)">
+        <div class="justify-center cursor-pointer" (click)="showBlog(b._id)">
           <article
             class="card hover:text-white overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl duration-200 hover:scale-110"
             [style.background-image]="

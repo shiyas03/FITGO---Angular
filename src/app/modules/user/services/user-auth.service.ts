@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Blog, Details, Login, Trainer, User } from '../store/user';
 import { environment } from '../../../../environments/environment'
-import { EmailReturn, Register, RegisterReturn, DetailsReturn, LoginReturn, ProfileDetails, UpdateDetails } from './user.interface';
+import { EmailReturn, Register, RegisterReturn, DetailsReturn, LoginReturn, ProfileDetails, UpdateDetails, Workout } from './user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +59,10 @@ export class UserAuthService {
   
   fetchTrainers():Observable<Trainer[]>{
     return this.http.get<Trainer[]>(`${this.apiUrl}/trainer/fetchAll`)
+  }
+
+  fetchWorkouts(): Observable<Workout[]> {
+    return this.http.get<Workout[]>(`${this.apiUrl}/workouts/fetch`)
   }
 
   payment(){

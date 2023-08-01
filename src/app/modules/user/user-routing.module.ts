@@ -12,6 +12,8 @@ import { EditUserComponent } from './templates/profile/edit-user/edit-user.compo
 import { BlogsComponent } from './templates/blogs/blogs.component';
 import { SingleViewComponent } from './templates/blogs/single-view/single-view.component';
 import { TrainerComponent } from './templates/trainers/trainer.component';
+import { WorkoutsComponent } from './templates/workouts/workouts.component';
+import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-view.component';
 
 const routes: Routes = [
   {
@@ -67,10 +69,25 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'trainers', 
-    component: TrainerComponent, 
+    path: 'trainers',
+    component: TrainerComponent,
     canActivate: [UserAuthGuard]
-  }
+  },
+  {
+    path: 'workouts',
+    canActivate: [UserAuthGuard],
+    children: [
+      {
+        path: '',
+        component: WorkoutsComponent
+      },
+      {
+        path: 'view',
+        component: WorkoutViewComponent
+      }
+    ],
+  },
+
 ];
 
 @NgModule({

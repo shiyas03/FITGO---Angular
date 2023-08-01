@@ -2,16 +2,21 @@ import { Injectable } from "@angular/core";
 import { ofType, Actions, createEffect } from "@ngrx/effects";
 import { catchError, map, of, switchMap, tap } from "rxjs";
 import { UserAuthService } from "../services/user-auth.service";
-import { fetchUserFailure, 
-    fetchUserData, 
-    fetchUserDataSuccess, 
-    fetchProfileDetails, 
-    fetchProfileSuccess, 
-    fetchBlogData, 
-    fetchBlogDataSuccess, 
-    fetchTrainersData, 
-    fetchTrainersDataSuccess } from "./user.action";
+import {
+    fetchUserFailure,
+    fetchUserData,
+    fetchUserDataSuccess,
+    fetchProfileDetails,
+    fetchProfileSuccess,
+    fetchBlogData,
+    fetchBlogDataSuccess,
+    fetchTrainersData,
+    fetchTrainersDataSuccess,
+    fetchWorkoutsData,
+    fetchWorkoutsDataSuccess
+} from "./user.action";
 import { Blog, Trainer } from "./user";
+import { Workout } from "../services/user.interface";
 
 
 @Injectable()
@@ -61,5 +66,13 @@ export class userEffects {
                 this.userService.fetchTrainers().pipe(
                     map((data: Trainer[]) => fetchTrainersDataSuccess({ trainers: data }))
                 ))
+        ))
+
+    loadAllWorkouts$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(fetchWorkoutsData),
+            switchMap(() =>
+                this.userService.fetchWorkouts().pipe(
+                    map((data: Workout[]) => fetchWorkoutsDataSuccess({ workouts: data }))))
         ))
 }

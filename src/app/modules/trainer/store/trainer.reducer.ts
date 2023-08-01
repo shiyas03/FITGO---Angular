@@ -1,9 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { Blog } from '../services/trainer.interface';
+import { Blog, Workout } from '../services/trainer.interface';
 import { InitailProfile } from './trainer.interface';
 import {
   fetchBlogDataSuccess,
   fetchTrainerDataSuccess,
+  fetchWorkoutsDataSuccess,
 } from './trainer.action';
 
 const InitialBlogsState: Blog[] = [];
@@ -21,3 +22,9 @@ export const profileReducer = createReducer(
     return { trainer };
   }),
 );
+
+export const InitialWorkoutsState: Workout[] = []
+export const workoutReducer = createReducer(
+  InitialWorkoutsState,
+  on(fetchWorkoutsDataSuccess, (_state, { workouts }) => workouts)
+)

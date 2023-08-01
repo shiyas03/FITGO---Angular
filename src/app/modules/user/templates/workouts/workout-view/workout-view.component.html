@@ -1,0 +1,46 @@
+<div>
+    <img src="assets/images/header2.png" alt="not found" class="w-full lg:h-full h-20" />
+    <div class="absolute lg:top-5 top-2 left-0 w-full">
+        <app-nav-bar></app-nav-bar>
+    </div>
+</div>
+
+<div class="w-full mt-10 mb-10" *ngIf="(workout$|async) as data">
+    <div class="mx-32 flex justify-center">
+        <div class="">
+            <p class="text-xl text-semibold font-serif mb-2 underline">{{data.title}}</p>
+            <video controls>
+                <source [src]="'http://localhost:3000/uploads/' + data.video" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p class="font-sans mt-5 mb-3">For <span>{{data.level}}</span> :-</p>
+            <div class="mx-20">
+                <p class="mt-1 font-sans">Repetitions <span class="mx-5">-</span> <span class="">{{data.reps}}</span></p>
+                <p class="mt-1 font-sans">Sets <span class="mx-5">-</span> <span class="">{{data.sets}}</span></p>
+                <p class="mt-1 font-sans">Time Interval <span class="mx-5">-</span> <span class="tracking-widest"> {{data.interval}} </span> Minutes</p>
+                <p class="mt-1 font-sans">Duration <span class="mx-5">-</span> <span class="tracking-widest"> {{data.duration}} </span> Minutes</p>
+                <div class="flex">
+                    <p class="mt-1 font-sans">Overview </p>
+                    <span class="mx-5">-</span>
+                    <p class="mt-1 font-sans tracking-widest">  {{data.overview}}</p>
+                </div>
+            </div>
+            <div class="mt-10 border-t border-b mb-10 border-red-600 flex justify-center">
+                <div class="w-2/5 bg-gray-200 rounded-lg drop-shadow-lg m-5 flex items-center justify-center">
+                  <div class="w-1/2 bg-gray-900 p-5 rounded-l">
+                    <p class="text-xs underline mb-5 text-white text-center">Workout by</p>  
+                    <div class="w-40 h-40 rounded-full bg-gray-300 overflow-hidden">
+                      <img [src]="'http://localhost:3000/uploads/'+data.trainerId.imageUrl" alt="" class="w-fit h-fit">
+                    </div>
+                  </div>
+                  <div class="mx-5">
+                    <p class="text-sm font-medium">Hey, I am {{data.trainerId.name}}</p>
+                    <p class="text-sm font-medium">Dedicated {{data.trainerId.specialized}} Trainer with {{data.trainerId.experience}} years of experience</p>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

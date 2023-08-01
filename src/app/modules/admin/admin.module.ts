@@ -15,8 +15,10 @@ import { TrainersComponent } from './templates/trainers/trainers.component';
 import { BlogsComponent } from './templates/blogs/blogs.component';
 import { ViewBlogComponent } from './templates/blogs/view-blog/view-blog.component';
 
-import { blogsReducer, trainerReducer, usersReducer } from './store/admin.reducer';
+import { blogsReducer, trainerReducer, usersReducer, workoutReducer } from './store/admin.reducer';
 import { AdminEffect } from './store/admin.effects';
+import { WorkoutsComponent } from './templates/workouts/workouts.component';
+import { ShowWorkoutComponent } from './templates/workouts/show-workout/show-workout.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { AdminEffect } from './store/admin.effects';
     UsersComponent,
     TrainersComponent,
     BlogsComponent,
-    ViewBlogComponent
+    ViewBlogComponent,
+    WorkoutsComponent,
+    ShowWorkoutComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +41,7 @@ import { AdminEffect } from './store/admin.effects';
     StoreModule.forFeature('users', usersReducer),
     StoreModule.forFeature('trainers', trainerReducer),
     StoreModule.forFeature('blogs', blogsReducer),
+    StoreModule.forFeature('workouts', workoutReducer),
     EffectsModule.forFeature([AdminEffect])
   ]
 

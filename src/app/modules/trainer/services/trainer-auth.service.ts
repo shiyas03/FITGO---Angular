@@ -50,8 +50,8 @@ export class TrainerAuthService {
     return this.http.post<boolean>(`${this.apiUrl}/workouts/upload?id=${id}`, files)
   }
 
-  fetchWorkouts():Observable<Workout>{
-    return this.http.get<Workout>(`${this.apiUrl}/workouts/fetch`)
+  fetchWorkouts():Observable<Workout[]>{
+    return this.http.get<Workout[]>(`${this.apiUrl}/workouts/fetch`)
   }
 }
 

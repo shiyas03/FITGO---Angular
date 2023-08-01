@@ -1,0 +1,48 @@
+<div class="p-5">
+    <div class="border border-gray-900 p-5" *ngIf="(workout$|async) as workout">
+        <div class="m-2">
+            <p class="text-md font-semibold mb-1">Thumbnail</p>
+            <img [src]="'http://localhost:3000/uploads/'+workout.thumbnail" width="200px" alt="">
+        </div>
+        <div class="m-2">
+            <p class="text-md font-semibold mb-1">video</p>
+            <video controls width="300px">
+                <source [src]="'http://localhost:3000/uploads/'+workout.video" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+        </div>
+        <div class="m-1 flex">
+            <p class="text-md font-semibold mb-1">Title : </p>
+            <p class="mx-5 text-base ">{{workout.title}}</p>
+        </div>
+        <div class="m-1 flex">
+            <p class="text-md font-semibold mb-1">Muscle : </p>
+            <p class="mx-5 text-base ">{{workout.muscle}}</p>
+        </div>
+        <div class="m-1 flex">
+            <p class="text-md font-semibold mb-1">Repitions : </p>
+            <p class="mx-5 text-base">{{workout.reps}}</p>
+        </div>
+        <div class="m-1 flex">
+            <p class="text-md font-semibold mb-1">Sets : </p>
+            <p class="mx-5 text-base">{{workout.sets}}</p>
+        </div>
+        <div class="m-1 flex">
+            <p class="text-md font-semibold mb-1">Time Interval : </p>
+            <p class="mx-5 text-base">{{workout.interval}}</p>
+        </div>
+        <div class="m-1 flex">
+            <p class="text-md font-semibold mb-1">Duration : </p>
+            <p class="mx-5 text-base">{{workout.duration}}</p>
+        </div>
+        <div class="m-1 flex">
+            <p class="text-md font-semibold mb-1">Level : </p>
+            <p class="mx-5 text-base">{{workout.level}}</p>
+        </div>
+        <div class="m-1 flex">
+            <p class="text-md font-semibold mb-1">Overview</p>
+            <p class="mx-5 text-base">: {{workout.overview}}</p>
+        </div>
+        <button class="text-white bg-red-500 px-5 py-1 rounded-lg m-2" (click)="close()">Close</button>
+    </div>
+</div>

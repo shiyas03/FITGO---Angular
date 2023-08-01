@@ -65,7 +65,7 @@ export interface Token{
 }
 
 export interface Workout{
-  _id?:string
+  _id:string
   title:string;
   muscle:string;
   level:string;
@@ -79,4 +79,5 @@ export interface Workout{
   trainerId?:{
     name:string
   }
+  publish:boolean;
 }

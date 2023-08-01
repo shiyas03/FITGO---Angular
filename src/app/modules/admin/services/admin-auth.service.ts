@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Auth, Blog, Trainers, Users } from './admin-interface';
+import { Admin, Auth, Blog, Trainers, Users, Workout } from './admin-interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -46,6 +46,14 @@ export class AdminAuthService {
 
   getPdfFileUrl(filename: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/trainer/documents/${filename}`, { responseType: 'arraybuffer' });
+  }
+
+  fetchWorkouts(): Observable<Workout[]> {
+    return this.http.get<Workout[]>(`${this.apiUrl}/workouts/fetch`)
+  }
+
+  publishWorkout(id: string, change: boolean): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/workouts/publish?id=${id}`, { change })
   }
 }
 

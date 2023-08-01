@@ -8,7 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { userEffects } from './store/user.effects';
-import { blogsReducer, profileReducer, trainerReducer, userReducer } from './store/user.reducer'
+import { blogsReducer, profileReducer, trainerReducer, userReducer, workoutReducer } from './store/user.reducer'
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -28,6 +28,8 @@ import { BlogsComponent } from './templates/blogs/blogs.component';
 import { SingleViewComponent } from './templates/blogs/single-view/single-view.component';
 import { TrainerComponent } from './templates/trainers/trainer.component';
 import { TrainerViewComponent } from './templates/trainers/trainer-view/trainer-view.component';
+import { WorkoutsComponent } from './templates/workouts/workouts.component';
+import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-view.component';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { TrainerViewComponent } from './templates/trainers/trainer-view/trainer-
     SingleViewComponent,
     TrainerComponent,
     TrainerViewComponent,
+    WorkoutsComponent,
+    WorkoutViewComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +65,7 @@ import { TrainerViewComponent } from './templates/trainers/trainer-view/trainer-
     StoreModule.forFeature('profile', profileReducer),
     StoreModule.forFeature('blogs', blogsReducer),
     StoreModule.forFeature('trainers', trainerReducer),
+    StoreModule.forFeature('workouts', workoutReducer),
     EffectsModule.forFeature([userEffects])
   ]
 })

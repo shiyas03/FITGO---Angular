@@ -1,36 +1,44 @@
 <app-sidebar-layout></app-sidebar-layout>
 
-<div class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full overflow-hidden overflow-y-auto overflow-x-auto">
+<div class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full overflow-hidden overflow-y-visible overflow-x-auto">
     <div class="my-5 text-md font-semibold">
         Add new workout
-        <button class="bg-red-500 py-1 px-3 text-white rounded-lg hover:scale-105 shadow-md duration-300" (click)="showForm()">
+        <button class="bg-red-500 py-1 px-3 text-white rounded-lg hover:scale-105 shadow-md duration-300"
+            (click)="showForm()">
             Here!
         </button>
     </div>
-    <table class="w-full text-sm text-left text-gray-500">
+    <table class="w-full text-sm text-left text-gray-500" *ngIf="workouts$|async as workouts">
         <thead class="text-sm text-gray-950 bg-gray-300">
             <tr>
-                <th scope="col" class="px-6 py-3">NO</th>   
-                <th scope="col" class="px-6 py-3">Template</th>
+                <th scope="col" class="px-6 py-3">NO</th>
+                <th scope="col" class="px-6 py-3">Thumbnail</th>
                 <th scope="col" class="px-6 py-3">Title</th>
-                <th scope="col" class="px-6 py-3">Category</th>
+                <th scope="col" class="px-6 py-3">Muscle</th>
+                <th scope="col" class="px-6 py-3">Status</th>
                 <th scope="col" class="px-6 py-3">Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let data of workouts; let i = index" class="">
             <tr class="bg-white border-b text-gray-900 text-sm">
-                <td class="px-6 py-4 font-medium"></td>
+                <td class="px-6 py-4 font-medium">{{i+1}}</td>
                 <td class="p-3">
-                    <!-- <img [src]="'http://localhost:3000/uploads/'" width="100px" alt="" /> -->
+                    <img [src]="'http://localhost:3000/uploads/'+data.thumbnail" width="100px" alt="" />
                 </td>
-                <td class="px-6 py-4 font-medium"></td>
+                <td class="px-6 py-4 font-medium">{{data.title}}</td>
+                <td class="px-6 py-4 font-medium">{{data.muscle}}</td>
                 <td class="px-6 py-4 font-medium">
-                    
+                    <div *ngIf="data.publish == true">
+                        <p class="text-md text-red-500">Published</p>
+                    </div>
+                    <div *ngIf="data.publish == false">
+                        <p class="text-md text-red-500">Not published</p>
+                    </div>
                 </td>
                 <td class="px-6 py-2 font-medium">
-                    <!-- <button class="px-4 py-2 bg-blue-500 text-white mx-3 rounded-md" >
+                    <button class="px-4 py-2 bg-blue-500 text-white mx-3 rounded-md" (click)="showWorkout(data._id)">
                         View
-                    </button> -->
+                    </button>
                     <!-- <button class="px-2 py-1 bg-red-500 text-white rounded-md">Cancel</button> -->
                 </td>
             </tr>

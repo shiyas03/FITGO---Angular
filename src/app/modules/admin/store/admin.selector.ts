@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Trainers, Users } from './admin.interface';
-import { Blog } from '../services/admin-interface';
+import { Blog, Workout } from '../services/admin-interface';
 
 export const usersSelectorState = createFeatureSelector<Users[]>('users');
 export const usersSelectorData = createSelector(
@@ -26,3 +26,15 @@ export const blogFilterData = (id: string) =>
     const _id = <string[]>Object.values(id);
     return state.find((blog) => blog._id === _id[0]);
   });
+
+export const workoutsSelectorState = createFeatureSelector<Workout[]>('workouts');
+export const workoutsSelectorData = createSelector(
+  workoutsSelectorState,
+  (state: Workout[]) => state
+)
+
+export const workoutFilterData = (id: string) =>
+  createSelector(workoutsSelectorData, (state: Workout[]) => {
+    const workout = state.find((data) => data._id == id)
+    return workout
+  })

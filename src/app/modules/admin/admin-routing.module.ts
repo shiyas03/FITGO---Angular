@@ -7,6 +7,7 @@ import { UsersComponent } from './templates/users/users.component';
 import { TrainersComponent } from './templates/trainers/trainers.component';
 import { BlogsComponent } from './templates/blogs/blogs.component';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { WorkoutsComponent } from './templates/workouts/workouts.component';
 
 const routes: Routes = [
   {
@@ -39,10 +40,15 @@ const routes: Routes = [
     component: BlogsComponent,
     canActivate: [AdminAuthGuard],
   },
+  {
+    path: 'workouts',
+    component: WorkoutsComponent,
+    canActivate: [AdminAuthGuard]
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

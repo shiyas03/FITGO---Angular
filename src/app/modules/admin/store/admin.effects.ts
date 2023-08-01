@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AdminAuthService } from '../services/admin-auth.service';
-import { map, switchMap, tap } from 'rxjs';
-import { fetchBlogData, fetchBlogDataSuccess, fetchTrainerDataSuccess, fetchTrainersData, fetchUsersAction, fetchUsersDataSuccess } from './admin.action';
+import { map, switchMap } from 'rxjs';
+import { fetchBlogData, 
+    fetchBlogDataSuccess, 
+    fetchTrainerDataSuccess, 
+    fetchTrainersData, 
+    fetchUsersAction, 
+    fetchUsersDataSuccess, 
+    fetchWorkoutsData, 
+    fetchWorkoutsDataSuccess } from './admin.action';
 import { Blog, Trainers, Users } from './admin.interface';
+import { Workout } from '../services/admin-interface';
 
 @Injectable()
 export class AdminEffect {
@@ -43,4 +51,12 @@ export class AdminEffect {
             )
         )
     )
+
+    loadAllWorkouts$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(fetchWorkoutsData),
+      switchMap(() =>
+        this.adminService.fetchWorkouts()
+          .pipe(map((data: Workout[]) => fetchWorkoutsDataSuccess({ workouts: data }))))
+    ))
 }

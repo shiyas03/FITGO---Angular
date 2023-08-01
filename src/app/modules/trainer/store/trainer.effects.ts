@@ -6,9 +6,11 @@ import {
   fetchBlogDataSuccess,
   fetchTrainerData,
   fetchTrainerDataSuccess,
+  fetchWorkoutsData,
+  fetchWorkoutsDataSuccess,
 } from './trainer.action';
 import { map, switchMap, tap } from 'rxjs';
-import { Blog } from '../services/trainer.interface';
+import { Blog, Workout } from '../services/trainer.interface';
 import { Profile } from './trainer.interface';
 
 @Injectable()
@@ -16,7 +18,7 @@ export class trainerEffects {
   constructor(
     private actions$: Actions,
     private trainerService: TrainerAuthService,
-  ) {}
+  ) { }
 
   loadAllBlogs$ = createEffect(() =>
     this.actions$.pipe(
@@ -40,4 +42,12 @@ export class trainerEffects {
       ),
     ),
   );
+
+  loadAllWorkouts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchWorkoutsData),
+      switchMap(() =>
+        this.trainerService.fetchWorkouts()
+          .pipe(map((data: Workout[]) => fetchWorkoutsDataSuccess({ workouts: data }))))
+    ))
 }

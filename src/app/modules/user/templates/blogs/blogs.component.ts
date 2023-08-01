@@ -23,10 +23,6 @@ export class BlogsComponent implements OnInit {
   }
 
   showBlog(id: string) {
-    this.show = true;
-  }
-
-  ShowBlog(id: string) {
     const data = { id: id };
     const navigationExtras: NavigationExtras = {
       state: data,

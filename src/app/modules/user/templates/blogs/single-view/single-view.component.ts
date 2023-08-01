@@ -12,6 +12,7 @@ import { fetchBlogData } from '../../../store/user.action';
   styleUrls: ['./single-view.component.css'],
 })
 export class SingleViewComponent implements OnInit {
+  
   blog$!: Observable<Blog | undefined>;
   blogs:string[] = []
 
