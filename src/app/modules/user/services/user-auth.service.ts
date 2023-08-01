@@ -60,4 +60,8 @@ export class UserAuthService {
   fetchTrainers():Observable<Trainer[]>{
     return this.http.get<Trainer[]>(`${this.apiUrl}/trainer/fetchAll`)
   }
+
+  payment(){
+    return 
+  }
 }

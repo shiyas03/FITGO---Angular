@@ -38,9 +38,9 @@ export class BlogsComponent implements OnInit, OnDestroy {
         width: '500px',
       },
     );
-    const id = <string>localStorage.getItem('trainerId');
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
+        const id = <string>localStorage.getItem('trainerId');
         this.subscription = this.trainerService.uploadBlog(data, id).subscribe(
           (res) => {
             if (res.success == true) {

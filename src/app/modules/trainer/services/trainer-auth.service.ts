@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Blog, DeailsReturn, Register, Registeration, Trainer, Verify } from './trainer.interface';
+import { Blog, DeailsReturn, Register, Registeration, Trainer, Verify, Workout } from './trainer.interface';
 import { environment } from '../../../../environments/environment'
 import { Profile } from '../store/trainer.interface';
 
@@ -42,10 +42,17 @@ export class TrainerAuthService {
     return this.http.get<Profile>(`${this.apiUrl}/trainer/fetch/${id}`)
   }
 
-  uploadProfileImage(profile: FormData, id: string): Observable<{ success: boolean }>{
+  uploadProfileImage(profile: FormData, id: string): Observable<{ success: boolean }> {
     return this.http.patch<{ success: boolean }>(`${this.apiUrl}/trainer/image?id=${id}`, profile)
   }
 
+  uploadWorkouts(id: string, files: FormData): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/workouts/upload?id=${id}`, files)
+  }
+
+  fetchWorkouts():Observable<Workout>{
+    return this.http.get<Workout>(`${this.apiUrl}/workouts/fetch`)
+  }
 }
 
 

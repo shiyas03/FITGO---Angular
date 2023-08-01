@@ -1,0 +1,158 @@
+<div class="w-full p-2 overflow-hidden overflow-y-auto overflow-x-auto">
+    <div class="p-2 pt-0 border border-red-500">
+        <form [formGroup]="workoutForm" (ngSubmit)="onSubmit()">
+            <div class="p-2 border-b border-red-500">
+                <p class="text-2xl text-center font-medium text-red-500">Workout Details</p>
+            </div>
+            <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6">
+                <div class="sm:col-span-full">
+                    <label for="workout-name" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                    <div class="">
+                        <input type="text" name="workout-name" id="workout-name" autocomplete="given-name"
+                            formControlName="title"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-gray-500 placeholder:text-gray-400 px-3 sm:text-sm sm:leading-6">
+                    </div>
+                    <div *ngIf="workoutForm.controls['title'].errors && !titleError">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['title'].hasError('required')">Title required</p>
+                    </div>
+                    <p class="text-red-500 text-sm" *ngIf="titleError">Title required</p>
+                </div>
+                <div class="sm:col-span-3">
+                    <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Muscle</label>
+                    <div class="">
+                        <select id="country" name="country" autocomplete="country-name" formControlName="muscle"
+                            class="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-xs sm:text-sm sm:leading-6">
+                            <option selected hidden></option>
+                            <option>Chest</option>
+                            <option>Back</option>
+                            <option>Shoulder</option>
+                            <option>Arm</option>
+                            <option>Abs</option>
+                            <option>Leg</option>
+                        </select>
+                    </div>
+                    <div *ngIf="workoutForm.controls['muscle'].errors">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['muscle'].hasError('required')">Muscle required</p>
+                    </div>
+                </div>
+                <div class="sm:col-span-3">
+                    <label for="level" class="block text-sm font-medium leading-6 text-gray-900">Difficulty
+                        level</label>
+                    <div class="">
+                        <select id="level" name="level" autocomplete="level-name" formControlName="level"
+                            class="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-xs sm:text-sm sm:leading-6">
+                            <option selected hidden></option>
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                    </div>
+                    <div *ngIf="workoutForm.controls['level'].errors">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['level'].hasError('required')">Level required</p>
+                    </div>
+                </div>
+                <div class="sm:col-span-3">
+                    <label for="sets-name" class="block text-sm font-medium leading-6 text-gray-900">Sets</label>
+                    <div class="">
+                        <input type="text" name="sets-name" id="sets-name" autocomplete="given-name"
+                            formControlName="sets"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-gray-500 placeholder:text-gray-400 px-3 sm:text-sm sm:leading-6">
+                    </div>
+                    <div *ngIf="workoutForm.controls['sets'].errors && !setsError">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['sets'].hasError('required')">Sets required</p>
+                    </div>
+                    <p class="text-red-500 text-sm" *ngIf="setsError">Must be 8+ sets</p>
+                </div>
+                <div class="sm:col-span-3">
+                    <label for="repetitions-name"
+                        class="block text-sm font-medium leading-6 text-gray-900">Repetitions</label>
+                    <select id="reps" name="reps" autocomplete="reps-name" formControlName="reps"
+                        class="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-xs sm:text-sm sm:leading-6">
+                        <option selected hidden></option>
+                        <option value="3">3 reps</option>
+                        <option value="4">4 reps</option>
+                        <option value="5">5 reps</option>
+                        <option value="6">6 reps</option>
+                    </select>
+                    <div *ngIf="workoutForm.controls['reps'].errors">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['reps'].hasError('required')">Repetition required</p>
+                    </div>
+                </div>
+                <div class="sm:col-span-3">
+                    <label for="rest-name" class="block text-sm font-medium leading-6 text-gray-900">Rest
+                        Intervals</label>
+                    <select id="interval" name="interval" autocomplete="interval-name" formControlName="interval"
+                        class="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-xs sm:text-sm sm:leading-6">
+                        <option selected hidden></option>
+                        <option value="0-5">0-5 minutes</option>
+                        <option value="5-10">5-10 minutes</option>
+                        <option value="10-20">10-20 minutes</option>
+                        <option value="20-30">20-30 minutes</option>
+                    </select>
+                    <div *ngIf="workoutForm.controls['interval'].errors">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['interval'].hasError('required')">Interval required</p>
+                    </div>
+                </div>
+                <div class="sm:col-span-3">
+                    <label for="duration-name"
+                        class="block text-sm font-medium leading-6 text-gray-900">Duration</label>
+                    <select id="duration" name="duration" autocomplete="duration-name" formControlName="duration"
+                        class="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-xs sm:text-sm sm:leading-6">
+                        <option selected hidden></option>
+                        <option value="5-10">5-10 minutes</option>
+                        <option value="10-20">10-20 minutes</option>
+                        <option value="20-30">20-30 minutes</option>
+                        <option value="30+">30+ minutes</option>
+                    </select>
+                    <div *ngIf="workoutForm.controls['duration'].errors">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['duration'].hasError('required')">Duration required</p>
+                    </div>
+                </div>
+                <div class="col-span-full">
+                    <label for="overview" class="block text-sm font-medium leading-6 text-gray-900">Overview</label>
+                    <div class="mt-2">
+                        <textarea id="overview" name="overview" rows="3" formControlName="overview"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-gray-500 placeholder:text-gray-400 px-3 sm:text-sm sm:leading-6"></textarea>
+                    </div>
+                    <div *ngIf="workoutForm.controls['overview'].errors && !overviewError">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['overview'].hasError('required')">Overview required</p>
+                    </div>
+                    <p class="text-red-500 text-sm" *ngIf="overviewError">Overview required</p>
+                </div>
+                <div class="col-span-full">
+                    <label for="template" class="block text-sm font-medium leading-6 text-gray-900">Thumbnail</label>
+                    <div class="">
+                        <input type="file" name="thumbnail" id="thumbnail" formControlName="thumbnail" (change)="onImageSelected($event)"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-gray-500 placeholder:text-gray-400 px-3 sm:text-sm sm:leading-6">
+                    </div>
+                    <div *ngIf="workoutForm.controls['thumbnail'].errors">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['thumbnail'].hasError('required')">Thumbnail required</p>
+                    </div>
+                    <p class="text-red-500 text-sm" *ngIf="imageError">Must be png or jpg file</p>
+                </div>
+                <div class="col-span-full">
+                    <label for="video" class="block text-sm font-medium leading-6 text-gray-900">Video</label>
+                    <div class="">
+                        <input type="file" name="video" id="video" formControlName="video" (change)="onVideoSelected($event)"
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-gray-500 placeholder:text-gray-400 px-3 sm:text-sm sm:leading-6">
+                    </div>
+                    <div *ngIf="workoutForm.controls['video'].errors">
+                        <p class="text-red-500 text-sm"
+                            *ngIf="submit&&workoutForm.controls['video'].hasError('required')">Video required</p>
+                    </div>
+                    <p class="text-red-500 text-sm" *ngIf="videoError">Must be mp4 file</p>
+                </div>
+                <button class="mx-auto bg-red-500 text-white rounded px-5 py-1 text-center">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

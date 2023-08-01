@@ -9,7 +9,7 @@ export interface Register {
 export interface RegisterReturn {
     id?: string,
     success?: boolean
-    message?:string;
+    message?: string;
 }
 
 export interface EmailReturn {
@@ -26,7 +26,7 @@ export interface LoginReturn {
     error: string
     token: string,
     id: string
-    message:string
+    message: string
 }
 
 export interface ProfileDetails {
@@ -45,11 +45,11 @@ export interface ProfileDetails {
     caloriesBurn: number;
     caloriesNeed: number;
     imageUrl: string;
-    isUpload?:boolean;
-    joinDate?:Date;
+    isUpload?: boolean;
+    joinDate?: Date;
 }
 
-export interface UpdateDetails{
+export interface UpdateDetails {
     name: string;
     phone: number;
     age: number;
@@ -57,8 +57,28 @@ export interface UpdateDetails{
     weight: number;
 }
 
-export interface Error{
-    statusText:string;
-    status:number;
-    error:{}
+export interface Error {
+    statusText: string;
+    status: number;
+    error: {}
+}
+
+export interface PaymentData {
+    id: string;
+    object: string;
+    client_ip: string;
+    created: number;
+    email: string;
+    livemode: boolean;
+    type: string;
+    used: boolean;
+    card: {
+        exp_month: number;
+        exp_year: number;
+        funding: string;
+        id: string;
+        last4: string;
+        name: string;
+        object: string;
+    }
 }
