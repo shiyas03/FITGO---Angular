@@ -1,23 +1,28 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Workout } from '../../services/admin-interface';
 import { Store, select } from '@ngrx/store';
 import { fetchWorkoutsData } from '../../store/admin.action';
 import { workoutsSelectorData } from '../../store/admin.selector';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AdminAuthService } from '../../services/admin-auth.service';
 import { ShowWorkoutComponent } from './show-workout/show-workout.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { swal, swalConfirm } from 'src/app/helpers/swal.popup';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-workouts',
   templateUrl: './workouts.component.html',
   styleUrls: ['./workouts.component.css']
 })
-export class WorkoutsComponent implements OnInit, OnDestroy {
+export class WorkoutsComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  workouts$!:Observable<Workout[]>
   subscription!:Subscription
+
+  dataSource = new MatTableDataSource<Workout>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator; 
+  displayedColumns: string[] = ['position', 'thumbnail', 'title', 'muscle', 'trainer', 'action'];
 
   constructor(private store:Store<Workout[]>,private adminServices : AdminAuthService,private dialog: MatDialog ){}
 
@@ -53,7 +58,13 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
 
   fetchData(){
     this.store.dispatch(fetchWorkoutsData())
-    this.workouts$ = this.store.pipe(select(workoutsSelectorData))
+    this.store.pipe(select(workoutsSelectorData)).subscribe(data=>{
+      this.dataSource.data = data
+    })
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnDestroy(): void {

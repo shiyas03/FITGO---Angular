@@ -1,23 +1,28 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { Trainers } from '../../services/admin-interface';
 import { Store, select } from '@ngrx/store';
 import { fetchTrainersData } from '../../store/admin.action';
 import { trainersSelectorData } from '../../store/admin.selector';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AdminAuthService } from '../../services/admin-auth.service';
 import { swal, swalConfirm, swalError } from 'src/app/helpers/swal.popup';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-trainers',
   templateUrl: './trainers.component.html',
   styleUrls: ['./trainers.component.css']
 })
-export class TrainersComponent implements OnInit, OnDestroy {
+export class TrainersComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  pdfShow: boolean = false;
-  trainers$!: Observable<Trainers[]>
+  pdfShow: boolean = false; 
   private subscription1!: Subscription;
   private subscription2!: Subscription;
+
+  dataSource = new MatTableDataSource<Trainers>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator; 
+  displayedColumns: string[] = ['position', 'name', 'email', 'documents', 'request', 'action'];
 
   constructor(private store: Store<Trainers[]>, private adminService: AdminAuthService) { }
 
@@ -62,7 +67,9 @@ export class TrainersComponent implements OnInit, OnDestroy {
 
   fetchTrainers() {
     this.store.dispatch(fetchTrainersData())
-    this.trainers$ = this.store.pipe(select(trainersSelectorData))
+    this.store.pipe(select(trainersSelectorData)).subscribe(data=>{
+      this.dataSource.data = data
+    })
   }
 
   show(file: string) {
@@ -72,6 +79,10 @@ export class TrainersComponent implements OnInit, OnDestroy {
       window.open(fileURL);
       this.pdfShow = true
     })
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnDestroy(): void {

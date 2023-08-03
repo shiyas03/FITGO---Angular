@@ -6,12 +6,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
-import {MatIconModule} from '@angular/material/icon';
 import { blogsReducer, profileReducer, workoutReducer } from './store/trainer.reducer';
 import { trainerEffects } from './store/trainer.effects';
 import { StoreModule } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { DetailsComponent } from './templates/details/details.component';
 import { DashboardComponent } from './templates/dashboard/dashboard.component';
@@ -56,6 +58,8 @@ import { ShowWorkoutComponent } from './templates/workouts/show-workout/show-wor
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
     StoreModule.forFeature('blogs', blogsReducer),
     StoreModule.forFeature('profile', profileReducer),
     StoreModule.forFeature('workouts', workoutReducer),

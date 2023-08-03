@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Blog } from '../../services/admin-interface';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -8,21 +8,28 @@ import { fetchBlogData } from '../../store/admin.action';
 import { blogSelectorData } from '../../store/admin.selector';
 import { AdminAuthService } from '../../services/admin-auth.service';
 import { showError, swal, swalConfirm } from 'src/app/helpers/swal.popup';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css'],
 })
-export class BlogsComponent implements OnDestroy {
+export class BlogsComponent implements OnDestroy,AfterViewInit {
+
   blogs$!: Observable<Blog[]>;
   private subscription!: Subscription;
+
+  dataSource$ = new MatTableDataSource<Blog>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  displayedColumns: string[] = ['position', 'thumbnail', 'title', 'category', 'trainer', 'action'];
 
   constructor(
     private dialog: MatDialog,
     private store: Store<Blog[]>,
     private adminService: AdminAuthService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchData();
@@ -41,29 +48,34 @@ export class BlogsComponent implements OnDestroy {
   }
 
   publishChange(id: string, approve: boolean) {
-    swalConfirm().then((res)=>{
-      if(res.isConfirmed){
+    swalConfirm().then((res) => {
+      if (res.isConfirmed) {
         this.subscription = this.adminService.publishBlog(id, approve).subscribe(
           (res) => {
             if (res.success == true) {
               this.fetchData();
-            }else{
-              swal('error',"could't update publish")
+            } else {
+              swal('error', "could't update publish")
             }
-          },(error)=>{
+          }, (error) => {
             showError(error)
-          }); 
+          });
       }
     })
   }
 
   fetchData() {
     this.store.dispatch(fetchBlogData());
-    this.blogs$ = this.store.pipe(select(blogSelectorData));
+    this.store.pipe(select(blogSelectorData)).subscribe(data=>{
+      this.dataSource$.data = data
+    })
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource$.paginator = this.paginator;
+  }
+  
   ngOnDestroy(): void {
-    if(this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }
- 

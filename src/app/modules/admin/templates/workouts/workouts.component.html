@@ -1,94 +1,73 @@
 <app-sidebar-layout></app-sidebar-layout>
 
-<div
-  class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full h-3/4 overflow-hidden overflow-y-auto overflow-x-auto"
->
-  <table class="w-full text-sm text-center text-gray-500">
-    <thead class="text-sm  text-white bg-gray-900">
-      <tr>
-        <th scope="col" class="px-6 py-3">NO</th>
-        <th scope="col" class="px-6 py-3">Template</th>
-        <th scope="col" class="px-6 py-3">Title</th>
-        <th scope="col" class="px-6 py-3">Muscle</th>
-        <th scope="col" class="px-6 py-3">trainer</th>
-        <th scope="col" class="px-6 py-3">Actions</th>
-      </tr>
-    </thead>
-    <tbody *ngIf="workouts$ | async as workout">
-      <tr
-        class="bg-white border-b text-gray-900 text-sm"
-        *ngFor="let data of workout; let i = index"
-      >
-        <th scope="row" class="px-6 py-4 font-medium">
-          {{ i + 1 }}
-        </th>
-        <th scope="row" class="px-6 py-4 font-medium">
-          <img
-            [src]="'http://localhost:3000/uploads/' + data.thumbnail"
-            width="100px"
-            alt=""
-            class="mx-auto"
-          />
-        </th>
-        <th scope="row" class="px-6 py-4 font-medium ">
-          {{ data.title }}
-        </th>
-        <th scope="row" class="px-6 py-4 font-medium ">
-          {{ data.muscle }}
-        </th>
-        <th scope="row" class="px-6 py-4 font-medium ">
-          {{ data.trainerId.name }}
-        </th>
-        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-          <button
-            (click)="showWorkout(data._id)"
-            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2"
-          >
-            <span
-              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"
-            ></span>
-            <span
-              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-blue-600 to-blue-500"
-            ></span>
-            <span
-              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-blue-500 from-blue-500"
-            ></span>
-            <span class="relative">View</span>
-          </button>
-          <button
-            (click)="publishChange(data._id, true)"
-            *ngIf="data.publish == false"
-            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20"
-          >
-            <span
-              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"
-            ></span>
-            <span
-              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"
-            ></span>
-            <span
-              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-red-500 from-red-500"
-            ></span>
-            <span class="relative">Publish</span>
-          </button>
-          <button
-            (click)="publishChange(data._id, false)"
-            *ngIf="data.publish === true"
-            class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20"
-          >
-            <span
-              class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"
-            ></span>
-            <span
-              class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"
-            ></span>
-            <span
-              class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"
-            ></span>
-            <span class="relative">Conceal</span>
-          </button>
-        </th>
-      </tr>
-    </tbody>
+<div class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full h-3/4 overflow-hidden overflow-y-auto overflow-x-auto">
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let i = index"> {{i+1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="thumbnail">
+      <th mat-header-cell *matHeaderCellDef> Thumbnail </th>
+      <td mat-cell *matCellDef="let workout"> <img [src]="'http://localhost:3000/uploads/' + workout.thumbnail" width="100px"
+          alt="" class="mx-auto" /> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let workout"> {{workout.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="muscle">
+      <th mat-header-cell *matHeaderCellDef> Muscle </th>
+      <td mat-cell *matCellDef="let workout"> {{workout.muscle}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="trainer">
+      <th mat-header-cell *matHeaderCellDef> Trainer </th>
+      <td mat-cell *matCellDef="let workout"> {{workout.trainer}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let workout"> <button (click)="showWorkout(workout._id)"
+          class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2">
+          <span
+            class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"></span>
+          <span
+            class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-blue-600 to-blue-500"></span>
+          <span
+            class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-blue-500 from-blue-500"></span>
+          <span class="relative">View</span>
+        </button>
+        <button (click)="publishChange(workout._id, true)" *ngIf="workout.publish == false"
+          class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20">
+          <span
+            class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"></span>
+          <span
+            class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"></span>
+          <span
+            class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-red-500 from-red-500"></span>
+          <span class="relative">Publish</span>
+        </button>
+        <button (click)="publishChange(workout._id, false)" *ngIf="workout.publish === true"
+          class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20">
+          <span
+            class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"></span>
+          <span
+            class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"></span>
+          <span
+            class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"></span>
+          <span class="relative">Conceal</span>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic workouts">
+  </mat-paginator>
 </div>
