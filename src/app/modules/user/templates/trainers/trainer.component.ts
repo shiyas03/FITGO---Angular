@@ -14,30 +14,31 @@ import { PaymentData } from '../../services/user.interface';
 })
 export class TrainerComponent implements OnInit {
 
-  trainers$! :Observable<Trainer[]>
-  paymentHandler!:any
+  trainers$!: Observable<Trainer[]>
+  paymentHandler!: any
 
-  constructor(private store:Store<Trainer[]>, private userService:UserAuthService){}
+  constructor(private store: Store<Trainer[]>, private userService: UserAuthService) { }
   ngOnInit(): void {
     this.invokeStripe();
-      this.store.dispatch(fetchTrainersData())
-      this.trainers$ = this.store.pipe(select(trainerSelectorData))
+    this.store.dispatch(fetchTrainersData())
+    this.trainers$ = this.store.pipe(select(trainerSelectorData))
   }
 
-  payNow() {
+  payNow(trainerId: string) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51NaG9bSJ8tM5mOcsZou1BVfXjEUnWh6cwrT4Hty2Xvko2tAbP0cpSRnDr6CLy3NipiR0UFAEzInJW7sgtz2M22Oj00Dcu63Td3',
       locale: 'auto',
       token: (stripeToken: PaymentData) => {
-        console.log(stripeToken);
-        this.userService.payment()
+        const userId = <string>localStorage.getItem('userId');
+        stripeToken.amount = 499
+        this.userService.payment(stripeToken,trainerId,userId).subscribe()
       },
     });
 
     paymentHandler.open({
       name: 'FitGo',
       description: '',
-      amount: 1000 * 100,
+      amount: 499 * 100,
       currency: 'INR',
     });
   }

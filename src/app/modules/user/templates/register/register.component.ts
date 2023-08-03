@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    localStorage.removeItem('otp');
+    // localStorage.removeItem('otp');
   }
 
   onSubmit() {

@@ -52,7 +52,7 @@ export class BlogsComponent implements OnDestroy {
             }
           },(error)=>{
             showError(error)
-          });
+          }); 
       }
     })
   }

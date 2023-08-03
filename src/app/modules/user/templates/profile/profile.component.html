@@ -64,7 +64,7 @@
         </div>
 
         <div class="mt-6 mx-auto mb-3">
-            <button type="button"
+            <button type="button" *ngIf="user.isUpload == false"
                 class="text-white bg-red-500 font-medium rounded-lg text-sm mx-3 px-5 py-2 text-center" routerLink="/details">upload your details</button>
         </div>
     </div>

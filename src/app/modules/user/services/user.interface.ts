@@ -72,6 +72,7 @@ export interface PaymentData {
     livemode: boolean;
     type: string;
     used: boolean;
+    amount:number;
     card: {
         exp_month: number;
         exp_year: number;

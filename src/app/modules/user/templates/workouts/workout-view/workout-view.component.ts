@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { Workout } from '../../../services/user.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { singleWorkoutData } from '../../../store/user.selector';
+import { singleWorkoutData, workoutsSelectorData } from '../../../store/user.selector';
+import { fetchWorkoutsData } from '../../../store/user.action';
 
 @Component({
   selector: 'app-workout-view',
@@ -20,6 +21,8 @@ export class WorkoutViewComponent implements OnInit {
       this.route.paramMap.subscribe(()=>{
         if(history.state){
           const id = history.state.id
+          this.store.dispatch(fetchWorkoutsData())
+          this.store.pipe(select(workoutsSelectorData))
           this.workout$ = this.store.pipe(select(singleWorkoutData(id)))
         }
       })

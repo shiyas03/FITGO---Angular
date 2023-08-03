@@ -35,6 +35,7 @@
                                 <p *ngIf="editForm.controls['age'].hasError('pattern')" class="text-xs text-red-500">
                                     Age in numerics</p>
                             </div>
+                            <p class="text-xs text-red-500" *ngIf="ageError">Age must be 15+</p>
                         </div>
                         <div class="sm:col-span-3">
                             <label for="height" class="block text-sm font-medium text-gray-900">Height</label>

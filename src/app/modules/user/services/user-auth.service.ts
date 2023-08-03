@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Blog, Details, Login, Trainer, User } from '../store/user';
 import { environment } from '../../../../environments/environment'
-import { EmailReturn, Register, RegisterReturn, DetailsReturn, LoginReturn, ProfileDetails, UpdateDetails, Workout } from './user.interface';
+import { EmailReturn, Register, RegisterReturn, DetailsReturn, LoginReturn, ProfileDetails, UpdateDetails, Workout, PaymentData } from './user.interface';
+import { activity } from './user.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class UserAuthService {
   }
 
   verifyLogin(details: Login): Observable<LoginReturn> {
-    return this.http.post<LoginReturn>(`${this.apiUrl}/login`, details)
+    return this.http.post<LoginReturn>(`${this.apiUrl}/`+activity.Login, details)
   }
 
   fetchProfileDetails(id: string): Observable<ProfileDetails> {
@@ -56,8 +57,8 @@ export class UserAuthService {
   fetchBlogs(): Observable<Blog[]> {
     return this.http.get<Blog[]>(`${this.apiUrl}/blogs/fetch`)
   }
-  
-  fetchTrainers():Observable<Trainer[]>{
+
+  fetchTrainers(): Observable<Trainer[]> {
     return this.http.get<Trainer[]>(`${this.apiUrl}/trainer/fetchAll`)
   }
 
@@ -65,7 +66,7 @@ export class UserAuthService {
     return this.http.get<Workout[]>(`${this.apiUrl}/workouts/fetch`)
   }
 
-  payment(){
-    return 
+  payment(stripeToken: PaymentData, trainerId: string, userId: string): Observable<boolean> {
+    return this.http.put<boolean>(`${this.apiUrl}/payment`, { stripeToken, trainerId, userId })
   }
 }

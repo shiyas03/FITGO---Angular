@@ -8,6 +8,7 @@ import { ProfileDetails } from '../../../store/user';
 import { UserAuthService } from '../../../services/user-auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SuccessComponent } from 'src/app/modules/trainer/templates/details/success/success.component';
+import { pattern } from 'src/app/helpers/regex.pattern';
 
 @Component({
   selector: 'app-edit-user',
@@ -17,9 +18,9 @@ import { SuccessComponent } from 'src/app/modules/trainer/templates/details/succ
 export class EditUserComponent implements OnInit {
 
   editForm!: FormGroup
-  pattern: RegExp = /^\d+$/
   submit: boolean = false
   nameError: boolean = false
+  ageError:boolean = false
 
   constructor(private fb: FormBuilder, private store: Store<ProfileDetails>, private dialog: MatDialogRef<SuccessComponent>) {
   }
@@ -30,10 +31,10 @@ export class EditUserComponent implements OnInit {
 
     this.editForm = this.fb.group({
       name: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      age: ['', [Validators.required, Validators.pattern(this.pattern)]],
-      height: ['', [Validators.required, Validators.pattern(this.pattern)]],
-      weight: ['', [Validators.required, Validators.pattern(this.pattern)]],
+      phone: ['', [Validators.required, Validators.pattern(pattern.phone)]],
+      age: ['', [Validators.required, Validators.pattern(pattern.numeric)]],
+      height: ['', [Validators.required, Validators.pattern(pattern.numeric)]],
+      weight: ['', [Validators.required, Validators.pattern(pattern.numeric)]],
     })
 
     this.store.pipe(select(profileSelectorData)).subscribe(data => {
@@ -47,11 +48,18 @@ export class EditUserComponent implements OnInit {
     const { name, phone, age, height, weight } = this.editForm.value
     if (!name.trim()) {
       this.nameError = true
-      setTimeout(() => {
-        this.nameError = false
-      }, 3000)
-    } else {
+    } else if (age < 15) {
+      this.ageError = true
+    }else{
       this.dialog.close(this.editForm.value)
     }
+    this.destroyError()
+  }
+
+  destroyError(){
+    setTimeout(() => {
+      this.nameError = false
+      this.ageError = false
+    }, 3000)
   }
 }

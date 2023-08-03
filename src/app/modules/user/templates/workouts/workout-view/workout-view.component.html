@@ -6,14 +6,14 @@
 </div>
 
 <div class="w-full mt-10 mb-10" *ngIf="(workout$|async) as data">
-    <div class="mx-32 flex justify-center">
-        <div class="">
+    <div class="mx-32 flex justify-center items-center">
+        <div class="w-2/3">
             <p class="text-xl text-semibold font-serif mb-2 underline">{{data.title}}</p>
             <video controls>
                 <source [src]="'http://localhost:3000/uploads/' + data.video" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <p class="font-sans mt-5 mb-3">For <span>{{data.level}}</span> :-</p>
+            <p class="font-sans mt-5 mb-3 text-md font-medium">For {{data.level}} :-</p>
             <div class="mx-20">
                 <p class="mt-1 font-sans">Repetitions <span class="mx-5">-</span> <span class="">{{data.reps}}</span></p>
                 <p class="mt-1 font-sans">Sets <span class="mx-5">-</span> <span class="">{{data.sets}}</span></p>
