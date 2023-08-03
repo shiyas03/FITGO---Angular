@@ -7,7 +7,7 @@
 
 <div class="w-full mt-10 mb-10" *ngIf="(workout$|async) as data">
     <div class="mx-32 flex justify-center items-center">
-        <div class="w-2/3">
+        <div class="w-4/5"> 
             <p class="text-xl text-semibold font-serif mb-2 underline">{{data.title}}</p>
             <video controls>
                 <source [src]="'http://localhost:3000/uploads/' + data.video" type="video/mp4">

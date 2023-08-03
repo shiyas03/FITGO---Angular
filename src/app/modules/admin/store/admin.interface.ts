@@ -3,6 +3,7 @@ export interface Users{
     name:string;
     email:string;
     access:boolean;
+    imageUrl:string;
 }
 
 export interface Trainers{
@@ -14,6 +15,7 @@ export interface Trainers{
     certificate:string[];
     access:boolean;
     approve:boolean
+    imageUrl:string;
 }
 
 export interface Blog {

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Workout } from '../../services/user.interface';
 import { Store, select } from '@ngrx/store';
 import { fetchWorkoutsData } from '../../store/user.action';
 import { workoutsSelectorData } from '../../store/user.selector';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
@@ -11,15 +11,24 @@ import { NavigationExtras, Router } from '@angular/router';
   templateUrl: './workouts.component.html',
   styleUrls: ['./workouts.component.css']
 })
-export class WorkoutsComponent implements OnInit {
+export class WorkoutsComponent implements OnInit, OnDestroy {
 
   workouts$!: Observable<Workout[]>
+  notFound:boolean = true
+  subcription!:Subscription
 
   constructor(private store: Store<Workout[]>, private router: Router) { }
 
   ngOnInit(): void {
     this.store.dispatch(fetchWorkoutsData())
     this.workouts$ = this.store.pipe(select(workoutsSelectorData))
+    this.subcription = this.workouts$.subscribe(data=>{
+      for(let value of data){
+        if(value.publish == true){
+          this.notFound = false
+        }
+      }
+    })
   }
 
   showWorkout(id: string) {
@@ -28,5 +37,9 @@ export class WorkoutsComponent implements OnInit {
       state: data,
     };
     this.router.navigate(['workouts/view'], navigationExtras);
+  }
+
+  ngOnDestroy(): void {
+    if(this.subcription) this.subcription.unsubscribe()
   }
 }

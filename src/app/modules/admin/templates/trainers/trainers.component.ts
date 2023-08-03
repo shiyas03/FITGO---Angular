@@ -22,7 +22,7 @@ export class TrainersComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dataSource = new MatTableDataSource<Trainers>();
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
-  displayedColumns: string[] = ['position', 'name', 'email', 'documents', 'request', 'action'];
+  displayedColumns: string[] = ['position','image','name', 'email', 'documents', 'request', 'action'];
 
   constructor(private store: Store<Trainers[]>, private adminService: AdminAuthService) { }
 

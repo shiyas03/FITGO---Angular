@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dataSource$ = new MatTableDataSource<Users>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns: string[] = ['position', 'name', 'email', 'action'];
+  displayedColumns: string[] = ['position','image', 'name', 'email', 'action'];
 
   constructor(
     private store: Store<{ users: Users[] }>,

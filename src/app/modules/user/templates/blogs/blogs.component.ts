@@ -14,12 +14,20 @@ import { NavigationExtras, Router } from '@angular/router';
 export class BlogsComponent implements OnInit {
   blogs$!: Observable<Blog[]>;
   show: boolean = false;
+  notFound:boolean = true;
 
   constructor(private store: Store<Blog>, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(fetchBlogData());
     this.blogs$ = this.store.pipe(select(blogSelectorData));
+    this.blogs$.subscribe(data=>{
+      for(let value of data){
+        if(value.approve == true){
+          this.notFound = false
+        } 
+      }
+    })
   }
 
   showBlog(id: string) {
