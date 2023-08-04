@@ -25,15 +25,15 @@ export class AdminAuthService {
   }
 
   fetchTrainers(): Observable<Trainers[]> {
-    return this.http.get<Trainers[]>(`${this.apiUrl}/admin/trainers`)
+    return this.http.get<Trainers[]>(`${this.apiUrl}/trainer/fetchAll`)
   }
 
   approveTrainer(id: string, approve: boolean): Observable<{ success: boolean }> {
-    return this.http.patch<{ success: boolean }>(`${this.apiUrl}/admin/trainer-approve`, { id, approve })
+    return this.http.patch<{ success: boolean }>(`${this.apiUrl}/trainer/approve`, { id, approve })
   }
 
   trainerAccess(id: string, access: boolean): Observable<{ success: boolean }> {
-    return this.http.patch<{ success: boolean }>(`${this.apiUrl}/admin/trainer-access`, { id, access })
+    return this.http.patch<{ success: boolean }>(`${this.apiUrl}/trainer/access`, { id, access })
   }
 
   fetchBlogs(): Observable<Blog[]> {
@@ -45,7 +45,7 @@ export class AdminAuthService {
   }
 
   getPdfFileUrl(filename: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/trainer/documents/${filename}`, { responseType: 'arraybuffer' });
+    return this.http.get(`${this.apiUrl}/trainer/documents/${filename}`, { responseType: 'arraybuffer' });
   }
 
   fetchWorkouts(): Observable<Workout[]> {

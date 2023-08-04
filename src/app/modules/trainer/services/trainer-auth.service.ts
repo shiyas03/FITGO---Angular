@@ -23,7 +23,7 @@ export class TrainerAuthService {
   }
 
   detailsUpload(details: FormData, id: string): Observable<DeailsReturn> {
-    return this.http.post<DeailsReturn>(`${this.apiUrl}/trainer/details/${id}`, details)
+    return this.http.post<DeailsReturn>(`${this.apiUrl}/trainer/details?id=${id}`, details)
   }
 
   trainerAccess(id: string): Observable<{ access: boolean }> {

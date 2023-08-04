@@ -73,6 +73,8 @@ export class TrainersComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   show(file: string) {
+    console.log(file);
+    
     this.adminService.getPdfFileUrl(file).subscribe((data) => {
       const file = new Blob([data], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);
