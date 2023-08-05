@@ -3,7 +3,7 @@
         <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
             <div class="space-y-12">
                 <div class="border-gray-900/10 pb-6">
-                    <h2 class="text-2xl text-center font-semibold text-red-600">Add details for blog</h2>
+                    <h2 class="text-2xl text-center font-semibold text-red-600">Edit details of blog</h2>
                     <hr class="mt-1 border border-red-500">
                     <div class="mt-4">
                         <label for="title" class="block text-sm font-medium leading-5  text-gray-700">Title</label>
@@ -52,9 +52,9 @@
                                 type="file" />
                         </div>
                         <p *ngIf="formatError" class="text-red-500 text-sm">Only PNG or JPG are supported</p>
-                        <div *ngIf="blog$|async as blog">
+                        <!-- <div *ngIf="blog$|async as blog">
                             <img [src]="'http://localhost:3000/uploads/'+blog.template" class="w-1/3 mt-2" alt="">
-                        </div> 
+                        </div>  -->
                     </div>
                 </div>
             </div>

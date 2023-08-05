@@ -38,7 +38,18 @@
     
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
-          <td mat-cell *matCellDef="let workout"> <button (click)="showWorkout(workout._id)"
+          <td mat-cell *matCellDef="let workout"> 
+            <button (click)="editWorkout(workout._id)"
+              class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2">
+              <span
+                class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"></span>
+              <span
+                class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"></span>
+              <span
+                class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"></span>
+              <span class="relative">Edit</span>
+            </button>
+            <button (click)="showWorkout(workout._id)"
               class="py-2 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2">
               <span
                 class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"></span>

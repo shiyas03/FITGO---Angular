@@ -15,7 +15,9 @@ export class ShowWorkoutComponent implements OnInit {
 
   workout$!: Observable<Workout | undefined>
 
-  constructor(private store: Store<Workout[] | Workout>,@Inject(MAT_DIALOG_DATA) public data: {id:string}, public dialogRef: MatDialogRef<ShowWorkoutComponent>) { }
+  constructor(private store: Store<Workout[] | Workout>,
+    @Inject(MAT_DIALOG_DATA) public data: {id:string}, 
+    private dialogRef: MatDialogRef<ShowWorkoutComponent>) { }
 
   ngOnInit(): void {
     this.workout$ = this.store.pipe(select(workoutFilterData(this.data.id)))

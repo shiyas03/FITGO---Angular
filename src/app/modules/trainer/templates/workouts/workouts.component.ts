@@ -5,10 +5,12 @@ import { Workout } from '../../services/trainer.interface';
 import { Store, select } from '@ngrx/store';
 import { fetchWorkoutsData } from '../../store/trainer.action';
 import { workoutsSelectorData } from '../../store/trainer.selector';
-import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 import { ShowWorkoutComponent } from './show-workout/show-workout.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { EditWorkoutComponent } from './edit-workout/edit-workout.component';
+import { swalError } from 'src/app/helpers/swal.popup';
 
 @Component({
   selector: 'app-workouts',
@@ -49,6 +51,23 @@ export class WorkoutsComponent implements OnInit,AfterViewInit {
       },
     );
     dialogRef.afterClosed().subscribe();
+  }
+
+  editWorkout(id:string){
+    const dialogRef: MatDialogRef<EditWorkoutComponent> = this.dialog.open(
+      EditWorkoutComponent,
+      {
+        width: '700px',
+        height: '700px',
+        data: { id: id },
+      },
+    );
+    dialogRef.afterClosed().subscribe(res=>{
+      if(res == true){
+        Swal.fire('Details updated successfully');
+      }
+      this.fetchData()
+    });
   }
 
   fetchData(){

@@ -54,6 +54,10 @@ export class TrainerAuthService {
     return this.http.post<boolean>(`${this.apiUrl}/workouts/upload?id=${id}`, files)
   }
 
+  updateWorkouts(id: string, files: FormData): Observable<boolean> {
+    return this.http.put<boolean>(`${this.apiUrl}/workouts/update?id=${id}`, files)
+  }
+
   fetchWorkouts():Observable<Workout[]>{
     return this.http.get<Workout[]>(`${this.apiUrl}/workouts/fetch`)
   }
