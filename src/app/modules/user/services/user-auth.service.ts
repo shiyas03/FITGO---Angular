@@ -67,6 +67,6 @@ export class UserAuthService {
   }
 
   payment(stripeToken: PaymentData, trainerId: string, userId: string): Observable<boolean> {
-    return this.http.put<boolean>(`${this.apiUrl}/payment`, { stripeToken, trainerId, userId })
+    return this.http.post<boolean>(`${this.apiUrl}/payment`, { stripeToken, trainerId, userId })
   }
 }

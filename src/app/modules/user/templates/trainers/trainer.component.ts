@@ -24,13 +24,14 @@ export class TrainerComponent implements OnInit {
     this.trainers$ = this.store.pipe(select(trainerSelectorData))
   }
 
-  payNow(trainerId: string) {
+  payNow(trainerId: string,specialized:string) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51NaG9bSJ8tM5mOcsZou1BVfXjEUnWh6cwrT4Hty2Xvko2tAbP0cpSRnDr6CLy3NipiR0UFAEzInJW7sgtz2M22Oj00Dcu63Td3',
       locale: 'auto',
       token: (stripeToken: PaymentData) => {
         const userId = <string>localStorage.getItem('userId');
         stripeToken.amount = 499
+        stripeToken.specialized = specialized
         this.userService.payment(stripeToken,trainerId,userId).subscribe()
       },
     });

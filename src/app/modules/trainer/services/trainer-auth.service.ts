@@ -31,11 +31,15 @@ export class TrainerAuthService {
   }
 
   uploadBlog(data: FormData, id: string): Observable<{ success: boolean }> {
-    return this.http.post<{ success: boolean }>(`${this.apiUrl}/blogs/blog-upload?id=${id}`, data)
+    return this.http.post<{ success: boolean }>(`${this.apiUrl}/blogs/upload?id=${id}`, data)
   }
 
   fetchBlogs(): Observable<Blog[]> {
     return this.http.get<Blog[]>(`${this.apiUrl}/blogs/fetch`)
+  }
+
+  updateBlog(data: FormData, id: string):Observable<boolean>{
+    return this.http.put<boolean>(`${this.apiUrl}/blogs/update?id=${id}`, data)
   }
 
   fetchProfileDetails(id: string): Observable<Profile> {

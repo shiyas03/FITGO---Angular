@@ -12,6 +12,7 @@ import { ViewBlogComponent } from './view-blog/view-blog.component';
 import { swalError } from 'src/app/helpers/swal.popup';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { EditBlogComponent } from './edit-blog/edit-blog.component';
 
 @Component({
   selector: 'app-blogs',
@@ -19,7 +20,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./blogs.component.css'],
 })
 export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
-  
+
   private subscription!: Subscription;
 
   dataSource$ = new MatTableDataSource<Blog>();
@@ -30,7 +31,7 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
     private dialog: MatDialog,
     private trainerService: TrainerAuthService,
     private store: Store<Blog[]>,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchData();
@@ -73,9 +74,25 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
     dialogRef.afterClosed().subscribe();
   }
 
+  editBlog(id: string) {
+    const dialogRef: MatDialogRef<EditBlogComponent> = this.dialog.open(
+      EditBlogComponent,
+      {
+        width: '600px',
+        data: { id: id },
+      },
+    );
+    dialogRef.afterClosed().subscribe(res => {
+      if (res == true) {
+        this.fetchData();
+        Swal.fire('Details updated successfully');
+      }
+    });
+  }
+
   fetchData() {
     this.store.dispatch(fetchBlogData());
-    this.store.pipe(select(blogSelectorData)).subscribe(data=>{
+    this.store.pipe(select(blogSelectorData)).subscribe(data => {
       this.dataSource$.data = data
     })
   }

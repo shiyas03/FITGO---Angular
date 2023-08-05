@@ -73,6 +73,7 @@ export interface PaymentData {
     type: string;
     used: boolean;
     amount:number;
+    specialized:string;
     card: {
         exp_month: number;
         exp_year: number;

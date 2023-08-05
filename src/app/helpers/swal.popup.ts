@@ -27,7 +27,7 @@ export function swalError(error: string) {
   Swal.fire({
     icon: 'error',
     title: 'Oops...',
-    text: error + ', Please try again!',
+    text: error + ' Please try again!',
   }); 
 }
 

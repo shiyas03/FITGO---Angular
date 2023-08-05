@@ -13,14 +13,12 @@ import { blogFilterData, blogSelectorData } from '../../../store/trainer.selecto
 })
 export class ViewBlogComponent implements OnInit {
 
-  blogs$!: Observable<Blog[] | null>
   blog$!: Observable<Blog | undefined>
 
   constructor(private store: Store<Blog[] | Blog>, @Inject(MAT_DIALOG_DATA) public id: string, public dialogRef: MatDialogRef<ViewBlogComponent>) { }
 
   ngOnInit(): void {
     this.store.dispatch(fetchBlogData())
-    this.blogs$ = this.store.pipe(select(blogSelectorData))
     this.blog$ = this.store.pipe(select(blogFilterData(this.id)))
   }
 
