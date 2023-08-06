@@ -14,6 +14,7 @@ import { SingleViewComponent } from './templates/blogs/single-view/single-view.c
 import { TrainerComponent } from './templates/trainers/trainer.component';
 import { WorkoutsComponent } from './templates/workouts/workouts.component';
 import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-view.component';
+import { TrainerViewComponent } from './templates/trainers/trainer-view/trainer-view.component';
 
 const routes: Routes = [
   {
@@ -70,8 +71,15 @@ const routes: Routes = [
   },
   {
     path: 'trainers',
-    component: TrainerComponent,
-    canActivate: [UserAuthGuard]
+    canActivate: [UserAuthGuard],
+    children: [
+      {
+        path: '', component: TrainerComponent
+      },
+      {
+        path: 'view', component: TrainerViewComponent
+      }
+    ]
   },
   {
     path: 'workouts',

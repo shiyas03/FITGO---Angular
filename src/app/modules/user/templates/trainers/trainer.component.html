@@ -6,14 +6,13 @@
         </div>
     </div>
 </header>
-
 <div *ngIf="trainers$ | async as trainers">
     <div class="w-full flex justify-center" *ngFor="let trainer of trainers">
         <div class="w-2/3 m-5">
             <div
                 class="absolute w-[18rem] h-[22rem] shadow m-10 bg-red-500 rounded-2xl overflow-hidden hover:scale-105 duration-300">
                 <img [src]="'http://localhost:3000/uploads/' + trainer.imageUrl" class="w-full h-full text-white"
-                    alt="Trainer">
+                    *ngIf="trainer.imageUrl" alt="Trainer">
             </div>
             <div class="flex justify-center m-5">
                 <div class="w-3/4 h-[25em] bg-gray-200 shadow-xl rounded-2xl">
@@ -21,17 +20,19 @@
                         <div class="w-2/3">
                             <p class="text-center text-lg font-medium font-mono">Hello, I'm <span
                                     class="uppercase text-red-500">{{trainer.name}}</span>, your
-                                <span class="uppercase text-red-500">{{trainer.specialized}}</span> Specialist at FitGo
+                                <span class="uppercase text-red-500">{{trainer.specialized}}</span> Specialist at
+                                FitGo
                                 Fitness! With over <span class="text-red-500">{{trainer.experience}} years of
                                     experience</span>
-                                , I'm passionate about helping you transform your body and achieve your dream physique.
+                                , I'm passionate about helping you transform your body and achieve your dream
+                                physique.
                             </p>
                             <p class="text-center text-lg font-medium font-mono mt-5">
                                 Are you ready to take your fitness journey to the next level
                                 <span class="text-red-500 font-bold underline">Join Me!</span>
                             </p>
                             <div class="flex justify-center mt-3">
-                                <button (click)="payNow(trainer._id,trainer.specialized)"
+                                <button (click)="showTrainer(trainer._id)"
                                     class="text-center text-white bg-red-500 py-2 border-b-2 p-3 rounded-lg shadow hover:scale-105 duration-200 border-gray-500 font-mono">Connect
                                     with Me</button>
                             </div>
@@ -42,5 +43,7 @@
         </div>
     </div>
 </div>
-
+<div class="w-full h-screen flex justify-center item-center" *ngIf="notFound">
+    <p class="text-3xl font-semibold font-sans text-red-500 mt-20">Trainers Not Available</p>
+</div>
 <app-footer></app-footer>

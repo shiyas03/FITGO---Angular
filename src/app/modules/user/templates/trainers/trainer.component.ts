@@ -6,6 +6,7 @@ import { fetchTrainersData } from '../../store/user.action';
 import { trainerSelectorData } from '../../store/user.selector';
 import { UserAuthService } from '../../services/user-auth.service';
 import { PaymentData } from '../../services/user.interface';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-trainer',
@@ -16,15 +17,35 @@ export class TrainerComponent implements OnInit {
 
   trainers$!: Observable<Trainer[]>
   paymentHandler!: any
+  notFound: boolean = true
 
-  constructor(private store: Store<Trainer[]>, private userService: UserAuthService) { }
+  constructor(private store: Store<Trainer[]>, private userService: UserAuthService, private router:Router) { }
   ngOnInit(): void {
-    this.invokeStripe();
+    // this.invokeStripe();
     this.store.dispatch(fetchTrainersData())
     this.trainers$ = this.store.pipe(select(trainerSelectorData))
+    this.available()
   }
 
-  payNow(trainerId: string,specialized:string) {
+  showTrainer(id: string) {  
+    const data = { id: id };
+    const navigationExtras: NavigationExtras = {
+      state: data,
+    };
+    this.router.navigate(['trainers/view'], navigationExtras);
+  }
+
+  available(){
+    this.trainers$.subscribe(data => {
+      for (let value of data) {
+        if (value.access == true) {
+          this.notFound = false
+        }
+      }
+    })
+  }
+
+  payNow(trainerId: string, specialized: string) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51NaG9bSJ8tM5mOcsZou1BVfXjEUnWh6cwrT4Hty2Xvko2tAbP0cpSRnDr6CLy3NipiR0UFAEzInJW7sgtz2M22Oj00Dcu63Td3',
       locale: 'auto',
@@ -32,7 +53,7 @@ export class TrainerComponent implements OnInit {
         const userId = <string>localStorage.getItem('userId');
         stripeToken.amount = 499
         stripeToken.specialized = specialized
-        this.userService.payment(stripeToken,trainerId,userId).subscribe()
+        this.userService.payment(stripeToken, trainerId, userId).subscribe()
       },
     });
 

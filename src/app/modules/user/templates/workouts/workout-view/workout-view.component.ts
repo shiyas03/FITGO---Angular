@@ -22,7 +22,6 @@ export class WorkoutViewComponent implements OnInit {
         if(history.state){
           const id = history.state.id
           this.store.dispatch(fetchWorkoutsData())
-          this.store.pipe(select(workoutsSelectorData))
           this.workout$ = this.store.pipe(select(singleWorkoutData(id)))
         }
       })

@@ -33,6 +33,14 @@ export const trainerSelectorData = createSelector(
   (state: Trainer[]) => state
 )
 
+export const singleTrainerData = (id: string) =>
+  createSelector(
+    trainerSelectorData, (state: Trainer[]) => {
+      const trainer = state.find((data)=>data._id == id)
+      return trainer
+    }
+  )
+
 export const workoutsSelectorState = createFeatureSelector<Workout[]>('workouts');
 export const workoutsSelectorData = createSelector(
   workoutsSelectorState,

@@ -86,4 +86,5 @@ export interface Trainer {
     about: string;
     imageUrl: string;
     joinDate: Date;
+    access:boolean
 }
