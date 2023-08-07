@@ -19,7 +19,7 @@ export class TrainerComponent implements OnInit {
   paymentHandler!: any
   notFound: boolean = true
 
-  constructor(private store: Store<Trainer[]>, private userService: UserAuthService, private router:Router) { }
+  constructor(private store: Store<Trainer[]>, private userService: UserAuthService, private router: Router) { }
   ngOnInit(): void {
     // this.invokeStripe();
     this.store.dispatch(fetchTrainersData())
@@ -27,7 +27,7 @@ export class TrainerComponent implements OnInit {
     this.available()
   }
 
-  showTrainer(id: string) {  
+  showTrainer(id: string) {
     const data = { id: id };
     const navigationExtras: NavigationExtras = {
       state: data,
@@ -35,7 +35,7 @@ export class TrainerComponent implements OnInit {
     this.router.navigate(['trainers/view'], navigationExtras);
   }
 
-  available(){
+  available() {
     this.trainers$.subscribe(data => {
       for (let value of data) {
         if (value.access == true) {
@@ -45,43 +45,5 @@ export class TrainerComponent implements OnInit {
     })
   }
 
-  payNow(trainerId: string, specialized: string) {
-    const paymentHandler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_51NaG9bSJ8tM5mOcsZou1BVfXjEUnWh6cwrT4Hty2Xvko2tAbP0cpSRnDr6CLy3NipiR0UFAEzInJW7sgtz2M22Oj00Dcu63Td3',
-      locale: 'auto',
-      token: (stripeToken: PaymentData) => {
-        const userId = <string>localStorage.getItem('userId');
-        stripeToken.amount = 499
-        stripeToken.specialized = specialized
-        this.userService.payment(stripeToken, trainerId, userId).subscribe()
-      },
-    });
 
-    paymentHandler.open({
-      name: 'FitGo',
-      description: '',
-      amount: 499 * 100,
-      currency: 'INR',
-    });
-  }
-
-  invokeStripe() {
-    if (!window.document.getElementById('stripe-script')) {
-      const script = window.document.createElement('script');
-      script.id = 'stripe-script';
-      script.type = 'text/javascript';
-      script.src = 'https://checkout.stripe.com/checkout.js';
-      script.onload = () => {
-        this.paymentHandler = (<any>window).StripeCheckout.configure({
-          key: 'pk_test_51NUXPzSDeABFhKBXLo7ny9iBaxUCetBFRxUoHCCzg0NgEKrh5BJCh8UkZI2ysCEN8paCpIDDW3ehf27lCcheypKs00CpowOYEv',
-          locale: 'auto',
-          token: function (stripeToken: PaymentData) {
-            console.log(stripeToken);
-            alert('Payment has been successfull!');
-          },
-        });
-      };
-      window.document.body.appendChild(script);
-    }
-  }
 }
