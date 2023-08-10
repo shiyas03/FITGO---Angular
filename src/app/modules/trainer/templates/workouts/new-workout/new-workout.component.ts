@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { TrainerAuthService } from '../../../services/trainer-auth.service';
 import { Workout } from '../../../services/trainer.interface';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AngularFireStorage } from '@angular/fire/compat/storage'
 
 @Component({
   selector: 'app-new-workout',
@@ -19,9 +20,12 @@ export class NewWorkoutComponent implements OnInit {
   videoError: boolean = false
   imageError: boolean = false
   video!: File
-  thumbnail!:File
+  thumbnail!: File
 
-  constructor(private fb: FormBuilder, private trainerService:TrainerAuthService, private dialog: MatDialogRef<NewWorkoutComponent>) { }
+  constructor(private fb: FormBuilder,
+    private trainerService: TrainerAuthService,
+    private dialog: MatDialogRef<NewWorkoutComponent>,
+    private storage: AngularFireStorage) { }
 
   ngOnInit(): void {
     this.workoutForm = this.fb.group({
@@ -49,10 +53,15 @@ export class NewWorkoutComponent implements OnInit {
     this.destroyError()
   }
 
-  workoutsUpload() {
-    const details : Workout = this.workoutForm.value
+  async workoutsUpload() {
+    const details: Workout = this.workoutForm.value
     const formData = new FormData();
-    formData.append('files', this.video, this.video.name)
+    let url: string = ''
+    if (this.video) {
+      const path = `workouts/${this.video.name}`
+      const uploadTask = await this.storage.upload(path, this.video)
+      url = <string>await uploadTask.ref.getDownloadURL()
+    }
     formData.append('files', this.thumbnail, this.thumbnail.name)
     formData.append('files', details.title)
     formData.append('files', details.muscle)
@@ -62,23 +71,24 @@ export class NewWorkoutComponent implements OnInit {
     formData.append('files', details.interval)
     formData.append('files', details.duration)
     formData.append('files', details.overview)
-    const id = <string>localStorage.getItem('trainerId')  
-    this.trainerService.uploadWorkouts(id,formData).subscribe(res=>{
+    formData.append('files', url)
+    const id = <string>localStorage.getItem('trainerId')
+    this.trainerService.uploadWorkouts(id, formData).subscribe(res => {
       this.dialog.close()
     })
-    
+
   }
 
   onVideoSelected(event: Event) {
     this.video = <File>(event.target as HTMLInputElement)?.files?.[0];
     if (this.video.name.split('.').includes('mp4')) {
       this.videoError = false
-    }else{
+    } else {
       this.videoError = true
     }
   }
 
-  onImageSelected(event: Event){
+  onImageSelected(event: Event) {
     this.thumbnail = <File>(event.target as HTMLInputElement)?.files?.[0];
   }
 

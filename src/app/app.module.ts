@@ -1,6 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -10,11 +9,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtUserInterceptor } from './interceptors/jwt-user.interceptor';
 import { JwtAdminInterceptor } from './interceptors/jwt-admin.interceptor';
 import { JwtTrainerInterceptor } from './interceptors/jwt-trainer.interceptor';
 
+import { AngularFireModule } from '@angular/fire/compat'
+import { AngularFireStorageModule } from '@angular/fire/compat/storage'
+
 import { AppComponent } from './app.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +29,8 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

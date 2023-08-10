@@ -7,9 +7,8 @@ export interface Register {
 }
 
 export interface RegisterReturn {
-    id?: string,
-    success?: boolean
-    message?: string;
+    success: boolean
+    message: string;
 }
 
 export interface EmailReturn {
@@ -17,15 +16,9 @@ export interface EmailReturn {
     otp: string
 }
 
-export interface DetailsReturn {
-    success: boolean,
-    token: string,
-}
-
 export interface LoginReturn {
     error: string
     token: string,
-    id: string
     message: string
 }
 

@@ -7,6 +7,9 @@ import { Subscription } from 'rxjs';
 import { showError, swal } from '../../../../helpers/swal.popup';
 import { pattern } from '../../../../helpers/regex.pattern';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Store, select } from '@ngrx/store';
+import { saveRegiterData } from '../../store/user.action';
+import { registeSelectorData } from '../../store/user.selector';
 
 @Component({
   selector: 'app-register',
@@ -21,84 +24,79 @@ export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
   nameError: boolean = false;
   phoneError: boolean = false;
+  error: boolean = false
   private subscription1!: Subscription;
-  private subscription2!: Subscription;
 
   constructor(
     private fb: FormBuilder,
     public userService: UserAuthService,
     private router: Router,
-  ) {
-    this.submit = false;
-    this.nameError = false;
+    private store: Store<Register>) { }
+  ngOnInit(): void {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.email, Validators.required]],
-      phone: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(pattern.phone),
-        ],
-      ],
-      password: [
-        '',
-        [Validators.required, Validators.pattern(pattern.password)],
-      ],
+      phone: ['', [Validators.required, Validators.minLength(10), Validators.pattern(pattern.phone)]],
+      password: ['', [Validators.required, Validators.pattern(pattern.password)]],
       cpassword: ['', [Validators.required]],
     });
-  }
-
-  ngOnInit(): void {
-    // localStorage.removeItem('otp');
+    this.store.pipe(select(registeSelectorData)).subscribe(data => {
+      if (data) {
+        this.registerForm.patchValue(data)
+      }
+    })
   }
 
   onSubmit() {
+    this.error = false
     this.submit = true;
-    const { name, email, phone, password, cpassword } = this.registerForm.value;
-    if (isNaN(phone)) {
-      this.phoneError = true;
-    }
-    if (!name.trim()) {
-      this.nameError = true;
-    }
-    if (cpassword === password && this.registerForm.valid) {
+    this.formValid()
+    if (!this.error && this.registerForm.valid) {
+      this.store.dispatch(saveRegiterData({ register: this.registerForm.value }))
       this.registerUser();
-    } else {
-      this.inCorrect = true;
     }
     this.destroyError();
   }
 
   registerUser(): void {
-    const registerData: Register = this.registerForm.value;
-    this.subscription1 = this.userService.registerUser(registerData).subscribe(
-      (res: RegisterReturn) => {
-        if (res.success == false) {
-          swal('error', <string>res.message);
-        } else {
-          if (res.id) {
-            localStorage.setItem('userId', res.id);
-            this.subscription2 = this.userService.sendMail(res.id).subscribe(
-              (res) => {
-                if (res.success) {
-                  localStorage.setItem('otp', res.otp);
-                  this.router.navigate(['/otp']);
-                }
-              },
-              (error: HttpErrorResponse) => {
-                showError(error)
-              },
-            );
+    const email = <string>this.registerForm.value.email;
+    this.userService.registerUser(this.registerForm.value).subscribe(res => {
+      if (res.success) {
+        this.subscription1 = this.userService.sendMail(email).subscribe(
+          (res) => {
+            if (res.success) {
+              localStorage.setItem('otp', res.otp);
+              this.router.navigate(['/otp']);
+            }
+          },
+          (error: HttpErrorResponse) => {
+            showError(error)
           }
-        }
-      },
-      (error: HttpErrorResponse) => {
-        showError(error)
-      },
-    );
+        )
+      } else {
+        swal('error',res.message)
+      }
+    })
+  }
+
+  formValid() {
+    const { name, phone, password, cpassword } = this.registerForm.value;
+    switch (this.submit) {
+      case !name.trim():
+        this.nameError = true;
+        this.error = true
+        break;
+      case !phone.trim():
+        this.phoneError = true;
+        this.error = true
+        break;
+      case password !== cpassword:
+        this.inCorrect = true;
+        this.error = true
+        break;
+      default:
+        break;
+    }
   }
 
   destroyError() {
@@ -112,6 +110,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.subscription1) this.subscription1.unsubscribe();
-    if (this.subscription2) this.subscription2.unsubscribe();
   }
 }

@@ -1,7 +1,8 @@
 import { createAction, props } from "@ngrx/store";
-import { Blog, ProfileDetails, Trainer, User } from "./user";
+import { Blog, ProfileDetails, Register, Trainer, User } from "./user";
 import { Workout } from "../services/user.interface";
 
+export const saveRegiterData = createAction('[Register API] User Register Details', props<{ register: Register }>())
 
 export const fetchUserData = createAction("[User API] Fetch User",
     props<{ id: string }>()
@@ -32,5 +33,5 @@ export const fetchTrainersDataSuccess = createAction('[Trainers API] Fetch Train
 
 export const fetchWorkoutsData = createAction('[Workout API] Fetch Workouts Data')
 export const fetchWorkoutsDataSuccess = createAction('[Workout API] Fetch Workouts Data Success',
-  props<{ workouts: Workout[] }>()
+    props<{ workouts: Workout[] }>()
 )

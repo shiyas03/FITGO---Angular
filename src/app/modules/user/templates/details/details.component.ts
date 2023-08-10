@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserAuthService } from '../../services/user-auth.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { DetailsReturn } from '../../services/user.interface';
 import { pattern } from '../../../../helpers/regex.pattern';
 import { showError } from '../../../../helpers/swal.popup';
 
@@ -38,7 +37,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSubmit() {
     this.submit = true;
@@ -52,12 +51,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
     const calories = this.calorieCalculator();
     details.calorieBurn = Math.floor(calories.caloriesBurn);
     details.calorieNeed = Math.floor(calories.caloriesNeed);
-    details.id = localStorage.getItem('userId');
+    const data = this.userService.getTokenData()
+    details.id = data._id
     this.subscription = this.userService.uploadDetails(details).subscribe(
-      (res: DetailsReturn) => {
-        if (res.success) {
-          localStorage.setItem('userToken', res.token);
+      (res) => {
+        if (res === true) {
           this.router.navigate(['/']);
+          localStorage.setItem('userId', data._id)
         }
       },
       (error) => {

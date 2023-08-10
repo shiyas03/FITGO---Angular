@@ -21,6 +21,9 @@ export class ShowWorkoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.workout$ = this.store.pipe(select(workoutFilterData(this.data.id)))
+    this.workout$.subscribe(data=>{
+      console.log(data)
+    })
   }
 
   close() {

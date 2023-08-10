@@ -1,8 +1,18 @@
 import { createReducer, on } from "@ngrx/store";
-import { Blog, UserInitail, profileInital, Trainer } from "./user";
-import { fetchUserFailure, fetchUserDataSuccess, fetchProfileSuccess, fetchBlogDataSuccess, fetchTrainersDataSuccess, fetchWorkoutsDataSuccess } from "./user.action";
+import { Blog, UserInitail, profileInital, Trainer, RegisterInitial } from "./user";
+import { fetchUserFailure, fetchUserDataSuccess, fetchProfileSuccess, fetchBlogDataSuccess, fetchTrainersDataSuccess, fetchWorkoutsDataSuccess, saveRegiterData } from "./user.action";
 import { Workout } from "../services/user.interface";
 
+
+export const InitialRegisterState: RegisterInitial = {
+    register: null
+}
+export const registerReducer = createReducer(
+    InitialRegisterState,
+    on(saveRegiterData, (_state, { register }) => {
+        return { register }
+    })
+)
 
 export const InitialUserState: UserInitail = {
     user: null,
@@ -39,11 +49,11 @@ export const trainerReducer = createReducer(
     InitialTrainerState,
     on(fetchTrainersDataSuccess, (_state, { trainers }) => {
         return trainers
-    } )
+    })
 )
 
 export const InitialWorkoutsState: Workout[] = []
 export const workoutReducer = createReducer(
-  InitialWorkoutsState,
-  on(fetchWorkoutsDataSuccess, (_state, { workouts }) => workouts)
+    InitialWorkoutsState,
+    on(fetchWorkoutsDataSuccess, (_state, { workouts }) => workouts)
 )

@@ -6,14 +6,14 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { User } from '../../store/user';
+import { Register, User } from '../../store/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserAuthService } from '../../services/user-auth.service';
 import { fetchUserData } from '../../store/user.action';
-import { userSelectorData } from '../../store/user.selector';
-import { showError, swal } from '../../../../helpers/swal.popup';
+import { registeSelectorData, userSelectorData } from '../../store/user.selector';
+import { showError, swal, swalError } from '../../../../helpers/swal.popup';
 
 @Component({
   selector: 'app-otp',
@@ -21,13 +21,18 @@ import { showError, swal } from '../../../../helpers/swal.popup';
   styleUrls: ['./otp.component.css'],
 })
 export class OtpComponent implements OnInit, OnDestroy {
-  userEmail!: string;
+  userData!: Register;
   otpForm!: FormGroup;
-  user$!: Observable<User | null>;
+  email!: string;
   submit: boolean = false;
   userId!: string | null;
-  email!: string | null;
   private subscription!: Subscription;
+
+  sent: boolean = false;
+  reset: boolean = false;
+  seconds: number = 59;
+  minutes: number = 0;
+  intervalId!: ReturnType<typeof setInterval>;
 
   @ViewChild('input1') input1!: ElementRef;
   @ViewChild('input2') input2!: ElementRef;
@@ -37,7 +42,7 @@ export class OtpComponent implements OnInit, OnDestroy {
   @ViewChild('input6') input6!: ElementRef;
 
   constructor(
-    private store: Store<User>,
+    private store: Store<Register>,
     private fb: FormBuilder,
     private router: Router,
     private userServices: UserAuthService,
@@ -54,11 +59,28 @@ export class OtpComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const id = localStorage.getItem('userId');
-    if (id) {
-      this.store.dispatch(fetchUserData({ id }));
-      this.user$ = this.store.pipe(select(userSelectorData));
-    }
+    this.startTimer();
+    this.store.pipe(select(registeSelectorData)).subscribe(data => {
+      if (data) {
+        this.userData = data
+      } else {
+        this.router.navigate(['/register'])
+      }
+    })
+  }
+
+  startTimer() {
+    this.intervalId = setInterval(() => {
+      if (this.seconds == 1) {
+        this.reset = true
+        this.stopTimer()
+      }
+      this.seconds--;
+    }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.intervalId);
   }
 
   onSubmit() {
@@ -76,15 +98,25 @@ export class OtpComponent implements OnInit, OnDestroy {
     }
   }
 
+  resend() {
+    localStorage.removeItem('otp')
+    this.userServices.sendMail(this.userData.email).subscribe(res => {
+      if (res.otp) {
+        localStorage.setItem('otp', res.otp)
+        this.sent = true
+        swal('success','Mail sent')
+      }
+    })
+  }
+
   verifyOtp(otp: string) {
     const generatedOtp = <string>localStorage.getItem('otp');
-    const id = <string>localStorage.getItem('userId');
     if (generatedOtp == otp) {
-      const details = { id: id, access: true };
-      this.subscription = this.userServices.verifyOTP(details).subscribe(
+      this.subscription = this.userServices.verify(this.userData).subscribe(
         (res) => {
-          if (res.success) {
+          if (res.success == true) {
             this.router.navigate(['/details']);
+            localStorage.setItem('userToken', res.token);
             localStorage.removeItem('otp');
           }
         },
@@ -146,5 +178,6 @@ export class OtpComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+    this.stopTimer();
   }
 }

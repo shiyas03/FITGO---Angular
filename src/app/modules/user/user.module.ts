@@ -8,9 +8,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { userEffects } from './store/user.effects';
-import { blogsReducer, profileReducer, trainerReducer, userReducer, workoutReducer } from './store/user.reducer'
+import { blogsReducer, profileReducer, registerReducer, trainerReducer, userReducer, workoutReducer } from './store/user.reducer'
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
 
 import { NavBarComponent } from './templates/nav-bar/nav-bar.component';
 import { LoginComponent } from './templates/login/login.component';
@@ -61,6 +65,11 @@ import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-
     FormsModule,
     MatDialogModule,
     MatMenuModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatStepperModule,
+    MatButtonModule,
+    StoreModule.forFeature('register', registerReducer),
     StoreModule.forFeature('user', userReducer),
     StoreModule.forFeature('profile', profileReducer),
     StoreModule.forFeature('blogs', blogsReducer),

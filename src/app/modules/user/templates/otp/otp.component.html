@@ -9,7 +9,7 @@
             <div class="title">OTP</div>
             <div class="title">Verification Code</div>
             <div>
-                <p class="message">We have sent a verification code to your <br> Email address : <b class="text-red-500" *ngIf="(user$|async) as user">{{user.email}}</b></p>
+                <p class="message">We have sent a verification code to your <br> Email address : <b class="text-red-500" *ngIf="userData">{{userData.email}}</b></p>
             </div>
             <div class="inputs mt-10 mb-3 flex justify-center">
                 <input id="input1" type="text" maxlength="1" class="w-1/12 mx-1 border-b border-gray-300"
@@ -31,7 +31,9 @@
                     [class.border-red-500]="otpForm.controls['input6'].invalid && submit" formControlName="input6"
                     (input)="onInput($event, 'input6')" #input6>
             </div>
-            <button class="w-full bg-red-600 rounded-md text-white py-2 mt-5">verify</button>
+            <p class="text-xs text-gray-500 font-medium" *ngIf="!reset"><span class="text-gray-600">Resend otp in </span> {{ minutes }} : {{ seconds }}</p>
+            <a class="cursor-pointer underline text-red-500 text-sm"  *ngIf="reset && ! sent" (click)="resend()">Resend OTP</a>
+            <button class="w-2/3 bg-red-600 rounded-md text-white py-2 mt-3">verify</button>
         </form>
     </div>
 </div>

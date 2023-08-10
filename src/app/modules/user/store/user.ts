@@ -5,6 +5,10 @@ export interface Register {
     password: string;
 }
 
+export interface RegisterInitial {
+    register: Register | null
+}
+
 export interface User {
     _id: string;
     name: string;
@@ -86,5 +90,5 @@ export interface Trainer {
     about: string;
     imageUrl: string;
     joinDate: Date;
-    access:boolean
+    access: boolean
 }

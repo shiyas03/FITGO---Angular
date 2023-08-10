@@ -1,6 +1,12 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { Blog, Trainer, UserInitail, profileInital } from './user';
+import { Blog, RegisterInitial, Trainer, UserInitail, profileInital } from './user';
 import { Workout } from '../services/user.interface';
+
+export const registerSelectorState = createFeatureSelector<RegisterInitial>('register')
+export const registeSelectorData = createSelector(
+  registerSelectorState,
+  (state: RegisterInitial) => state.register
+)
 
 export const userSelectorState = createFeatureSelector<UserInitail>('user');
 export const userSelectorData = createSelector(
@@ -36,7 +42,7 @@ export const trainerSelectorData = createSelector(
 export const singleTrainerData = (id: string) =>
   createSelector(
     trainerSelectorData, (state: Trainer[]) => {
-      const trainer = state.find((data)=>data._id == id)
+      const trainer = state.find((data) => data._id == id)
       return trainer
     }
   )

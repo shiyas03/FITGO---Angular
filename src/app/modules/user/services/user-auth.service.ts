@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Blog, Details, Login, Trainer, User } from '../store/user';
 import { environment } from '../../../../environments/environment'
-import { EmailReturn, Register, RegisterReturn, DetailsReturn, LoginReturn, ProfileDetails, UpdateDetails, Workout, PaymentData } from './user.interface';
+import { EmailReturn, Register, RegisterReturn, LoginReturn, ProfileDetails, UpdateDetails, Workout, PaymentData } from './user.interface';
 import { activity } from './user.enum';
+import { decodeToken } from 'src/app/helpers/token.decode';
 
 @Injectable({
   providedIn: 'root'
@@ -14,28 +15,33 @@ export class UserAuthService {
   private apiUrl: string = environment.apiURL
   constructor(private http: HttpClient) { }
 
-  registerUser(userData: Register): Observable<RegisterReturn> {
-    return this.http.post(`${this.apiUrl}/register`, userData);
+  getTokenData() {
+    const token = <string>localStorage.getItem('userToken')
+    return decodeToken(token)
   }
 
-  sendMail(id: string): Observable<EmailReturn> {
-    return this.http.post<EmailReturn>(`${this.apiUrl}/mail/`, { id });
+  registerUser(userData: Register): Observable<RegisterReturn> {
+    return this.http.post<RegisterReturn>(`${this.apiUrl}/register`, userData);
+  }
+
+  sendMail(email: string): Observable<EmailReturn> {
+    return this.http.post<EmailReturn>(`${this.apiUrl}/mail/`, { email });
   }
 
   fetchUser(id: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/user?id=${id}`)
   }
 
-  verifyOTP(details: { id: string, access: boolean }): Observable<{ success: boolean }> {
-    return this.http.post<{ success: boolean }>(`${this.apiUrl}/verify-otp`, details)
+  verify(userData: Register): Observable<{ success: boolean, token: string }> {
+    return this.http.post<{ success: boolean, token: string }>(`${this.apiUrl}/verify`, userData)
   }
 
-  uploadDetails(details: Details): Observable<DetailsReturn> {
-    return this.http.post<DetailsReturn>(`${this.apiUrl}/user-details`, details)
+  uploadDetails(details: Details): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/user-details`, details)
   }
 
   verifyLogin(details: Login): Observable<LoginReturn> {
-    return this.http.post<LoginReturn>(`${this.apiUrl}/`+activity.Login, details)
+    return this.http.post<LoginReturn>(`${this.apiUrl}/` + activity.Login, details)
   }
 
   fetchProfileDetails(id: string): Observable<ProfileDetails> {
