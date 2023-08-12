@@ -7,6 +7,8 @@ import { fetchTrainerData } from '../../store/trainer.action';
 import { profileSelectorData } from '../../store/trainer.selector';
 import Swal from 'sweetalert2';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { swal, swalConfirm, swalError } from 'src/app/common/swal.popup';
 
 
 @Component({
@@ -17,26 +19,31 @@ import { TrainerAuthService } from '../../services/trainer-auth.service';
 export class ProfileComponent implements OnInit, OnDestroy {
 
   trainer$!: Observable<Profile | null>;
-  private subscription!: Subscription;
+  private subscription1!: Subscription;
+  private subscription2!: Subscription;
+  private subscription3!: Subscription;
   @ViewChild('fileInput', { static: false }) fileInputRef: ElementRef | undefined;
+  form!: FormGroup
+  submit: boolean = false;
 
-  constructor(private store: Store<Profile>, private trainerService : TrainerAuthService) { }
+  constructor(private _store: Store<Profile>, private _trainerService: TrainerAuthService, private _fb: FormBuilder) { }
 
   ngOnInit(): void {
-    const token = <string>localStorage.getItem('trainerToken');
-    const { id, name, email } = decodeToken(token);
-    this.fetchUser(id)
+    this.form = this._fb.group({
+      service: ['', [Validators.required]]
+    })
+    this.fetchUser()
   }
 
-  onFileSelected(event: Event){
+  onFileSelected(event: Event) {
     const file = <File>(event.target as HTMLInputElement)?.files?.[0];
     if (file && this.isValidFileType(file)) {
       const formData = new FormData();
       formData.append('image', file, file.name);
       const id = <string>localStorage.getItem('trainerId')
-      this.subscription = this.trainerService.uploadProfileImage(formData,id).subscribe(res=>{
-        if(res.success){
-          this.fetchUser(id)
+      this.subscription1 = this._trainerService.uploadProfileImage(formData, id).subscribe(res => {
+        if (res.success) {
+          this.fetchUser()
         }
       })
     } else {
@@ -44,15 +51,55 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  openFileInput(){
+  openFileInput() {
     if (this.fileInputRef) {
       this.fileInputRef.nativeElement.click();
     }
   }
 
-  fetchUser(id:string){
-    this.store.dispatch(fetchTrainerData({ id }));
-    this.trainer$ = this.store.pipe(select(profileSelectorData));
+  fetchUser() {
+    const id = this._trainerService.trainerId()
+    this._store.dispatch(fetchTrainerData({ id }));
+    this.trainer$ = this._store.pipe(select(profileSelectorData));
+  }
+
+  services() {
+    this.submit = true;
+    if (this.form.valid) {
+      const data = this.form.value.service
+      const id = this._trainerService.trainerId()
+      this.subscription2 = this._trainerService.updateService(data, id).subscribe(
+        (res) => {
+          if (res == true) {
+            swal('success', 'service added successfully')
+            this.form.get('service')?.setValue('')
+            this.fetchUser()
+          }
+        }, (error) => {
+          swalError(error)
+        })
+    }
+    setTimeout(() => {
+      this.submit = false
+    }, 2000)
+  }
+
+  remove(data: string) {
+    swalConfirm("You won't be able to revert this!").then((res) => {
+      if (res.isConfirmed) {
+        const id = this._trainerService.trainerId()
+        this.subscription3 = this._trainerService.removeService(data, id).subscribe(
+          (res) => {
+            if (res == true) {
+              swal('success', 'Service removed')
+              this.fetchUser()
+            }
+          },(error)=>{
+            swalError(error)
+          }
+        )
+      }
+    })
   }
 
   isValidFileType(file: File): boolean {
@@ -60,8 +107,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return allowedTypes.includes(file.type);
   }
 
+
   ngOnDestroy(): void {
-      if(this.subscription) this.subscription.unsubscribe()
+    if (this.subscription1) this.subscription1.unsubscribe()
+    if (this.subscription2) this.subscription2.unsubscribe()
+    if (this.subscription3) this.subscription3.unsubscribe()
   }
 
 }

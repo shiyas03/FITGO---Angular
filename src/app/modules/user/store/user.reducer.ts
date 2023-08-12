@@ -6,8 +6,9 @@ import { fetchUserFailure,
     fetchBlogDataSuccess, 
     fetchTrainersDataSuccess, 
     fetchWorkoutsDataSuccess, 
-    saveRegiterData } from "./user.action";
-import { Payment, Workout } from "../services/user.interface";
+    saveRegiterData, 
+    fetchPaymentSuccess } from "./user.action";
+import { PaymentDetails, Workout } from "../services/user.interface";
 
 
 export const InitialRegisterState: RegisterInitial = { register: null }
@@ -58,3 +59,8 @@ export const workoutReducer = createReducer(
     on(fetchWorkoutsDataSuccess, (_state, { workouts }) => workouts)
 )
 
+export const InitialPaymentsState: PaymentDetails[] = []
+export const paymentReducer = createReducer(
+    InitialPaymentsState,
+    on(fetchPaymentSuccess,(_state, { payments })=> payments)
+)

@@ -14,9 +14,11 @@ import {
     fetchTrainersDataSuccess,
     fetchWorkoutsData,
     fetchWorkoutsDataSuccess,
+    fetchPaymentData,
+    fetchPaymentSuccess
 } from "./user.action";
 import { Blog, Trainer } from "./user";
-import { Payment, Workout } from "../services/user.interface";
+import { PaymentDetails, Workout } from "../services/user.interface";
 
 
 @Injectable()
@@ -76,5 +78,14 @@ export class userEffects {
                     map((data: Workout[]) => fetchWorkoutsDataSuccess({ workouts: data }))))
         ))
 
-  
+    loadAllPayments$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(fetchPaymentData),
+            switchMap((action) =>
+                this.userService.fetchPayments(action.userId).pipe(
+                    map((data: PaymentDetails[]) => fetchPaymentSuccess(({ payments: data })))
+                )
+            )
+        )
+    )
 }

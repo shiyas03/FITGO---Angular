@@ -16,6 +16,7 @@ export interface Profile {
   specialized:string;
   joinDate: Date;
   imageUrl:string;
+  services:string[]
 }
 
 export interface InitailProfile {

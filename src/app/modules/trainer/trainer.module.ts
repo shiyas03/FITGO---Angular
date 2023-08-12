@@ -31,6 +31,7 @@ import { NewWorkoutComponent } from './templates/workouts/new-workout/new-workou
 import { ShowWorkoutComponent } from './templates/workouts/show-workout/show-workout.component';
 import { EditBlogComponent } from './templates/blogs/edit-blog/edit-blog.component';
 import { EditWorkoutComponent } from './templates/workouts/edit-workout/edit-workout.component';
+import { UpdateProfileComponent } from './templates/profile/update-profile/update-profile.component';
 
 
 
@@ -52,6 +53,7 @@ import { EditWorkoutComponent } from './templates/workouts/edit-workout/edit-wor
     ShowWorkoutComponent,
     EditBlogComponent,
     EditWorkoutComponent,
+    UpdateProfileComponent,
   ],
   imports: [
     CommonModule,

@@ -21,7 +21,6 @@ export class TrainerComponent implements OnInit {
 
   constructor(private store: Store<Trainer[]>, private userService: UserAuthService, private router: Router) { }
   ngOnInit(): void {
-    // this.invokeStripe();
     this.store.dispatch(fetchTrainersData())
     this.trainers$ = this.store.pipe(select(trainerSelectorData))
     this.available()

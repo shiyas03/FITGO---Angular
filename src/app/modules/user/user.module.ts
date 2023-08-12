@@ -8,7 +8,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { userEffects } from './store/user.effects';
-import { blogsReducer, profileReducer, registerReducer, trainerReducer, userReducer, workoutReducer } from './store/user.reducer'
+import { blogsReducer, 
+  paymentReducer, 
+  profileReducer, 
+  registerReducer, 
+  trainerReducer, 
+  userReducer, 
+  workoutReducer } from './store/user.reducer'
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import {MatInputModule} from '@angular/material/input';
@@ -77,6 +83,7 @@ import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-
     StoreModule.forFeature('blogs', blogsReducer),
     StoreModule.forFeature('trainers', trainerReducer),
     StoreModule.forFeature('workouts', workoutReducer),
+    StoreModule.forFeature('payments', paymentReducer),
     EffectsModule.forFeature([userEffects])
   ]
 })

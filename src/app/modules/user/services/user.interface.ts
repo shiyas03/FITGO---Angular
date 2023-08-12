@@ -1,3 +1,4 @@
+import { Trainer, User } from "../store/user";
 
 export interface Register {
     name: string;
@@ -65,8 +66,8 @@ export interface PaymentData {
     livemode: boolean;
     type: string;
     used: boolean;
-    amount:number;
-    specialized:string;
+    amount: number;
+    specialized: string;
     card: {
         exp_month: number;
         exp_year: number;
@@ -78,32 +79,41 @@ export interface PaymentData {
     }
 }
 
-export interface Payment{
+export interface Payment {
     amount: number;
-    paidDate?:Date
-    expiryDate?:Date
-    userId:string;
+    userId: string;
     trainerId: string;
-    packageId:string;
+    packageId: string;
 }
 
-export interface Workout{
-    _id:string
-    title:string;
-    muscle:string;
-    level:string;
-    reps:string;
-    sets:string
-    interval:string
-    duration:string
-    overview:string;
-    thumbnail:string
-    video:string
-    trainerId:{
-      name:string;
-      imageUrl:string;
-      experience:string;
-      specialized:string;
+export interface Workout {
+    _id: string
+    title: string;
+    muscle: string;
+    level: string;
+    reps: string;
+    sets: string
+    interval: string
+    duration: string
+    overview: string;
+    thumbnail: string
+    video: string
+    trainerId: {
+        name: string;
+        imageUrl: string;
+        experience: string;
+        specialized: string;
     }
-    publish:boolean;
-  }
+    publish: boolean;
+}
+
+export interface PaymentDetails {
+    amount: number;
+    paidDate: Date;
+    expiryDate: Date;
+    paymentId: string;
+    packageId: string;
+    sessionId: string;
+    userId: User;
+    trainerId: Trainer;
+}

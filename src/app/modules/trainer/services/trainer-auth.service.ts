@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Blog, DeailsReturn, Register, Registeration, Trainer, Verify, Workout } from './trainer.interface';
 import { environment } from '../../../../environments/environment'
 import { Profile } from '../store/trainer.interface';
+import { decodeToken } from 'src/app/common/token.decode';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,12 @@ export class TrainerAuthService {
   apiUrl: string = environment.apiURL
 
   constructor(private http: HttpClient) { }
+
+  trainerId(){
+    const token = <string>localStorage.getItem('trainerToken');
+    const { id } = decodeToken(token);
+    return id
+  }
 
   trainerLogin(trainerData: Trainer): Observable<Verify> {
     return this.http.post<Verify>(`${this.apiUrl}/trainer/login`, trainerData)
@@ -38,7 +45,7 @@ export class TrainerAuthService {
     return this.http.get<Blog[]>(`${this.apiUrl}/blogs/fetch`)
   }
 
-  updateBlog(data: FormData, id: string):Observable<boolean>{
+  updateBlog(data: FormData, id: string): Observable<boolean> {
     return this.http.put<boolean>(`${this.apiUrl}/blogs/update?id=${id}`, data)
   }
 
@@ -58,8 +65,16 @@ export class TrainerAuthService {
     return this.http.put<boolean>(`${this.apiUrl}/workouts/update?id=${id}`, files)
   }
 
-  fetchWorkouts():Observable<Workout[]>{
+  fetchWorkouts(): Observable<Workout[]> {
     return this.http.get<Workout[]>(`${this.apiUrl}/workouts/fetch`)
+  }
+
+  updateService(data: string, id: string): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/trainer/service?id=${id}`, { data })
+  }
+
+  removeService(data: string, id: string): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/trainer/service_remove?id=${id}`, { data })
   }
 }
 

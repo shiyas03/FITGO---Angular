@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { Blog, ProfileDetails, Register, Trainer, User } from "./user";
-import { Payment, Workout } from "../services/user.interface";
+import {  PaymentDetails, Workout } from "../services/user.interface";
 
 export const saveRegiterData = createAction('[Register API] User Register Details', props<{ register: Register }>())
 
@@ -42,3 +42,11 @@ export const fetchWorkoutsDataSuccess = createAction('[Workout API] Fetch Workou
     props<{ workouts: Workout[] }>()
 )
 
+
+//For fetching payment details of user
+export const fetchPaymentData = createAction('[Payment API] Fetch Payment Data',
+    props<{ userId: string }>()
+)
+export const fetchPaymentSuccess = createAction('[Payment API] Fetch Payment Success',
+    props<{ payments: PaymentDetails[] }>()
+)

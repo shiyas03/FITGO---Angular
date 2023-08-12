@@ -1,14 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Trainer } from '../../../store/user';
 import { Store, select } from '@ngrx/store';
-import { fetchTrainersData } from '../../../store/user.action';
-import { singleTrainerData } from '../../../store/user.selector';
+import { fetchPaymentData, fetchTrainersData } from '../../../store/user.action';
+import { paymentSelectorData, singleTrainerData } from '../../../store/user.selector';
 import { Observable, Subscription } from 'rxjs';
 import { UserAuthService } from '../../../services/user-auth.service';
-import { Payment, PaymentData } from '../../../services/user.interface';
 import { environment } from 'src/environments/environment';
 import { swal, swalError } from 'src/app/common/swal.popup';
+import { PaymentDetails } from '../../../services/user.interface';
 
 @Component({
   selector: 'app-trainer-view',
@@ -28,6 +28,7 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   one_year_id: string = environment.stripKey.ONE_YEAR_PRICE_ID
 
   trainer$!: Observable<Trainer | undefined>
+  expired:boolean = false
   subscription1!: Subscription
   subscription2!: Subscription
 
@@ -35,22 +36,28 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   paymentHandler!: string;
 
   constructor(private _route: ActivatedRoute,
-    private _store: Store<Trainer>,
-    private _userService: UserAuthService,) { }
+    private _store: Store<Trainer>, private __store: Store<PaymentDetails[]>,
+    private _userService: UserAuthService, private _router: Router) { }
 
   ngOnInit(): void {
     this.paymentStatus()
+    this.paymentgDetails()
+    this.startAutoSlide()
     this._route.paramMap.subscribe(() => {
       if (history.state) {
         let id = history.state.id
         if (!id) {
           id = this._route.snapshot.queryParams['trainer_id']
+          const data = { id: id };
+          const navigationExtras: NavigationExtras = {
+            state: data,
+          };
+          this._router.navigate(['trainers/view'], navigationExtras);
         }
         this._store.dispatch(fetchTrainersData())
         this.trainer$ = this._store.pipe(select(singleTrainerData(id)))
       }
     })
-    this.startAutoSlide();
   }
 
   payNow(trainerId: string, packageId: string) {
@@ -84,6 +91,18 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     }
   }
 
+  paymentgDetails() {
+    const userId = <string>localStorage.getItem('userId')
+    this.__store.dispatch(fetchPaymentData({ userId: userId }))
+    this.__store.pipe(select(paymentSelectorData)).subscribe((data) => {
+      const date : Date = new Date()
+      const expiry = new Date(data[0].expiryDate)
+      if(date > expiry){
+        this.expired = true     
+      }
+    })
+  }
+
   startAutoSlide(): void {
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.images.length;
@@ -98,8 +117,8 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      if(this.subscription1) this.subscription1.unsubscribe()
-      if(this.subscription2) this.subscription2.unsubscribe()
+    if (this.subscription1) this.subscription1.unsubscribe()
+    if (this.subscription2) this.subscription2.unsubscribe()
   }
 
 }
