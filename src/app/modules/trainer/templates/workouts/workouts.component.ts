@@ -10,7 +10,7 @@ import { ShowWorkoutComponent } from './show-workout/show-workout.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { EditWorkoutComponent } from './edit-workout/edit-workout.component';
-import { swalError } from 'src/app/helpers/swal.popup';
+import { swalError } from 'src/app/common/swal.popup';
 
 @Component({
   selector: 'app-workouts',

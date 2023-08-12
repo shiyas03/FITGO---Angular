@@ -1,12 +1,16 @@
 import { createReducer, on } from "@ngrx/store";
 import { Blog, UserInitail, profileInital, Trainer, RegisterInitial } from "./user";
-import { fetchUserFailure, fetchUserDataSuccess, fetchProfileSuccess, fetchBlogDataSuccess, fetchTrainersDataSuccess, fetchWorkoutsDataSuccess, saveRegiterData } from "./user.action";
-import { Workout } from "../services/user.interface";
+import { fetchUserFailure, 
+    fetchUserDataSuccess, 
+    fetchProfileSuccess, 
+    fetchBlogDataSuccess, 
+    fetchTrainersDataSuccess, 
+    fetchWorkoutsDataSuccess, 
+    saveRegiterData } from "./user.action";
+import { Payment, Workout } from "../services/user.interface";
 
 
-export const InitialRegisterState: RegisterInitial = {
-    register: null
-}
+export const InitialRegisterState: RegisterInitial = { register: null }
 export const registerReducer = createReducer(
     InitialRegisterState,
     on(saveRegiterData, (_state, { register }) => {
@@ -14,9 +18,7 @@ export const registerReducer = createReducer(
     })
 )
 
-export const InitialUserState: UserInitail = {
-    user: null,
-}
+export const InitialUserState: UserInitail = { user: null }
 export const userReducer = createReducer(
     InitialUserState,
     on(fetchUserDataSuccess, (_state, { user }) => {
@@ -25,9 +27,7 @@ export const userReducer = createReducer(
     on(fetchUserFailure, (_state, { error }) => _state)
 )
 
-export const InitialProfileState: profileInital = {
-    details: null
-}
+export const InitialProfileState: profileInital = { details: null }
 export const profileReducer = createReducer(
     InitialProfileState,
     on(fetchProfileSuccess, (_state, { details }) => {
@@ -57,3 +57,4 @@ export const workoutReducer = createReducer(
     InitialWorkoutsState,
     on(fetchWorkoutsDataSuccess, (_state, { workouts }) => workouts)
 )
+

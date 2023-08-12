@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserAuthService } from '../../services/user-auth.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { pattern } from '../../../../helpers/regex.pattern';
-import { showError } from '../../../../helpers/swal.popup';
+import { pattern } from '../../../../common/regex.pattern';
+import { showError } from '../../../../common/swal.popup';
 
 @Component({
   selector: 'app-details',

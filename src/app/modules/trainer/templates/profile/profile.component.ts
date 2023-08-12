@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { decodeToken } from 'src/app/helpers/token.decode';
+import { decodeToken } from 'src/app/common/token.decode';
 import { Profile } from '../../store/trainer.interface';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';

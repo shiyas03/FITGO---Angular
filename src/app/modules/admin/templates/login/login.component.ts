@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminAuthService } from '../../services/admin-auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { pattern } from 'src/app/helpers/regex.pattern';
-import { showError, swal } from 'src/app/helpers/swal.popup';
+import { pattern } from 'src/app/common/regex.pattern';
+import { showError, swal } from 'src/app/common/swal.popup';
 
 @Component({
   selector: 'app-login',

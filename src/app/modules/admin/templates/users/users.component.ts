@@ -5,7 +5,7 @@ import { fetchUsersAction } from '../../store/admin.action';
 import { usersSelectorData } from '../../store/admin.selector';
 import { Observable, Subscription } from 'rxjs';
 import { AdminAuthService } from '../../services/admin-auth.service';
-import { swalConfirm, swalError } from 'src/app/helpers/swal.popup';
+import { swalConfirm, swalError } from 'src/app/common/swal.popup';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 

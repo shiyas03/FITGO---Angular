@@ -7,7 +7,7 @@ import { ViewBlogComponent } from './view-blog/view-blog.component';
 import { fetchBlogData } from '../../store/admin.action';
 import { blogSelectorData } from '../../store/admin.selector';
 import { AdminAuthService } from '../../services/admin-auth.service';
-import { showError, swal, swalConfirm } from 'src/app/helpers/swal.popup';
+import { showError, swal, swalConfirm } from 'src/app/common/swal.popup';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 

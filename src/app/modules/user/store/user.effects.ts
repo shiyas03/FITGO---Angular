@@ -13,10 +13,10 @@ import {
     fetchTrainersData,
     fetchTrainersDataSuccess,
     fetchWorkoutsData,
-    fetchWorkoutsDataSuccess
+    fetchWorkoutsDataSuccess,
 } from "./user.action";
 import { Blog, Trainer } from "./user";
-import { Workout } from "../services/user.interface";
+import { Payment, Workout } from "../services/user.interface";
 
 
 @Injectable()
@@ -75,4 +75,6 @@ export class userEffects {
                 this.userService.fetchWorkouts().pipe(
                     map((data: Workout[]) => fetchWorkoutsDataSuccess({ workouts: data }))))
         ))
+
+  
 }

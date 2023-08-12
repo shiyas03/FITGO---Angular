@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { Login } from '../../store/user';
 import { Subscription } from 'rxjs';
 import { LoginReturn } from '../../services/user.interface';
-import { pattern } from '../../../../helpers/regex.pattern';
-import { showError, swal } from '../../../../helpers/swal.popup';
+import { pattern } from '../../../../common/regex.pattern';
+import { showError, swal } from '../../../../common/swal.popup';
 
 @Component({
   selector: 'app-login',

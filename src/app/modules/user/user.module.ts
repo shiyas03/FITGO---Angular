@@ -15,6 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { NavBarComponent } from './templates/nav-bar/nav-bar.component';
 import { LoginComponent } from './templates/login/login.component';
@@ -69,6 +70,7 @@ import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-
     MatFormFieldModule,
     MatStepperModule,
     MatButtonModule,
+    MatIconModule,
     StoreModule.forFeature('register', registerReducer),
     StoreModule.forFeature('user', userReducer),
     StoreModule.forFeature('profile', profileReducer),

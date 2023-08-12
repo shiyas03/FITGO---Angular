@@ -5,7 +5,7 @@ import { fetchTrainersData } from '../../store/admin.action';
 import { trainersSelectorData } from '../../store/admin.selector';
 import { Subscription } from 'rxjs';
 import { AdminAuthService } from '../../services/admin-auth.service';
-import { swal, swalConfirm, swalError } from 'src/app/helpers/swal.popup';
+import { swal, swalConfirm, swalError } from 'src/app/common/swal.popup';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 

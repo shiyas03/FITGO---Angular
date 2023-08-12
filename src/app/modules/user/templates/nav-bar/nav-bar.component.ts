@@ -5,7 +5,7 @@ import { fetchUserData } from '../../store/user.action';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../store/user';
 import { userSelectorData } from '../../store/user.selector';
-import { decodeToken } from '../.../../../../../helpers/token.decode';
+import { decodeToken } from '../../../../common/token.decode';
 
 @Component({
   selector: 'app-nav-bar',

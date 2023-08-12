@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { AdminAuthService } from '../../services/admin-auth.service';
 import { ShowWorkoutComponent } from './show-workout/show-workout.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { swal, swalConfirm } from 'src/app/helpers/swal.popup';
+import { swal, swalConfirm } from 'src/app/common/swal.popup';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 

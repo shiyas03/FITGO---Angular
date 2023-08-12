@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { UserAuthService } from '../../services/user-auth.service';
 import { fetchUserData } from '../../store/user.action';
 import { registeSelectorData, userSelectorData } from '../../store/user.selector';
-import { showError, swal, swalError } from '../../../../helpers/swal.popup';
+import { showError, swal, swalError } from '../../../../common/swal.popup';
 
 @Component({
   selector: 'app-otp',

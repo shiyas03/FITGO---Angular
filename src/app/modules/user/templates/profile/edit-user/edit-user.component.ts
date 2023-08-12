@@ -8,7 +8,7 @@ import { ProfileDetails } from '../../../store/user';
 import { UserAuthService } from '../../../services/user-auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SuccessComponent } from 'src/app/modules/trainer/templates/details/success/success.component';
-import { pattern } from 'src/app/helpers/regex.pattern';
+import { pattern } from 'src/app/common/regex.pattern';
 
 @Component({
   selector: 'app-edit-user',

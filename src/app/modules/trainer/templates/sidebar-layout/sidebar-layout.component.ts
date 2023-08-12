@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { decodeToken } from 'src/app/helpers/token.decode';
+import { decodeToken } from 'src/app/common/token.decode';
 import { Token } from '../../services/trainer.interface';
 
 @Component({

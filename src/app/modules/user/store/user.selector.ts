@@ -1,6 +1,6 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { Blog, RegisterInitial, Trainer, UserInitail, profileInital } from './user';
-import { Workout } from '../services/user.interface';
+import { Payment, Workout } from '../services/user.interface';
 
 export const registerSelectorState = createFeatureSelector<RegisterInitial>('register')
 export const registeSelectorData = createSelector(
@@ -58,3 +58,4 @@ export const singleWorkoutData = (id: string) =>
     const workout = state.find((data) => data._id == id)
     return workout
   })
+

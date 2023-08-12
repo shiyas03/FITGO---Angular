@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Blog, Details, Login, Trainer, User } from '../store/user';
 import { environment } from '../../../../environments/environment'
-import { EmailReturn, Register, RegisterReturn, LoginReturn, ProfileDetails, UpdateDetails, Workout, PaymentData } from './user.interface';
+import { EmailReturn, Register, RegisterReturn, LoginReturn, ProfileDetails, UpdateDetails, Workout, PaymentData, Payment } from './user.interface';
 import { activity } from './user.enum';
-import { decodeToken } from 'src/app/helpers/token.decode';
+import { decodeToken } from 'src/app/common/token.decode';
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +72,12 @@ export class UserAuthService {
     return this.http.get<Workout[]>(`${this.apiUrl}/workouts/fetch`)
   }
 
-  payment(stripeToken: PaymentData, trainerId: string, userId: string): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiUrl}/payment`, { stripeToken, trainerId, userId })
+  payment(data: Payment): Observable<{ id: string, url: string }> {
+    return this.http.post<{ id: string, url: string }>(`${this.apiUrl}/payment`, data)
   }
+
+  paymentStatus(session_id: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/payment/status/${session_id}`)
+  }
+
 }

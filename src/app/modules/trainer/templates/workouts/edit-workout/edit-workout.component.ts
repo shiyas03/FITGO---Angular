@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { workoutFilterData } from '../../../store/trainer.selector';
 import { Store, select } from '@ngrx/store';
-import { swalError } from 'src/app/helpers/swal.popup';
+import { swalError } from 'src/app/common/swal.popup';
 
 @Component({
   selector: 'app-edit-workout',

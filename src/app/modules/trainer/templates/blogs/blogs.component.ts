@@ -9,7 +9,7 @@ import { blogSelectorData } from '../../store/trainer.selector';
 import Swal from 'sweetalert2';
 import { Observable, Subscription } from 'rxjs';
 import { ViewBlogComponent } from './view-blog/view-blog.component';
-import { swalError } from 'src/app/helpers/swal.popup';
+import { swalError } from 'src/app/common/swal.popup';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { EditBlogComponent } from './edit-blog/edit-blog.component';

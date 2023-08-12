@@ -78,6 +78,15 @@ export interface PaymentData {
     }
 }
 
+export interface Payment{
+    amount: number;
+    paidDate?:Date
+    expiryDate?:Date
+    userId:string;
+    trainerId: string;
+    packageId:string;
+}
+
 export interface Workout{
     _id:string
     title:string;

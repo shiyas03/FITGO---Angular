@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { pattern } from '../../../../helpers/regex.pattern'
-import { showError, swal } from 'src/app/helpers/swal.popup';
+import { pattern } from '../../../../common/regex.pattern'
+import { showError, swal } from 'src/app/common/swal.popup';
 import { ErrorDialogComponent } from '../details/error-dialog/error-dialog.component';
 
 @Component({

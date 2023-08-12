@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { SuccessComponent } from './success/success.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
-import { showError } from 'src/app/helpers/swal.popup';
+import { showError } from 'src/app/common/swal.popup';
 
 @Component({
   selector: 'app-details',

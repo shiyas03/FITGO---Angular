@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
 import { Router } from '@angular/router';
-import { pattern } from '../../../../helpers/regex.pattern';
+import { pattern } from '../../../../common/regex.pattern';
 import { Register, Registeration } from '../../services/trainer.interface';
 import { Subscription } from 'rxjs';
-import { swalError } from 'src/app/helpers/swal.popup';
+import { swalError } from 'src/app/common/swal.popup';
 
 @Component({
   selector: 'app-signup',

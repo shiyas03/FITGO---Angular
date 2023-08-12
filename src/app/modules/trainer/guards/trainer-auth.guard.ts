@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { TrainerAuthService } from '../services/trainer-auth.service';
-import { decodeToken } from 'src/app/helpers/token.decode';
+import { decodeToken } from 'src/app/common/token.decode';
 
 @Injectable({
   providedIn: 'root'
