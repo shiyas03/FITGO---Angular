@@ -91,4 +91,13 @@ export interface Trainer {
     imageUrl: string;
     joinDate: Date;
     access: boolean
+    services: string[];
+    reviews: [{
+        review: string;
+        userId: {
+            _id:string;
+            name:string;
+            imageUrl: string;
+        }
+    }]
 }

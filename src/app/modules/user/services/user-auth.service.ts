@@ -3,15 +3,17 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Blog, Details, Login, Trainer, User } from '../store/user';
 import { environment } from '../../../../environments/environment'
-import { EmailReturn, 
-  Register, 
-  RegisterReturn, 
-  LoginReturn, 
-  ProfileDetails, 
-  UpdateDetails, 
-  Workout,  
-  Payment, 
-  PaymentDetails } from './user.interface';
+import {
+  EmailReturn,
+  Register,
+  RegisterReturn,
+  LoginReturn,
+  ProfileDetails,
+  UpdateDetails,
+  Workout,
+  Payment,
+  PaymentDetails
+} from './user.interface';
 import { activity } from './user.enum';
 import { decodeToken } from 'src/app/common/token.decode';
 
@@ -90,5 +92,9 @@ export class UserAuthService {
 
   fetchPayments(userId: string): Observable<PaymentDetails[]> {
     return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/fetch/${userId}`)
+  }
+
+  uploadReview(data: { review: string, userId: string }, trainerId: string): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/trainer/review?id=${trainerId}`, data)
   }
 }

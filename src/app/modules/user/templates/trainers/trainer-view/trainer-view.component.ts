@@ -17,20 +17,21 @@ import { PaymentDetails } from '../../../services/user.interface';
 })
 export class TrainerViewComponent implements OnInit, OnDestroy {
 
-  images: string[] = [
-    'assets/images/avatar.png',
-    'assets/images/Banner.png',
-    'assets/images/Banner.png',
-  ];
+  formData: { review: string } = { review: '' }
   currentIndex = 0;
   one_month_id: string = environment.stripKey.ONE_MONTH_PRICE_ID
   six_month_id: string = environment.stripKey.SIX_MONTH_PRICE_ID
   one_year_id: string = environment.stripKey.ONE_YEAR_PRICE_ID
 
   trainer$!: Observable<Trainer | undefined>
-  expired:boolean = false
+  expired: boolean = false
+  submit: boolean = false
+  isReview: boolean = false
+  myReview$: string = ''
+  totalReview:number = 0
   subscription1!: Subscription
   subscription2!: Subscription
+  subscription3!: Subscription
 
   @ViewChild('carouselItems') carouselItems!: ElementRef;
   paymentHandler!: string;
@@ -43,6 +44,11 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     this.paymentStatus()
     this.paymentgDetails()
     this.startAutoSlide()
+    this.fetchData()
+    this.checkReview()
+  }
+
+  fetchData() {
     this._route.paramMap.subscribe(() => {
       if (history.state) {
         let id = history.state.id
@@ -95,17 +101,54 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     const userId = <string>localStorage.getItem('userId')
     this.__store.dispatch(fetchPaymentData({ userId: userId }))
     this.__store.pipe(select(paymentSelectorData)).subscribe((data) => {
-      const date : Date = new Date()
-      const expiry = new Date(data[0].expiryDate)
-      if(date > expiry){
-        this.expired = true     
+      const date: Date = new Date()
+      const expiry = new Date(data[0]?.expiryDate)
+      if (date > expiry) {
+        this.expired = true
+      }
+    })
+  }
+
+  onSubmit(trainerId: string) {
+    const userId = <string>localStorage.getItem('userId');
+    const data = {
+      review: this.formData.review,
+      userId: userId
+    }
+    this.subscription3 = this._userService.uploadReview(data, trainerId).subscribe(
+      (res) => {
+        if (res == true) {
+          swal('success', 'Review successfully added')
+          this.fetchData()
+        } else {
+          swalError('Error occurred')
+        }
+      }, (error) => {
+        swalError(error)
+      }
+    )
+  }
+
+  checkReview() {
+    this.trainer$.subscribe(data => {
+      if (data) {
+        for (let { review, userId } of data.reviews) {
+          this.totalReview++
+          const id = <string>localStorage.getItem('userId')
+          if (userId._id.toString() === id) {
+            this.isReview = true
+            this.myReview$ = review
+          } else {
+            this.isReview = false
+          } 
+        }
       }
     })
   }
 
   startAutoSlide(): void {
     setInterval(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+      this.currentIndex = (this.currentIndex + 1) % this.totalReview;
       this.slideToCurrentIndex();
     }, 3000);
   }
@@ -119,6 +162,7 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subscription1) this.subscription1.unsubscribe()
     if (this.subscription2) this.subscription2.unsubscribe()
+    if (this.subscription3) this.subscription3.unsubscribe()
   }
 
 }
