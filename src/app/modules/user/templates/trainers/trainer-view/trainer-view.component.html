@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full h-60 mt-5 mb-10" *ngIf="expired">
+            <div class="w-full h-60 mt-5 mb-10" *ngIf="expired == true">
                 <div class="md:ml-24 md:mr-24 md:grid md:grid-cols-3 gap-2">
                     <div class="w-full m-1">
                         <div
@@ -178,7 +178,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full mt-5 mb-10 flex justify-center" *ngIf="!expired">
+            <div class="w-full mt-5 mb-10 flex justify-center" *ngIf="expired == false">
                 <div class="md:w-2/4 bg-gray-100 rounded-md shadow-md p-5">
                     <form *ngIf="isReview == false">
                         <p>Add Your Review</p>

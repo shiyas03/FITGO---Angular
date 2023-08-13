@@ -24,11 +24,12 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   one_year_id: string = environment.stripKey.ONE_YEAR_PRICE_ID
 
   trainer$!: Observable<Trainer | undefined>
-  expired: boolean = false
+  expired: boolean = true
   submit: boolean = false
   isReview: boolean = false
   myReview$: string = ''
-  totalReview:number = 0
+  totalReview: number = 0
+  trainerId!: string;
   subscription1!: Subscription
   subscription2!: Subscription
   subscription3!: Subscription
@@ -41,6 +42,7 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     private _userService: UserAuthService, private _router: Router) { }
 
   ngOnInit(): void {
+    this.totalReview = 0
     this.paymentStatus()
     this.paymentgDetails()
     this.startAutoSlide()
@@ -51,17 +53,17 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   fetchData() {
     this._route.paramMap.subscribe(() => {
       if (history.state) {
-        let id = history.state.id
-        if (!id) {
-          id = this._route.snapshot.queryParams['trainer_id']
-          const data = { id: id };
+        this.trainerId = history.state.id
+        if (!this.trainerId) {
+          this.trainerId = this._route.snapshot.queryParams['trainer_id']
+          const data = { id: this.trainerId };
           const navigationExtras: NavigationExtras = {
             state: data,
           };
           this._router.navigate(['trainers/view'], navigationExtras);
         }
         this._store.dispatch(fetchTrainersData())
-        this.trainer$ = this._store.pipe(select(singleTrainerData(id)))
+        this.trainer$ = this._store.pipe(select(singleTrainerData(this.trainerId)))
       }
     })
   }
@@ -102,9 +104,11 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     this.__store.dispatch(fetchPaymentData({ userId: userId }))
     this.__store.pipe(select(paymentSelectorData)).subscribe((data) => {
       const date: Date = new Date()
-      const expiry = new Date(data[0]?.expiryDate)
-      if (date > expiry) {
-        this.expired = true
+      for (let { expiryDate, trainerId } of data) {
+        const expiry = new Date(expiryDate)
+        if (this.trainerId === trainerId._id && date < expiry) {
+          this.expired = false
+        }
       }
     })
   }
@@ -140,7 +144,7 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
             this.myReview$ = review
           } else {
             this.isReview = false
-          } 
+          }
         }
       }
     })

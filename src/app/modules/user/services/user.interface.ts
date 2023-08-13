@@ -116,4 +116,5 @@ export interface PaymentDetails {
     sessionId: string;
     userId: User;
     trainerId: Trainer;
+    status: string;
 }

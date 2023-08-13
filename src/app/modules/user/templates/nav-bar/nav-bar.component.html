@@ -54,13 +54,15 @@
               bg-gray-950 shadow-md p-2 mt-2 divide-y border border-red-500"
                 aria-labelledby="hs-dropdown-with-dividers">
                 <div class="py-1 first:pt-0 last:pb-0">
-                    <a href=""
-                        class="flex items-center gap-x-3.5 py-0 px-3 lg:py-1  rounded-md text-sm text-white droplink uppercase"
+                    <a class="cursor-pointer flex items-center gap-x-3.5 py-0 px-3 lg:py-1  rounded-md text-sm text-white droplink uppercase"
                         routerLink="/profile">
                         Profile
                     </a>
-                    <a href=""
-                        class="flex items-center gap-x-3.5 py-0 px-3 lg:py-1  rounded-md text-sm text-white droplink uppercase"
+                    <a class="cursor-pointer flex items-center gap-x-3.5 py-0 px-3 lg:py-1  rounded-md text-sm text-white droplink uppercase"
+                        routerLink="/payments">
+                        Payments
+                    </a>
+                    <a class="cursor-pointer flex items-center gap-x-3.5 py-0 px-3 lg:py-1  rounded-md text-sm text-white droplink uppercase"
                         (click)="signOut()">
                         Sign out
                     </a>

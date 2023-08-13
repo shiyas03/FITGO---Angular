@@ -41,6 +41,9 @@ import { TrainerComponent } from './templates/trainers/trainer.component';
 import { TrainerViewComponent } from './templates/trainers/trainer-view/trainer-view.component';
 import { WorkoutsComponent } from './templates/workouts/workouts.component';
 import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-view.component';
+import { PaymentsComponent } from './templates/payments/payments.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -63,6 +66,7 @@ import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-
     TrainerViewComponent,
     WorkoutsComponent,
     WorkoutViewComponent,
+    PaymentsComponent,
   ],
   imports: [
     CommonModule,
@@ -77,6 +81,8 @@ import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-
     MatStepperModule,
     MatButtonModule,
     MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
     StoreModule.forFeature('register', registerReducer),
     StoreModule.forFeature('user', userReducer),
     StoreModule.forFeature('profile', profileReducer),

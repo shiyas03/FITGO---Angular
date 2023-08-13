@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { fetchBlogData } from '../../store/trainer.action';
 import { blogSelectorData } from '../../store/trainer.selector';
 import Swal from 'sweetalert2';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ViewBlogComponent } from './view-blog/view-blog.component';
 import { swalError } from 'src/app/common/swal.popup';
 import { MatTableDataSource } from '@angular/material/table';
@@ -28,9 +28,9 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
   displayedColumns: string[] = ['position', 'thumbnail', 'title', 'category', 'action'];
 
   constructor(
-    private dialog: MatDialog,
-    private trainerService: TrainerAuthService,
-    private store: Store<Blog[]>,
+    private _dialog: MatDialog,
+    private _trainerService: TrainerAuthService,
+    private _store: Store<Blog[]>,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   showForm() {
-    const dialogRef: MatDialogRef<NewBlogComponent> = this.dialog.open(
+    const dialogRef: MatDialogRef<NewBlogComponent> = this._dialog.open(
       NewBlogComponent,
       {
         width: '500px',
@@ -47,7 +47,7 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         const id = <string>localStorage.getItem('trainerId');
-        this.subscription = this.trainerService.uploadBlog(data, id).subscribe(
+        this.subscription = this._trainerService.uploadBlog(data, id).subscribe(
           (res) => {
             if (res.success == true) {
               this.fetchData();
@@ -63,7 +63,7 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   showBlog(id: string) {
-    const dialogRef: MatDialogRef<ViewBlogComponent> = this.dialog.open(
+    const dialogRef: MatDialogRef<ViewBlogComponent> = this._dialog.open(
       ViewBlogComponent,
       {
         width: '600px',
@@ -75,7 +75,7 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   editBlog(id: string) {
-    const dialogRef: MatDialogRef<EditBlogComponent> = this.dialog.open(
+    const dialogRef: MatDialogRef<EditBlogComponent> = this._dialog.open(
       EditBlogComponent,
       {
         width: '600px',
@@ -91,8 +91,8 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fetchData() {
-    this.store.dispatch(fetchBlogData());
-    this.store.pipe(select(blogSelectorData)).subscribe(data => {
+    this._store.dispatch(fetchBlogData());
+    this._store.pipe(select(blogSelectorData)).subscribe(data => {
       this.dataSource$.data = data
     })
   }
