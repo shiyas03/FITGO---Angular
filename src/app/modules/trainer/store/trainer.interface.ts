@@ -22,3 +22,9 @@ export interface Profile {
 export interface InitailProfile {
   trainer: Profile | null;
 }
+
+export interface Udpate{
+  name:string;
+  phone:string;
+  about:string;
+}

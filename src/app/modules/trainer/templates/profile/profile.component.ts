@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { decodeToken } from 'src/app/common/token.decode';
 import { Profile } from '../../store/trainer.interface';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -9,6 +8,8 @@ import Swal from 'sweetalert2';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { swal, swalConfirm, swalError } from 'src/app/common/swal.popup';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -26,13 +27,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   form!: FormGroup
   submit: boolean = false;
 
-  constructor(private _store: Store<Profile>, private _trainerService: TrainerAuthService, private _fb: FormBuilder) { }
+  constructor(private _store: Store<Profile>,
+    private _trainerService: TrainerAuthService,
+    private _fb: FormBuilder, private _dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.form = this._fb.group({
       service: ['', [Validators.required]]
     })
-    this.fetchUser()
+    this.fetchData()
   }
 
   onFileSelected(event: Event) {
@@ -43,7 +46,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const id = <string>localStorage.getItem('trainerId')
       this.subscription1 = this._trainerService.uploadProfileImage(formData, id).subscribe(res => {
         if (res.success) {
-          this.fetchUser()
+          this.fetchData()
         }
       })
     } else {
@@ -57,7 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  fetchUser() {
+  fetchData() {
     const id = this._trainerService.trainerId()
     this._store.dispatch(fetchTrainerData({ id }));
     this.trainer$ = this._store.pipe(select(profileSelectorData));
@@ -73,7 +76,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           if (res == true) {
             swal('success', 'service added successfully')
             this.form.get('service')?.setValue('')
-            this.fetchUser()
+            this.fetchData()
           }
         }, (error) => {
           swalError(error)
@@ -92,12 +95,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
           (res) => {
             if (res == true) {
               swal('success', 'Service removed')
-              this.fetchUser()
+              this.fetchData()
             }
-          },(error)=>{
+          }, (error) => {
             swalError(error)
           }
         )
+      }
+    })
+  }
+
+  editProfile() {
+    const dialogRef: MatDialogRef<UpdateProfileComponent> =
+      this._dialog.open(UpdateProfileComponent, {
+        width: '400px'
+      })
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        swal('success', res)
+        this.fetchData()
       }
     })
   }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog, DeailsReturn, Register, Registeration, Trainer, Verify, Workout } from './trainer.interface';
 import { environment } from '../../../../environments/environment'
-import { Profile } from '../store/trainer.interface';
+import { Profile, Udpate } from '../store/trainer.interface';
 import { decodeToken } from 'src/app/common/token.decode';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class TrainerAuthService {
 
   constructor(private http: HttpClient) { }
 
-  trainerId(){
+  trainerId() {
     const token = <string>localStorage.getItem('trainerToken');
     const { id } = decodeToken(token);
     return id
@@ -75,6 +75,10 @@ export class TrainerAuthService {
 
   removeService(data: string, id: string): Observable<boolean> {
     return this.http.patch<boolean>(`${this.apiUrl}/trainer/service_remove?id=${id}`, { data })
+  }
+
+  updateProfile(id: string, data: Udpate):Observable<boolean> {
+    return this.http.put<boolean>(`${this.apiUrl}/trainer/update?id=${id}`, data)
   }
 }
 

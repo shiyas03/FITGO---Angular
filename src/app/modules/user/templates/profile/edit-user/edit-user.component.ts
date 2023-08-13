@@ -1,11 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fetchProfileDetails } from '../../../store/user.action';
 import { profileSelectorData } from '../../../store/user.selector';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { ProfileDetails } from '../../../store/user';
-import { UserAuthService } from '../../../services/user-auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SuccessComponent } from 'src/app/modules/trainer/templates/details/success/success.component';
 import { pattern } from 'src/app/common/regex.pattern';
@@ -22,7 +20,7 @@ export class EditUserComponent implements OnInit {
   nameError: boolean = false
   ageError:boolean = false
 
-  constructor(private fb: FormBuilder, private store: Store<ProfileDetails>, private dialog: MatDialogRef<SuccessComponent>) {
+  constructor(private fb: FormBuilder, private store: Store<ProfileDetails>, private dialog: MatDialogRef<EditUserComponent>) {
   }
 
   ngOnInit(): void {

@@ -25,9 +25,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private subscription3!: Subscription;
 
   constructor(
-    private store: Store<ProfileDetails>,
-    private userServices: UserAuthService,
-    private dialog: MatDialog,
+    private _store: Store<ProfileDetails>,
+    private _userServices: UserAuthService,
+    private _dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const formData = new FormData();
       formData.append('image', file, file.name);
       const id = <string>localStorage.getItem('userId')
-      this.subscription1 = this.userServices
+      this.subscription1 = this._userServices
         .profileUpload(formData, id)
         .subscribe(() => {
           this.fetchData(id);
@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   removeImage(id: string) {
-    this.subscription3 = this.userServices.removeImage(id).subscribe((res) => {
+    this.subscription3 = this._userServices.removeImage(id).subscribe((res) => {
       if (res.success == true) {
         this.fetchData(id);
       }
@@ -67,9 +67,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   editUser(id: string) {
     const dialogRef: MatDialogRef<EditUserComponent> =
-      this.dialog.open(EditUserComponent);
+      this._dialog.open(EditUserComponent);
     dialogRef.afterClosed().subscribe((res) => {
-      this.userServices.updateDetails(res, id).subscribe((res) => {
+      this._userServices.updateDetails(res, id).subscribe((res) => {
         if (res.success == true) {
           this.fetchData(id);
         }
@@ -78,8 +78,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   fetchData(id: string) {
-    this.store.dispatch(fetchProfileDetails({ id }));
-    this.details$ = this.store.pipe(select(profileSelectorData));
+    this._store.dispatch(fetchProfileDetails({ id }));
+    this.details$ = this._store.pipe(select(profileSelectorData));
   }
 
   isValidFileType(file: File): boolean {
