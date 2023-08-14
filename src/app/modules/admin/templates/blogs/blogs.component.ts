@@ -26,9 +26,9 @@ export class BlogsComponent implements OnDestroy,AfterViewInit {
   displayedColumns: string[] = ['position', 'thumbnail', 'title', 'category', 'trainer', 'action'];
 
   constructor(
-    private dialog: MatDialog,
-    private store: Store<Blog[]>,
-    private adminService: AdminAuthService,
+    private _dialog: MatDialog,
+    private _store: Store<Blog[]>,
+    private _adminService: AdminAuthService,
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class BlogsComponent implements OnDestroy,AfterViewInit {
   }
 
   showBlog(id: string) {
-    const dialogRef: MatDialogRef<ViewBlogComponent> = this.dialog.open(
+    const dialogRef: MatDialogRef<ViewBlogComponent> = this._dialog.open(
       ViewBlogComponent,
       {
         width: '600px',
@@ -50,7 +50,7 @@ export class BlogsComponent implements OnDestroy,AfterViewInit {
   publishChange(id: string, approve: boolean) {
     swalConfirm().then((res) => {
       if (res.isConfirmed) {
-        this.subscription = this.adminService.publishBlog(id, approve).subscribe(
+        this.subscription = this._adminService.publishBlog(id, approve).subscribe(
           (res) => {
             if (res.success == true) {
               this.fetchData();
@@ -65,8 +65,8 @@ export class BlogsComponent implements OnDestroy,AfterViewInit {
   }
 
   fetchData() {
-    this.store.dispatch(fetchBlogData());
-    this.store.pipe(select(blogSelectorData)).subscribe(data=>{
+    this._store.dispatch(fetchBlogData());
+    this._store.pipe(select(blogSelectorData)).subscribe(data=>{
       this.dataSource$.data = data
     })
   }

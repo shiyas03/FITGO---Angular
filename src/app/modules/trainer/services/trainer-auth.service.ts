@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Blog, DeailsReturn, Register, Registeration, Trainer, Verify, Workout } from './trainer.interface';
+import { Blog, DeailsReturn, Payment, Register, Registeration, Trainer, Verify, Workout } from './trainer.interface';
 import { environment } from '../../../../environments/environment'
 import { Profile, Udpate } from '../store/trainer.interface';
 import { decodeToken } from 'src/app/common/token.decode';
@@ -80,6 +80,8 @@ export class TrainerAuthService {
   updateProfile(id: string, data: Udpate):Observable<boolean> {
     return this.http.put<boolean>(`${this.apiUrl}/trainer/update?id=${id}`, data)
   }
+
+  fetchPayments(trainerId:string):Observable<Payment[]>{
+    return this.http.get<Payment[]>(`${this.apiUrl}/payment/trainer/${trainerId}`)
+  } 
 }
-
-

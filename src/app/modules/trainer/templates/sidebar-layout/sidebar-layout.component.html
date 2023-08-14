@@ -1,24 +1,15 @@
-<nav class="sticky top-0 z-50 w-full bg-gray-100 shadow-md">
+<nav class="sticky top-0 z-10 w-full bg-gray-100 shadow-md">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
-        <button
-          data-drawer-target="logo-sidebar"
-          data-drawer-toggle="logo-sidebar"
-          aria-controls="logo-sidebar"
-          type="button"
-          (click)="toggle()"
-          class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-        >
+        <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
+          type="button" (click)="toggle()"
+          class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
           <span class="sr-only">Open sidebar</span>
-         <mat-icon>toc</mat-icon>
+          <mat-icon>toc</mat-icon>
         </button>
         <a href="" class="flex ml-2 md:mr-24">
-          <img
-            src="assets/images/logo.png"
-            class="h-6 lg:h-8 mr-3 px-0 lg:px-3"
-            alt="logo"
-          />
+          <img src="assets/images/logo.png" class="h-6 lg:h-8 mr-3 px-0 lg:px-3" alt="logo" />
         </a>
       </div>
 
@@ -43,41 +34,37 @@
   </div>
 </nav>
 
-<aside
-  id="logo-sidebar"
-  class="absolute top-0 left-0 z-40 w-64 h-full pt-20 transition-transform -translate-x-full bg-gray-100 shadow-lg sm:translate-x-0"
-  aria-label="Sidebar"
->
+<aside id="logo-sidebar"
+  class="absolute top-0 left-0 w-64 h-[1300px] pt-20 transition-transform -translate-x-full bg-gray-100 shadow-lg sm:translate-x-0"
+  aria-label="Sidebar">
   <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-100">
     <ul class="space-y-2 font-medium">
       <li>
-        <a
-          routerLink="/trainer/dashboard"
-          routerLinkActive="active"
-          class="flex items-center p-2 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars"
-        >
-        <mat-icon>home</mat-icon>
+        <a routerLink="/trainer/dashboard" routerLinkActive="active"
+          class="flex items-center p-2 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon>home</mat-icon>
           <span class="ml-3">Dashboard</span>
         </a>
       </li>
       <li>
-        <a
-          routerLink="/trainer/blogs"
-          routerLinkActive="active"
-          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars"
-        >
-        <mat-icon> mode_comment</mat-icon>
+        <a routerLink="/trainer/blogs" routerLinkActive="active"
+          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon> mode_comment</mat-icon>
           <span class="ml-3">Blogs</span>
         </a>
       </li>
       <li>
-        <a
-          routerLink="/trainer/workouts"
-          routerLinkActive="active"
-          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars"
-        >
-        <mat-icon>fitness_center</mat-icon>
+        <a routerLink="/trainer/workouts" routerLinkActive="active"
+          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon>fitness_center</mat-icon>
           <span class="ml-3">Workouts</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/trainer/payments" routerLinkActive="active"
+          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon>account_balance</mat-icon>
+          <span class="ml-3">Transactions</span>
         </a>
       </li>
     </ul>
@@ -86,27 +73,15 @@
 
 <div class="relative bg-gray-200 lg:hidden" [class.hidden]="!showToggle">
   <div class="flex flex-col gap-y-4 p-4 text-white">
-    <a
-      routerLink="/trainer/dashboard"
-      routerLinkActive="active"
-      class="hover:text-red-400 text-gray-900"
-      >Dashboard</a
-    >
+    <a routerLink="/trainer/dashboard" routerLinkActive="active" class="hover:text-red-400 text-gray-900">Dashboard</a>
   </div>
   <div class="flex flex-col gap-y-4 p-4 text-white">
-    <a
-      routerLink="/trainer/blogs"
-      routerLinkActive="active"
-      class="hover:text-red-400 text-gray-900"
-      >Blogs</a
-    >
+    <a routerLink="/trainer/blogs" routerLinkActive="active" class="hover:text-red-400 text-gray-900">Blogs</a>
   </div>
   <div class="flex flex-col gap-y-4 p-4 text-white">
-    <a
-      routerLink="/trainer/workouts"
-      routerLinkActive="active"
-      class="hover:text-red-400 text-gray-900"
-      >Workouts</a
-    >
+    <a routerLink="/trainer/workouts" routerLinkActive="active" class="hover:text-red-400 text-gray-900">Workouts</a>
+  </div>
+  <div class="flex flex-col gap-y-4 p-4 text-white">
+    <a routerLink="/trainer/payments" routerLinkActive="active" class="hover:text-red-400 text-gray-900">Payments</a>
   </div>
 </div>

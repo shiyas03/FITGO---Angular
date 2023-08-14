@@ -5,9 +5,9 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 
-import { blogsReducer, trainerReducer, usersReducer, workoutReducer } from './store/admin.reducer';
+import { blogsReducer, paymentReducer, trainerReducer, usersReducer, workoutReducer } from './store/admin.reducer';
 import { AdminEffect } from './store/admin.effects';
 
 import { LoginComponent } from './templates/login/login.component';
@@ -23,6 +23,7 @@ import { ShowWorkoutComponent } from './templates/workouts/show-workout/show-wor
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaymentsComponent } from './templates/payments/payments.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     BlogsComponent,
     ViewBlogComponent,
     WorkoutsComponent,
-    ShowWorkoutComponent
+    ShowWorkoutComponent,
+    PaymentsComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     StoreModule.forFeature('trainers', trainerReducer),
     StoreModule.forFeature('blogs', blogsReducer),
     StoreModule.forFeature('workouts', workoutReducer),
+    StoreModule.forFeature('payments', paymentReducer),
     EffectsModule.forFeature([AdminEffect])
   ]
 

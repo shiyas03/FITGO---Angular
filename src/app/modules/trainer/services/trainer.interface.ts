@@ -81,3 +81,35 @@ export interface Workout{
   }
   publish:boolean;
 }
+
+export interface Trainers {
+  _id: string;
+  name: string;
+  email: string;
+  about: string;
+  cv: string;
+  certificate: string[];
+  access: boolean;
+  approve: boolean;
+  imageUrl: string;
+}
+
+export interface Users {
+  _id: string;
+  name: string;
+  email: string;
+  access: boolean;
+  imageUrl: string
+}
+
+export interface Payment{
+  amount: number;
+  paidDate: Date;
+  expiryDate: Date;
+  paymentId: string;
+  packageId: string;
+  sessionId: string;
+  userId: Users;
+  trainerId: Trainers;
+  status: string;
+}

@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { Trainers, Users } from "./admin.interface";
-import { fetchBlogDataSuccess, fetchTrainerDataSuccess, fetchUsersDataSuccess, fetchWorkoutsDataSuccess } from "./admin.action";
-import { Blog, Workout } from "../services/admin-interface";
+import { fetchBlogDataSuccess, fetchPaymentSuccess, fetchTrainerDataSuccess, fetchUsersDataSuccess, fetchWorkoutsDataSuccess } from "./admin.action";
+import { Blog, PaymentDetails, Workout } from "../services/admin-interface";
 
 const InitialUserState: Users[] = []
 export const usersReducer = createReducer(
@@ -31,4 +31,10 @@ export const InitialWorkoutsState: Workout[] = []
 export const workoutReducer = createReducer(
   InitialWorkoutsState,
   on(fetchWorkoutsDataSuccess, (_state, { workouts }) => workouts)
+)
+
+export const InitialPaymentsState: PaymentDetails[] = []
+export const paymentReducer = createReducer(
+    InitialPaymentsState,
+    on(fetchPaymentSuccess,(_state, { payments })=> payments)
 )

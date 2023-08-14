@@ -9,6 +9,7 @@ import { SignupComponent } from './templates/signup/signup.component';
 import { BlogsComponent } from './templates/blogs/blogs.component';
 import { ProfileComponent } from './templates/profile/profile.component';
 import { WorkoutsComponent } from './templates/workouts/workouts.component';
+import { PaymentsComponent } from './templates/payments/payments.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
   },
   {
     path: 'workouts', component: WorkoutsComponent, 
+    canActivate: [TrainerAuthGuard]
+  },
+  {
+    path: 'payments', component: PaymentsComponent, 
     canActivate: [TrainerAuthGuard]
   },
 ];

@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { Trainers, Users } from "./admin.interface";
-import { Blog, Workout } from "../services/admin-interface";
+import { Blog, PaymentDetails, Workout } from "../services/admin-interface";
 
 export const fetchUsersAction = createAction('[Users API] Fetch Users')
 export const fetchUsersDataSuccess = createAction('[Users API] Fetch Users Data',
@@ -20,4 +20,9 @@ export const fetchBlogDataSuccess = createAction('[Blog API] Fetch Blog Data Suc
 export const fetchWorkoutsData = createAction('[Workout API] Fetch Workouts Data')
 export const fetchWorkoutsDataSuccess = createAction('[Workout API] Fetch Workouts Data Success',
   props<{ workouts: Workout[] }>()
+)
+
+export const fetchPaymentData = createAction('[Payment API] Fetch Payments Data')
+export const fetchPaymentSuccess = createAction('[Payment API] Fetch Payments Data Success',
+    props<{ payments: PaymentDetails[] }>()
 )

@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput', { static: false }) fileInputRef: ElementRef | undefined;
   form!: FormGroup
   submit: boolean = false;
+  revenue:number = 0
 
   constructor(private _store: Store<Profile>,
     private _trainerService: TrainerAuthService,
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       service: ['', [Validators.required]]
     })
     this.fetchData()
+    this.totalRevenue()
   }
 
   onFileSelected(event: Event) {
@@ -45,7 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       formData.append('image', file, file.name);
       const id = <string>localStorage.getItem('trainerId')
       this.subscription1 = this._trainerService.uploadProfileImage(formData, id).subscribe(res => {
-        if (res.success) {
+        if (res) {
           this.fetchData()
         }
       })
@@ -114,6 +116,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (res) {
         swal('success', res)
         this.fetchData()
+      }
+    })
+  }
+
+  totalRevenue(){
+    this.trainer$.subscribe((data) => {
+      if(data){
+        for(let {amount} of data?.payments){
+          this.revenue+=amount
+        }
       }
     })
   }

@@ -4,13 +4,15 @@ import { TrainerAuthService } from '../services/trainer-auth.service';
 import {
   fetchBlogData,
   fetchBlogDataSuccess,
+  fetchPaymentData,
+  fetchPaymentSuccess,
   fetchTrainerData,
   fetchTrainerDataSuccess,
   fetchWorkoutsData,
   fetchWorkoutsDataSuccess,
 } from './trainer.action';
 import { map, switchMap, tap } from 'rxjs';
-import { Blog, Workout } from '../services/trainer.interface';
+import { Blog, Payment, Workout } from '../services/trainer.interface';
 import { Profile } from './trainer.interface';
 
 @Injectable()
@@ -50,4 +52,15 @@ export class trainerEffects {
         this.trainerService.fetchWorkouts()
           .pipe(map((data: Workout[]) => fetchWorkoutsDataSuccess({ workouts: data }))))
     ))
+
+    loadAllPayments$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(fetchPaymentData),
+            switchMap((action) =>
+                this.trainerService.fetchPayments(action.trainerId).pipe(
+                    map((data: Payment[]) => fetchPaymentSuccess(({ payments: data })))
+                )
+            )
+        )
+    )
 }

@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
-import { blogsReducer, profileReducer, workoutReducer } from './store/trainer.reducer';
+import { blogsReducer, paymentReducer, profileReducer, workoutReducer } from './store/trainer.reducer';
 import { trainerEffects } from './store/trainer.effects';
 import { StoreModule } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,6 +32,7 @@ import { ShowWorkoutComponent } from './templates/workouts/show-workout/show-wor
 import { EditBlogComponent } from './templates/blogs/edit-blog/edit-blog.component';
 import { EditWorkoutComponent } from './templates/workouts/edit-workout/edit-workout.component';
 import { UpdateProfileComponent } from './templates/profile/update-profile/update-profile.component';
+import { PaymentsComponent } from './templates/payments/payments.component';
 
 
 
@@ -54,6 +55,7 @@ import { UpdateProfileComponent } from './templates/profile/update-profile/updat
     EditBlogComponent,
     EditWorkoutComponent,
     UpdateProfileComponent,
+    PaymentsComponent,
   ],
   imports: [
     CommonModule,
@@ -69,6 +71,7 @@ import { UpdateProfileComponent } from './templates/profile/update-profile/updat
     StoreModule.forFeature('blogs', blogsReducer),
     StoreModule.forFeature('profile', profileReducer),
     StoreModule.forFeature('workouts', workoutReducer),
+    StoreModule.forFeature('payments', paymentReducer),
     EffectsModule.forFeature([trainerEffects])
   ] 
 })

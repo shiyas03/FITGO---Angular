@@ -30,6 +30,7 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   myReview$: string = ''
   totalReview: number = 0
   trainerId!: string;
+  uniqueUsers = new Set<string>();
   subscription1!: Subscription
   subscription2!: Subscription
   subscription3!: Subscription
@@ -42,10 +43,8 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     private _userService: UserAuthService, private _router: Router) { }
 
   ngOnInit(): void {
-    this.totalReview = 0
     this.paymentStatus()
     this.paymentgDetails()
-    this.startAutoSlide()
     this.fetchData()
     this.checkReview()
   }
@@ -104,10 +103,15 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     this.__store.dispatch(fetchPaymentData({ userId: userId }))
     this.__store.pipe(select(paymentSelectorData)).subscribe((data) => {
       const date: Date = new Date()
-      for (let { expiryDate, trainerId } of data) {
+      for (let { expiryDate, trainerId, userId } of data) {
         const expiry = new Date(expiryDate)
-        if (this.trainerId === trainerId._id && date < expiry) {
-          this.expired = false
+        if (this.trainerId === trainerId._id) {
+          data.forEach(item => {
+            this.uniqueUsers.add(item.userId._id);
+          });
+          if (date < expiry) {
+            this.expired = false
+          }
         }
       }
     })
@@ -146,6 +150,7 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
             this.isReview = false
           }
         }
+        if (this.totalReview > 1) this.startAutoSlide()
       }
     })
   }

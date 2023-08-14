@@ -59,3 +59,16 @@ export interface Workout{
   }
   publish:boolean;
 }
+
+export interface PaymentDetails {
+  amount: number;
+  paidDate: Date;
+  expiryDate: Date;
+  paymentId: string;
+  packageId: string;
+  sessionId: string;
+  userId: Users;
+  trainerId: Trainers;
+  user_status: string;
+  trainer_status:boolean;
+}

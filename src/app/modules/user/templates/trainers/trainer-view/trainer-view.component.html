@@ -13,7 +13,7 @@
             <div class="md:flex justify-center">
                 <div class="lg:w-[18rem] m-2">
                     <div class="h-[20rem] bg-red-500 rounded-md shadow-md overflow-hidden">
-                        <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="" class="w-full h-full">
+                        <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="" class="w-full h-full" *ngIf="trainer.imageUrl">
                     </div>
                     <div class="flex justify-center" *ngIf="!expired">
                         <a
@@ -62,7 +62,7 @@
                     <div class="w-full">
                         <div class="flex items-center px-5 bg-gray-100 mt-1 shadow-md rounded-md h-20">
                             <p class="ml-5 font-medium text-gray-800 md:text-xl"><span>Trainees</span></p>
-                            <span class="ml-auto text-xl font-medium text-red-600 sm:block">+25%</span>
+                            <span class="ml-auto text-xl font-medium text-red-600 sm:block">{{uniqueUsers.size}}</span>
                         </div>
                     </div>
                     <div class="w-full">

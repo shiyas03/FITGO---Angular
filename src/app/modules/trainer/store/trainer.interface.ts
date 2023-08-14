@@ -16,7 +16,11 @@ export interface Profile {
   specialized:string;
   joinDate: Date;
   imageUrl:string;
-  services:string[]
+  services:string[];
+  payments:[{
+    amount:number;
+    date:Date
+  }]
 }
 
 export interface InitailProfile {

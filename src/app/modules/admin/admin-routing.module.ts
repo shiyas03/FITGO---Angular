@@ -8,6 +8,7 @@ import { TrainersComponent } from './templates/trainers/trainers.component';
 import { BlogsComponent } from './templates/blogs/blogs.component';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { WorkoutsComponent } from './templates/workouts/workouts.component';
+import { PaymentsComponent } from './templates/payments/payments.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,11 @@ const routes: Routes = [
   {
     path: 'workouts',
     component: WorkoutsComponent,
+    canActivate: [AdminAuthGuard]
+  },
+  {
+    path: 'payments',
+    component: PaymentsComponent,
     canActivate: [AdminAuthGuard]
   },
 ];

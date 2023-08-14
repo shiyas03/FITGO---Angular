@@ -34,15 +34,19 @@
                 </div>
                 <div class="md:flex mt-5">
                     <p class="font-semibold text-gray-700">Name </p>
-                    <p class="text-base md:mx-20">{{trainer.name}}</p>
+                    <p class="text-md md:mx-20">{{trainer.name}}</p>
                 </div>
                 <div class="md:flex mt-2">
                     <p class="font-semibold text-gray-700">Email </p>
-                    <p class="text-base md:mx-20">{{trainer.email}}</p>
+                    <p class="text-md md:mx-20">{{trainer.email}}</p>
                 </div>
                 <div class="md:flex mt-2">
                     <p class="font-semibold text-gray-700">Phone</p>
-                    <p class="text-base md:mx-20">{{trainer.phone}}</p>
+                    <p class="text-md md:mx-20">{{trainer.phone}}</p>
+                </div>
+                <div class="md:flex mt-2">
+                    <p class="font-semibold text-gray-700">Revenue</p>
+                    <p class="text-md md:mx-20"><span class="px-3 py-1 text-black bg-yellow-200">{{revenue}}</span></p>
                 </div>
             </div>
             <div class="md:m-10">
@@ -75,7 +79,7 @@
     </div>
     <div class="w-full md:flex justify-center mt-3 mb-20">
         <div class="bg-gray-100 md:w-5/6 rounded-lg shadow-md p-5">
-            <div class="md:w-2/3">
+            <div class="md:w-1/3">
                 <form  [formGroup]="form" (ngSubmit)="services()">
                     <label for="service" class="text-md font-medium m-1">Your services</label>
                     <div class="flex">

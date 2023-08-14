@@ -8,7 +8,7 @@
 </header>
 <div *ngIf="trainers$ | async as trainers">
     <div class="w-full flex justify-center" *ngFor="let trainer of trainers">
-        <div class="w-2/3 m-5">
+        <div class="w-2/3 m-5" *ngIf="trainer.access === true">
             <div
                 class="absolute w-[18rem] h-[20rem] shadow m-10 bg-red-500 rounded-2xl overflow-hidden hover:scale-105 duration-300">
                 <img [src]="'http://localhost:3000/uploads/' + trainer.imageUrl" class="w-full h-full text-white"

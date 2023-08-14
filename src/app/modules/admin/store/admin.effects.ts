@@ -4,6 +4,8 @@ import { AdminAuthService } from '../services/admin-auth.service';
 import { map, switchMap } from 'rxjs';
 import { fetchBlogData, 
     fetchBlogDataSuccess, 
+    fetchPaymentData, 
+    fetchPaymentSuccess, 
     fetchTrainerDataSuccess, 
     fetchTrainersData, 
     fetchUsersAction, 
@@ -11,7 +13,7 @@ import { fetchBlogData,
     fetchWorkoutsData, 
     fetchWorkoutsDataSuccess } from './admin.action';
 import { Blog, Trainers, Users } from './admin.interface';
-import { Workout } from '../services/admin-interface';
+import { PaymentDetails, Workout } from '../services/admin-interface';
 
 @Injectable()
 export class AdminEffect {
@@ -59,4 +61,15 @@ export class AdminEffect {
         this.adminService.fetchWorkouts()
           .pipe(map((data: Workout[]) => fetchWorkoutsDataSuccess({ workouts: data }))))
     ))
+
+    loadAllPayments$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(fetchPaymentData),
+            switchMap(() =>
+                this.adminService.fetchAllPayments().pipe(
+                    map((data: PaymentDetails[]) => fetchPaymentSuccess(({ payments: data })))
+                )
+            )
+        )
+    )
 }

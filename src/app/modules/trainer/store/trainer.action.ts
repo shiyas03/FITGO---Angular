@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Blog, Workout } from '../services/trainer.interface';
+import { Blog, Payment, Workout } from '../services/trainer.interface';
 import { Profile } from './trainer.interface';
 
 export const fetchBlogData = createAction('[Blog API] Fetch Blog Data');
@@ -20,4 +20,9 @@ export const fetchTrainerDataSuccess = createAction(
 export const fetchWorkoutsData = createAction('[Workout API] Fetch Workouts Data')
 export const fetchWorkoutsDataSuccess = createAction('[Workout API] Fetch Workouts Data Success',
   props<{ workouts: Workout[] }>()
+)
+
+export const fetchPaymentData = createAction('[Payment API] Fetch Payments Data', props<{ trainerId: string }>())
+export const fetchPaymentSuccess = createAction('[Payment API] Fetch Payments Data Success',
+  props<{ payments: Payment[] }>()
 )

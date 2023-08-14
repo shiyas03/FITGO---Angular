@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, Auth, Blog, Trainers, Users, Workout } from './admin-interface';
+import { Admin, Auth, Blog, PaymentDetails, Trainers, Users, Workout } from './admin-interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -54,6 +54,14 @@ export class AdminAuthService {
 
   publishWorkout(id: string, change: boolean): Observable<boolean> {
     return this.http.patch<boolean>(`${this.apiUrl}/workouts/publish?id=${id}`, { change })
+  }
+
+  fetchAllPayments(): Observable<PaymentDetails[]> {
+    return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/get_all`)
+  }
+
+  payToTrainer(trainerId: string): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/payment/pay_to_trainer`, { trainerId })
   }
 }
 
