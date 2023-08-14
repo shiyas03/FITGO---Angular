@@ -27,7 +27,7 @@
 
     <ng-container matColumnDef="trainer">
       <th mat-header-cell *matHeaderCellDef> Trainer </th>
-      <td mat-cell *matCellDef="let workout"> {{workout.trainer}} </td>
+      <td mat-cell *matCellDef="let workout"> {{workout.trainerId.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">

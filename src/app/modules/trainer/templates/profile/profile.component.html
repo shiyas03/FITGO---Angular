@@ -1,6 +1,7 @@
 <app-sidebar-layout></app-sidebar-layout>
-<div class="lg:w-4/5 mt-10 lg:mx-72 w-full overflow-hidden overflow-y-auto overflow-x-auto" *ngIf="trainer$|async as trainer">
-    <div class="w-full md:flex justify-center" >
+<div class="lg:w-4/5 mt-10 lg:mx-72 w-full overflow-hidden overflow-y-auto overflow-x-auto"
+    *ngIf="trainer$|async as trainer">
+    <div class="w-full md:flex justify-center">
         <div class="p-5 md:w-1/5 bg-gray-100 rounded-lg shadow-md ">
             <div class="flex items-center w-full">
                 <label for="dropzone-file" *ngIf="trainer.imageUrl == '' || !trainer.imageUrl"
@@ -15,14 +16,15 @@
                                 upload</span> your image</p>
                     </div>
                     <p class="mb-2 text-sm text-black text-bold"></p>
-                    <input  #fileInput id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)"/>
+                    <input #fileInput id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)" />
                 </label>
-                <div  *ngIf="trainer.imageUrl" >
-                    <input  #fileInput id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)"/>
-                    <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="image"class="w-full h-full">
+                <div *ngIf="trainer.imageUrl">
+                    <input #fileInput id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)" />
+                    <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="image" class="w-full h-full">
                     <div>
-                        Add new photo 
-                        <button (click)="openFileInput()" class="bg-red-500 text-white rounded pg-2 mt-2 px-2">Here!</button>
+                        Add new photo
+                        <button (click)="openFileInput()"
+                            class="bg-red-500 text-white rounded pg-2 mt-2 px-2">Here!</button>
                     </div>
                 </div>
             </div>
@@ -32,47 +34,61 @@
                 <div>
                     <p class="text-md font-bold text-red-500 underline">Contact Details</p>
                 </div>
-                <div class="md:flex mt-5">
-                    <p class="font-semibold text-gray-700">Name </p>
-                    <p class="text-md md:mx-20">{{trainer.name}}</p>
+                <div class="grid grid-cols-4 mt-5">
+                    <p class="font-semibold text-gray-700 col-span-1">Name </p>
+                    <p class="text-lg font-medium col-span-3">{{trainer.name}}</p>
                 </div>
-                <div class="md:flex mt-2">
-                    <p class="font-semibold text-gray-700">Email </p>
-                    <p class="text-md md:mx-20">{{trainer.email}}</p>
+                <div class="grid grid-cols-4 mt-2">
+                    <p class="font-semibold text-gray-700 col-span-1">Email </p>
+                    <p class="text-lg font-medium col-span-3">{{trainer.email}}</p>
                 </div>
-                <div class="md:flex mt-2">
-                    <p class="font-semibold text-gray-700">Phone</p>
-                    <p class="text-md md:mx-20">{{trainer.phone}}</p>
+                <div class="grid grid-cols-4 mt-2">
+                    <p class="font-semibold text-gray-700 col-span-1">Phone</p>
+                    <p class="text-lg font-medium col-span-3">{{trainer.phone}}</p>
                 </div>
-                <div class="md:flex mt-2">
-                    <p class="font-semibold text-gray-700">Revenue</p>
-                    <p class="text-md md:mx-20"><span class="px-3 py-1 text-black bg-yellow-200">{{revenue}}</span></p>
+                <div class="grid grid-cols-4 mt-2">
+                    <p class="font-semibold text-gray-700 col-span-1">Revenue</p>
+                    <p class="text-lg font-bold text-red-500 col-span-3">{{revenue | currency:'INR'}}</p>
+                </div>
+                <div class="grid grid-cols-4 mt-1">
+                    <p class="font-semibold text-gray-700 col-span-1"></p>
+                    <div class="text-lg font-bold col-span-2">
+                        <a class="cursor-pointer underline text-blue-500">See all Transactions</a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 mt-10">
+                    <p class="font-semibold text-gray-700 col-span-1"></p>
+                    <div class="text-lg font-bold col-span-2">Profile
+                        <button class="px-3 py-1 text-white bg-red-500 rounded-md" (click)="editProfile()">
+                            <p>update</p>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="md:m-10">
-                <button class="px-3 py-1 text-white bg-red-500 rounded-md" (click)="editProfile()">update</button>
+
             </div>
         </div>
     </div>
-    <div class="w-full md:flex justify-center mt-3"  >
+    <div class="w-full md:flex justify-center mt-3">
         <div class="bg-gray-100 md:w-5/6 rounded-lg shadow-md">
             <div class="m-10">
                 <p class="font-semibold text-red-500 underline">More informations</p>
-                <div class="md:flex mt-5">
-                    <p class="font-semibold text-gray-700">About</p>
-                    <p class="text-base px-4 md:mx-28">{{trainer.about}}</p>
+                <div class="grid grid-cols-6 mt-5">
+                    <p class="font-semibold text-gray-700 col-span-1">About</p>
+                    <p class="text-lg font-medium col-span-4">{{trainer.about}}</p>
                 </div>
-                <div class="md:flex mt-2">
-                    <p class="font-semibold text-gray-700">Specialized</p>
-                    <p class="text-base md:mx-20 px-2 uppercase">{{trainer.specialized}} Trainer</p>
+                <div class="grid grid-cols-6 mt-2">
+                    <p class="font-semibold text-gray-700 col-span-1">Specialized</p>
+                    <p class="text-lg font-medium col-span-4">{{trainer.specialized}} Trainer</p>
                 </div>
-                <div class="md:flex mt-2">
-                    <p class="font-semibold text-gray-700">Experiences</p>
-                    <p class="text-base md:mx-20 uppercase">{{trainer.experience}} Year experience</p>
+                <div class="grid grid-cols-6 mt-2">
+                    <p class="font-semibold text-gray-700 col-span-1">Experiences</p>
+                    <p class="text-lg font-medium col-span-4">{{trainer.experience}} Year experience</p>
                 </div>
-                <div class="md:flex mt-2">
-                    <p class="font-semibold text-gray-700">Joined since</p>
-                    <p class="text-base md:mx-20 uppercase">{{ trainer.joinDate | date: 'yyyy-MM-dd ' }}</p>
+                <div class="grid grid-cols-6 mt-2">
+                    <p class="font-semibold text-gray-700 col-span-1">Joined since</p>
+                    <p class="text-lg font-medium col-span-4">{{ trainer.joinDate | date: 'yyyy-MM-dd ' }}</p>
                 </div>
             </div>
         </div>
@@ -80,14 +96,17 @@
     <div class="w-full md:flex justify-center mt-3 mb-20">
         <div class="bg-gray-100 md:w-5/6 rounded-lg shadow-md p-5">
             <div class="md:w-1/3">
-                <form  [formGroup]="form" (ngSubmit)="services()">
+                <form [formGroup]="form" (ngSubmit)="services()">
                     <label for="service" class="text-md font-medium m-1">Your services</label>
                     <div class="flex">
-                        <input type="text" name="service" id="service" formControlName="service" class="w-full px-2 py-1 m-1 border border-gray-500 rounded-lg focus:ring-1 focus:ring-red-300 focus:border-red-100">
-                        <button class="px-5 py-1 bg-red-500 text-white rounded-md m-1 hover:scale-105 duration-200">Add</button>
+                        <input type="text" name="service" id="service" formControlName="service"
+                            class="w-full px-2 py-1 m-1 border border-gray-500 rounded-lg focus:ring-1 focus:ring-red-300 focus:border-red-100">
+                        <button
+                            class="px-5 py-1 bg-red-500 text-white rounded-md m-1 hover:scale-105 duration-200">Add</button>
                     </div>
                     <div *ngIf="form.controls['service'].errors">
-                        <p *ngIf="submit && form.controls['service'].hasError('required')" class="text-red-500 text-xs">Must required</p>
+                        <p *ngIf="submit && form.controls['service'].hasError('required')" class="text-red-500 text-xs">
+                            Must required</p>
                     </div>
                 </form>
             </div>
@@ -102,3 +121,10 @@
         </div>
     </div>
 </div>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Abel&family=Handjet:wght@200;400&family=Kanit:ital,wght@0,400;0,500;0,700;0,800;1,300&family=REM:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">

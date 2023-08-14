@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput', { static: false }) fileInputRef: ElementRef | undefined;
   form!: FormGroup
   submit: boolean = false;
-  revenue:number = 0
+  revenue: number = 0
 
   constructor(private _store: Store<Profile>,
     private _trainerService: TrainerAuthService,
@@ -120,11 +120,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  totalRevenue(){
+  totalRevenue() {
     this.trainer$.subscribe((data) => {
-      if(data){
-        for(let {amount} of data?.payments){
-          this.revenue+=amount
+      if (data) {
+        this.revenue = 0
+        for (let { amount } of data?.payments) {
+          this.revenue += amount
         }
       }
     })
