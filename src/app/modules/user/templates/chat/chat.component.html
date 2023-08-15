@@ -1,0 +1,100 @@
+<!-- <div class="flex justify-center items-center">
+    <p *ngFor="let message of messages">{{message}}</p>
+    <form action="" #form="ngForm" (ngSubmit)="onSubmit()">
+        <input type="text" ngModel name="message" required>
+        <button type="submit" [disabled]="!form.valid">send</button>
+    </form>
+</div> -->
+
+<!-- component -->
+<div class="flex h-screen antialiased text-gray-800">
+    <div class="flex flex-row h-full w-full overflow-x-hidden"> 
+        <div class="flex flex-col p-4 w-1/5 bg-white flex-shrink-0">
+            <div class="flex flex-row items-center justify-center h-5 w-full">
+                <div class="flex items-center justify-center rounded-2xl h-24 w-24">
+                    <img src="assets/images/logo.png" alt="">
+                </div>
+            </div>
+            <div class="flex flex-col mt-8">
+                <div class="flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto">
+                    <button class="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
+                        <div class="flex items-center justify-center h-10 w-10 bg-red-500 text-white rounded-full">
+                            H
+                        </div>
+                        <div class="ml-2 text-sm font-semibold">Henry Boyd</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col flex-auto h-full p-5">
+            <div class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
+                <div class="flex flex-col h-full overflow-x-auto mb-4">
+                    <div class="flex flex-col h-full">
+                        <div class="grid grid-cols-12 gap-y-2">
+                            <div class="col-start-6 col-end-13 p-3 rounded-lg">
+                                <div class="flex items-center justify-start flex-row-reverse">
+                                    <div
+                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white">
+                                        A
+                                    </div>
+                                    <div class="relative mr-3 text-sm bg-red-100 py-2 px-4 shadow rounded-xl">
+                                        <div>
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing. ?
+                                        </div>
+                                        <!-- <div class="absolute text-xs bottom-0 right-0 -mb-5 mr-2 text-gray-500">
+                                            Seen
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-start-1 col-end-8 p-3 rounded-lg">
+                                <div class="flex flex-row items-center">
+                                    <div
+                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white">
+                                        A
+                                    </div>
+                                    <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                            Perspiciatis, in.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
+                    <div>
+                        <!-- <button class="flex items-center justify-center text-gray-400 hover:text-gray-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
+                                </path>
+                            </svg>
+                        </button> -->
+                    </div>
+                    <div class="flex-grow ml-4">
+                        <div class="relative w-full">
+                            <form #form="ngForm" (ngSubmit)="onSubmit()">
+                                <input ngModel name="message" required type="text"
+                                    class="flex w-full border rounded-xl focus:outline-none focus:border-red-300 pl-4 h-10" />
+                                <button
+                                    class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
+                                    <!-- <mat-icon>tag_faces</mat-icon> -->
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <button type="submit" [disabled]="!form.valid"
+                            class="flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-full text-white p-2 flex-shrink-0">
+                            <mat-icon>send</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

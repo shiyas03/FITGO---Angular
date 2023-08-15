@@ -20,6 +20,10 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: environment.apiURL, options: {} };
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -29,6 +33,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+    SocketIoModule.forRoot(config),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
     StoreModule.forRoot({}),

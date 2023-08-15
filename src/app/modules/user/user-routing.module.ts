@@ -16,6 +16,7 @@ import { WorkoutsComponent } from './templates/workouts/workouts.component';
 import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-view.component';
 import { TrainerViewComponent } from './templates/trainers/trainer-view/trainer-view.component';
 import { PaymentsComponent } from './templates/payments/payments.component';
+import { ChatComponent } from './templates/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -100,7 +101,12 @@ const routes: Routes = [
     path: 'payments',
     component: PaymentsComponent,
     canActivate: [UserAuthGuard]
-  }
+  },
+  {
+    path: 'chat',
+    component: ChatComponent,
+    canActivate: [UserAuthGuard]
+  },
 
 ];
 

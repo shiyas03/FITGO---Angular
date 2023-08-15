@@ -16,6 +16,7 @@ import {
 } from './user.interface';
 import { activity } from './user.enum';
 import { decodeToken } from 'src/app/common/token.decode';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ import { decodeToken } from 'src/app/common/token.decode';
 export class UserAuthService {
 
   private apiUrl: string = environment.apiURL
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private socket: Socket) { }
 
   getTokenData() {
     const token = <string>localStorage.getItem('userToken')
@@ -96,5 +97,13 @@ export class UserAuthService {
 
   uploadReview(data: { review: string, userId: string }, trainerId: string): Observable<boolean> {
     return this.http.patch<boolean>(`${this.apiUrl}/trainer/review?id=${trainerId}`, data)
+  }
+
+  sendMessage(message:string): void {
+    this.socket.emit('message', message)
+  }
+
+  getNewMessage():Observable<string>{
+    return  this.socket.fromEvent<string>('newMessage')
   }
 }

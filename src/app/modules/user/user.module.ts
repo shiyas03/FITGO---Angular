@@ -44,8 +44,7 @@ import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-
 import { PaymentsComponent } from './templates/payments/payments.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
-
+import { ChatComponent } from './templates/chat/chat.component';
 @NgModule({
   declarations: [
     NavBarComponent,
@@ -67,6 +66,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     WorkoutsComponent,
     WorkoutViewComponent,
     PaymentsComponent,
+    ChatComponent,
   ],
   imports: [
     CommonModule,
