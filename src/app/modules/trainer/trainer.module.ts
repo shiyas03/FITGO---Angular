@@ -33,6 +33,8 @@ import { EditBlogComponent } from './templates/blogs/edit-blog/edit-blog.compone
 import { EditWorkoutComponent } from './templates/workouts/edit-workout/edit-workout.component';
 import { UpdateProfileComponent } from './templates/profile/update-profile/update-profile.component';
 import { PaymentsComponent } from './templates/payments/payments.component';
+import { ChatComponent } from './templates/chat/chat.component';
+import { UsersComponent } from './templates/users/users.component';
 
 
 
@@ -56,6 +58,8 @@ import { PaymentsComponent } from './templates/payments/payments.component';
     EditWorkoutComponent,
     UpdateProfileComponent,
     PaymentsComponent,
+    ChatComponent,
+    UsersComponent,
   ],
   imports: [
     CommonModule,

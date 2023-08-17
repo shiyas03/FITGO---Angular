@@ -12,11 +12,14 @@
           <img src="assets/images/logo.png" class="h-6 lg:h-8 mr-3 px-0 lg:px-3" alt="logo" />
         </a>
       </div>
-
-      <div class="">
-        <span class="absolute w-3.5 h-3.5 bg-green-400 border-2 border-white rounded-full"></span>
+      <div class="flex">
+        <div class="p-2 hover:bg-gray-200 rounded-full shadow flex jutify-center items-center">
+          <button routerLink="/trainer/chat">
+            <mat-icon> chat_bubble_outline</mat-icon>
+          </button>
+        </div> 
         <button mat-button [matMenuTriggerFor]="menu">
-          <mat-icon><img src="assets/images/user.png" alt=""></mat-icon>
+          <mat-icon>person</mat-icon>
           <p>{{trainer.name}}</p>
         </button>
         <mat-menu #menu="matMenu" class="border border-red-500">
@@ -65,6 +68,13 @@
           class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
           <mat-icon>account_balance</mat-icon>
           <span class="ml-3">Transactions</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/trainer/users" routerLinkActive="active"
+          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon>supervised_user_circle</mat-icon>
+          <span class="ml-3">Users</span>
         </a>
       </li>
     </ul>

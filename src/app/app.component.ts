@@ -14,8 +14,8 @@ export class AppComponent implements OnInit {
     initTE({ Carousel, Dropdown });
   }
 
-  async onFileSelected(event: any) {
-    const file = event.target.files[0]
+  async onFileSelected(event: Event) {
+    const file = <File>(event.target as HTMLInputElement)?.files?.[0]
     if (file) {
       const path = `workouts/${file.name}`
       const uploadTask = await this.storage.upload(path, file)

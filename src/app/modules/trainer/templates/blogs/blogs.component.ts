@@ -25,7 +25,8 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dataSource$ = new MatTableDataSource<Blog>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns: string[] = ['position', 'thumbnail', 'title', 'category', 'action'];
+  displayedColumns: string[] = ['position', 'thumbnail', 'title', 'category','trainer', 'action'];
+  trainerId!: string
 
   constructor(
     private _dialog: MatDialog,
@@ -35,6 +36,7 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.fetchData();
+    this.trainerId = <string>localStorage.getItem('trainerId');
   }
 
   showForm() {

@@ -2,3 +2,9 @@
     display: flex;
     justify-content: center;
   }
+
+  span,p{
+    font-family: 'Abel', sans-serif;
+font-family: 'Kanit', sans-serif;
+font-family: 'REM', sans-serif;
+}

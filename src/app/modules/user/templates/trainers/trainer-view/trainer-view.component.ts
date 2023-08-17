@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { UserAuthService } from '../../../services/user-auth.service';
 import { environment } from 'src/environments/environment';
 import { swal, swalError } from 'src/app/common/swal.popup';
-import { PaymentDetails } from '../../../services/user.interface';
+import { Chat, PaymentDetails } from '../../../services/user.interface';
 
 @Component({
   selector: 'app-trainer-view',
@@ -30,11 +30,11 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   myReview$: string = ''
   totalReview: number = 0
   trainerId!: string;
-  uniqueUsers = new Set<string>();
   subscription1!: Subscription
   subscription2!: Subscription
   subscription3!: Subscription
 
+  uniqueUsers = new Set<string>();
   @ViewChild('carouselItems') carouselItems!: ElementRef;
   paymentHandler!: string;
 
@@ -89,6 +89,7 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
       this.subscription2 = this._userService.paymentStatus(session_id).subscribe((res) => {
         if (res == true) {
           swal('success', 'Payment success')
+          this.fetchData()
         } else {
           swal('error', 'Payment failed')
         }
@@ -126,8 +127,8 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     this.subscription3 = this._userService.uploadReview(data, trainerId).subscribe(
       (res) => {
         if (res == true) {
-          swal('success', 'Review successfully added')
           this.fetchData()
+          swal('success', 'Review successfully added')
         } else {
           swalError('Error occurred')
         }
@@ -151,6 +152,19 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
           }
         }
         if (this.totalReview > 1) this.startAutoSlide()
+      }
+    })
+  }
+
+  chatWith(trainerId: string) {
+    const userId = <string>localStorage.getItem('userId')
+    const data = {
+      user: userId,
+      trainer: trainerId,
+    }
+    this._userService.createConnection(data).subscribe((res) => {
+      if (res) { 
+        this._router.navigate(['chat']);
       }
     })
   }

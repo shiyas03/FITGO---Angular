@@ -118,3 +118,42 @@ export interface PaymentDetails {
     trainerId: Trainer;
     status: string;
 }
+
+export interface Chat {
+    sender: string;
+    reciever: string;
+    content: string;
+}
+
+export interface Messages {
+    _id: string;
+    connection: string
+    sender:string
+    reciever:string
+    content?: string;
+    timestamp: Date;
+}
+
+export interface AllChat{
+    _id:string;
+    connection:string,
+    sender:string,
+    reciever:string,
+    content:string;
+    timestamp:string;
+}
+
+export interface ChatShow{
+    _id: string, 
+    name: string, 
+    imageUrl: string
+}
+
+export interface Connections{
+    _id:string,
+    connections:{
+        user:ChatShow,
+        trainer:ChatShow
+    },
+    timestamp:Date
+}

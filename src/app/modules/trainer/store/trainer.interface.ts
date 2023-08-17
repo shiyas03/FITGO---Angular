@@ -8,6 +8,7 @@ export interface Blog {
 }
 
 export interface Profile {
+  _id:string
   name: string;
   email: string;
   phone:number;

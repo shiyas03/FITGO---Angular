@@ -44,7 +44,7 @@ export class AdminAuthService {
     return this.http.patch<{ success: true }>(`${this.apiUrl}/blogs/publish?id=${id}`, { action })
   }
 
-  getPdfFileUrl(filename: string): Observable<any> {
+  getPdfFileUrl(filename: string): Observable<ArrayBuffer> {
     return this.http.get(`${this.apiUrl}/trainer/documents/${filename}`, { responseType: 'arraybuffer' });
   }
 

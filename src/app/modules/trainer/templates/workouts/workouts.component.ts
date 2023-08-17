@@ -21,12 +21,14 @@ export class WorkoutsComponent implements OnInit,AfterViewInit {
 
   dataSource$ = new MatTableDataSource<Workout>();
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
-  displayedColumns: string[] = ['position', 'thumbnail', 'title', 'muscle', 'action'];
+  displayedColumns: string[] = ['position', 'thumbnail', 'title', 'muscle', 'trainer','action'];
+  trainerId!:string
 
   constructor(private dialog: MatDialog, private store: Store<Workout[]>) { }
 
   ngOnInit(): void {
     this.fetchData()
+    this.trainerId = <string>localStorage.getItem('trainerId')
   }
 
   showForm() {

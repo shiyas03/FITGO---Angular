@@ -16,7 +16,7 @@
                         <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="" class="w-full h-full" *ngIf="trainer.imageUrl">
                     </div>
                     <div class="flex justify-center" *ngIf="!expired">
-                        <a
+                        <a  (click)="chatWith(trainer._id)"
                             class="cursor-pointer relative inline-flex items-center justify-center px-4 py-2 overflow-hidden font-medium text-red-600 transition duration-300 ease-out border-2 border-red-500 rounded-md shadow-md group mt-2">
                             <span
                                 class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-red-500 group-hover:translate-x-0 ease">
@@ -76,7 +76,7 @@
             </div>
             <div class="w-full mt-10">
                 <div class="carousel overflow-hidden">
-                    <div #carouselItems class="transition-all duration-500">
+                    <div #carouselItems class="transition-all duration-500 flex">
                         <div *ngFor="let item of trainer.reviews"
                             class="carousel-item w-full flex-shrink-0 flex justify-center">
                             <div class="md:w-2/4 bg-gray-100 shadow-md rounded-md overflow-hidden">

@@ -1,3 +1,4 @@
+<!-- component -->
 <div class="flex h-screen antialiased text-gray-800">
     <div class="flex flex-row h-full w-full overflow-x-hidden">
         <div class="flex flex-col p-4 w-1/5 bg-white flex-shrink-0">
@@ -6,8 +7,8 @@
                     <img src="assets/images/logo.png" alt="">
                 </div>
             </div>
-            <div class="flex flex-col mt-8" *ngIf="trainers; else trainerBlock">
-                <div class="flex flex-col overflow-y-auto" *ngFor="let value of trainers">
+            <div class="flex flex-col mt-8" *ngIf="users; else userBlock">
+                <div class="flex flex-col overflow-y-auto" *ngFor="let value of users">
                     <button class="flex items-center hover:bg-gray-100 rounded-xl px-2 py-1 focus:bg-gray-200"
                         (click)="selectChat(value._id)">
                         <img [src]="'http://localhost:3000/uploads/'+value.imageUrl" alt=""
@@ -22,7 +23,7 @@
                     </button>
                 </div>
             </div>
-            <ng-template #trainerBlock>
+            <ng-template #userBlock>
                 <div class="flex flex-col mt-8">
                     <div class="flex flex-col overflow-y-auto">
                     </div>
@@ -31,21 +32,17 @@
         </div>
         <div class="flex flex-col flex-auto h-full p-5">
             <div class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 shadow-lg h-full p-4"
-                *ngIf="trainerId; else messageBlock">
+                *ngIf="userId; else messageBlock">
                 <div class="flex flex-col h-full overflow-x-auto mb-4" #chatContainer>
                     <div class="flex flex-col h-full">
-                        <div class="grid grid-cols-12 gap-y-2" *ngFor="let value of chat$">
-                            <div class="col-start-6 col-end-13 p-3 rounded-lg"
-                                *ngIf="value.content !== '' && value.reciever === trainerId">
-                                <div class="flex items-center justify-start flex-row-reverse">
-                                    <div *ngIf="!user.imageUrl; else imageBlock"
-                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white uppercase">
-                                        {{user.name[0]}}
+                        <div class="grid grid-cols-12 gap-y-2"  *ngFor="let value of chat$">
+                            <div class="col-start-6 col-end-13 p-3 rounded-lg"  *ngIf="value.content !== '' && value.reciever === userId">
+                                <div class="flex items-center justify-start flex-row-reverse"
+                                   >
+                                    <div
+                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white">
+                                        {{trainer.name[0]}}
                                     </div>
-                                    <ng-template #imageBlock>
-                                        <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt=""
-                                            class="h-10 w-10 rounded-full">
-                                    </ng-template>
                                     <div class="relative mr-3 text-sm bg-red-100 py-2 px-4 shadow rounded-xl">
                                         <div>
                                             {{value.content}}
@@ -56,15 +53,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-start-1 col-end-8 p-3 rounded-lg"
-                                *ngIf="value.content !== '' && value.reciever === userId">
-                                <div class="flex flex-row items-center">
-                                    <div *ngIf="!trainer.imageUrl; else imageBlock"
+                            <div class="col-start-1 col-end-8 p-3 rounded-lg"  *ngIf="value.content !== '' && value.reciever === trainerId">
+                                <div class="flex flex-row items-center"
+                                   >
+                                    <div *ngIf="!user.imageUrl; else imageBlock"
                                         class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white uppercase">
-                                        {{trainer.name[0]}}
+                                        {{user.name[0]}}
                                     </div>
                                     <ng-template #imageBlock>
-                                        <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt=""
+                                        <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt=""
                                             class="h-10 w-10 rounded-full">
                                     </ng-template>
                                     <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
@@ -73,7 +70,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,7 +86,7 @@
                         </button> -->
                     </div>
                     <div class="flex-grow ml-4">
-                        <form #form="ngForm" (ngSubmit)="onSubmit(trainerId)">
+                        <form #form="ngForm" (ngSubmit)="onSubmit(userId)">
                             <div class="flex">
                                 <div class="relative w-full">
                                     <input ngModel name="message" required type="text"

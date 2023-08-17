@@ -10,6 +10,8 @@ import { BlogsComponent } from './templates/blogs/blogs.component';
 import { ProfileComponent } from './templates/profile/profile.component';
 import { WorkoutsComponent } from './templates/workouts/workouts.component';
 import { PaymentsComponent } from './templates/payments/payments.component';
+import { ChatComponent } from './templates/chat/chat.component';
+import { UsersComponent } from './templates/users/users.component';
 
 const routes: Routes = [
   {
@@ -53,6 +55,14 @@ const routes: Routes = [
   },
   {
     path: 'payments', component: PaymentsComponent, 
+    canActivate: [TrainerAuthGuard]
+  },
+  {
+    path: 'users', component: UsersComponent, 
+    canActivate: [TrainerAuthGuard]
+  },
+  {
+    path: 'chat', component: ChatComponent, 
     canActivate: [TrainerAuthGuard]
   },
 ];

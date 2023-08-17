@@ -10,7 +10,7 @@
 </header>
 <div *ngIf="blog$ | async as blog" class="w-full">
   <div class="flex justify-center">
-    <div class="w-2/4">
+    <div class="md:w-2/4 w-3/4">
       <div class="mt-10">
         <p class="text-3xl font-semibold text-center text-gray-900 tracking-tight">{{blog.title}}</p>
       </div>
@@ -23,11 +23,11 @@
           <div class="h-12" *ngIf="i%5==0"></div>
         </div>
       </div>
-      <div class="mt-10 border-t border-b mb-10 border-red-600 flex justify-center">
-        <div class="w-3/5 bg-gray-200 rounded-lg drop-shadow-lg m-5 flex items-center justify-center">
-          <div class="w-1/2 bg-red-500 p-5 rounded-l">
+      <div class="mt-10 border-t border-b mb-10 border-red-600 md:flex justify-center">
+        <div class="md:w-3/5 bg-gray-200 rounded-lg drop-shadow-lg m-5 md:flex items-center justify-center">
+          <div class="md:w-1/2 bg-red-500 p-5 rounded-l">
             <p class="text-xs underline mb-5 text-white text-center">Blog by</p>  
-            <div class="w-40 h-40 rounded-full bg-gray-300 overflow-hidden">
+            <div class="mhd:w-40 md:h-40 w-15 h-15 rounded-full bg-gray-300 overflow-hidden">
               <img [src]="'http://localhost:3000/uploads/'+blog.trainerId.imageUrl" alt="" class="w-fit h-fit">
             </div>
           </div>

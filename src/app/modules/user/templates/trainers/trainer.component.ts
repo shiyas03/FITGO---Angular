@@ -16,7 +16,6 @@ import { NavigationExtras, Router } from '@angular/router';
 export class TrainerComponent implements OnInit {
 
   trainers$!: Observable<Trainer[]>
-  paymentHandler!: any
   notFound: boolean = true
 
   constructor(private store: Store<Trainer[]>, private userService: UserAuthService, private router: Router) { }

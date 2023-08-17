@@ -21,11 +21,13 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { NotFoundPageComponent } from './modules/not-found-page/not-found-page.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 const config: SocketIoConfig = { url: environment.apiURL, options: {} };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotFoundPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -44,7 +46,8 @@ const config: SocketIoConfig = { url: environment.apiURL, options: {} };
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtUserInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtAdminInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtTrainerInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtTrainerInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

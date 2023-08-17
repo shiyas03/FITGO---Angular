@@ -12,7 +12,11 @@ import {
   UpdateDetails,
   Workout,
   Payment,
-  PaymentDetails
+  PaymentDetails,
+  Chat,
+  Messages,
+  AllChat,
+  Connections
 } from './user.interface';
 import { activity } from './user.enum';
 import { decodeToken } from 'src/app/common/token.decode';
@@ -99,11 +103,29 @@ export class UserAuthService {
     return this.http.patch<boolean>(`${this.apiUrl}/trainer/review?id=${trainerId}`, data)
   }
 
-  sendMessage(message:string): void {
-    this.socket.emit('message', message)
+  createConnection(data: { user: string, trainer: string }): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/chat/create`, data)
   }
 
-  getNewMessage():Observable<string>{
-    return  this.socket.fromEvent<string>('newMessage')
+  fetchTrainersConnections(id: string): Observable<Messages[]> {
+    return this.http.get<Messages[]>(`${this.apiUrl}/chat/trainers/${id}`)
   }
+
+  fetchAllConnections(id:string):Observable<Connections[]>{
+    return this.http.get<Connections[]>(`${this.apiUrl}/chat/connections/${id}`)
+  }
+
+  sendMessage(data: Chat): void {
+    this.socket.emit('message', data)
+  }
+
+  getNewMessage(): Observable<string> {
+    return this.socket.fromEvent<string>('newMessage')
+  }
+
+  getAllMessage(data: { trainerId: string, userId: string }): Observable<AllChat[]> {
+    return this.http.post<AllChat[]>(`${this.apiUrl}/chat`,data)
+  }
+
+ 
 }

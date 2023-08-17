@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundPageComponent } from './modules/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,10 @@ const routes: Routes = [
     path: 'trainer', loadChildren: () => import('./modules/trainer/trainer.module').then((m) => m.TrainerModule)
   },
   {
-    path: '**', redirectTo: '',
+    path:'404', component:NotFoundPageComponent
+  },
+  {
+    path: '**', redirectTo: '404',
     pathMatch: 'full',
   }
 ];

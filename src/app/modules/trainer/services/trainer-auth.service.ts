@@ -5,6 +5,8 @@ import { Blog, DeailsReturn, Payment, Register, Registeration, Trainer, Verify, 
 import { environment } from '../../../../environments/environment'
 import { Profile, Udpate } from '../store/trainer.interface';
 import { decodeToken } from 'src/app/common/token.decode';
+import { Socket } from 'ngx-socket-io';
+import { AllChat, Chat, Connections, Messages } from '../../user/services/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class TrainerAuthService {
 
   apiUrl: string = environment.apiURL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private socket: Socket) { }
 
   trainerId() {
     const token = <string>localStorage.getItem('trainerToken');
@@ -84,4 +86,28 @@ export class TrainerAuthService {
   fetchPayments(trainerId:string):Observable<Payment[]>{
     return this.http.get<Payment[]>(`${this.apiUrl}/payment/trainer/${trainerId}`)
   } 
+
+  sendMessage(data:Chat): void { 
+    this.socket.emit('message', data)
+  }
+
+  getNewMessage():Observable<string>{
+    return this.socket.fromEvent<string>('newMessage')
+  }
+
+  getAllMessage(data: { trainerId: string, userId: string }):Observable<AllChat[]>{
+    return this.http.post<AllChat[]>(`${this.apiUrl}/chat`,data)
+  }
+
+  createConnection(data: { user: string, trainer: string }): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/chat/create`, data)
+  }
+
+  fetchUserConnections(id: string): Observable<AllChat[]> {
+    return this.http.get<AllChat[]>(`${this.apiUrl}/chat/users/${id}`)
+  }
+
+  fetchAllConnections(id:string):Observable<Connections[]>{
+    return this.http.get<Connections[]>(`${this.apiUrl}/chat/all/${id}`)
+  }
 }
