@@ -38,3 +38,10 @@ export const paymentSelectorData = createSelector(
   paymentSelectorState,
   (state: Payment[]) => state
 )
+
+export const UserPaymentData = (id: string) => createSelector(
+  paymentSelectorData, (state: Payment[]) =>{
+    const user = state.find(data=> data.userId._id === id)
+    return user?.userId
+  } 
+)

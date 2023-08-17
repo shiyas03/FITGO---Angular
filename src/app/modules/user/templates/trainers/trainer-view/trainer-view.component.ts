@@ -43,10 +43,10 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     private _userService: UserAuthService, private _router: Router) { }
 
   ngOnInit(): void {
-    this.paymentStatus()
-    this.paymentgDetails()
     this.fetchData()
+    this.paymentStatus()
     this.checkReview()
+    this.paymentgDetails()
   }
 
   fetchData() {
@@ -88,8 +88,8 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     if (session_id) {
       this.subscription2 = this._userService.paymentStatus(session_id).subscribe((res) => {
         if (res == true) {
+          this.expired = false
           swal('success', 'Payment success')
-          this.fetchData()
         } else {
           swal('error', 'Payment failed')
         }
@@ -101,15 +101,20 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
 
   paymentgDetails() {
     const userId = <string>localStorage.getItem('userId')
+    this._userService.fetchTrainerPayments(this.trainerId).subscribe(
+      (res) => {
+        for (let value of res) {
+          if (value.trainerId._id === this.trainerId) {
+            this.uniqueUsers.add(value.userId._id);
+          }
+        }
+      })
     this.__store.dispatch(fetchPaymentData({ userId: userId }))
     this.__store.pipe(select(paymentSelectorData)).subscribe((data) => {
       const date: Date = new Date()
-      for (let { expiryDate, trainerId, userId } of data) {
+      for (let { expiryDate, trainerId } of data) {
         const expiry = new Date(expiryDate)
         if (this.trainerId === trainerId._id) {
-          data.forEach(item => {
-            this.uniqueUsers.add(item.userId._id);
-          });
           if (date < expiry) {
             this.expired = false
           }
@@ -163,7 +168,7 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
       trainer: trainerId,
     }
     this._userService.createConnection(data).subscribe((res) => {
-      if (res) { 
+      if (res) {
         this._router.navigate(['chat']);
       }
     })

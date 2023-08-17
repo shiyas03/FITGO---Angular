@@ -109,7 +109,29 @@ export interface Payment{
   paymentId: string;
   packageId: string;
   sessionId: string;
-  userId: Users;
+  userId: UserFull;
   trainerId: Trainers;
   status: string;
+}
+
+export interface UserFull {
+    access: boolean;
+    activity: string;
+    age: number;
+    caloriesBurn: number;
+    caloriesNeed: number;
+    email: string;
+    gender: string;
+    goal: string;
+    goalWeight: number;
+    height: number;
+    isUpload: boolean;
+    joinDate: string;
+    months: number;
+    name: string;
+    password: string;
+    phone: number;
+    weight: number;
+    __v: number;
+    _id: string;
 }

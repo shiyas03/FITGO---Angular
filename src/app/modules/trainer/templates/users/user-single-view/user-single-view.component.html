@@ -1,0 +1,52 @@
+<div class="border border-red-500 p-5" *ngIf="user$|async as user">
+    <p class="text-lg text-center underline font-semibold text-red-500">User Details</p>
+    <div class="grid grid-cols-4 mt-5">
+        <div class="col-span-1">Name</div>
+        <div>{{user.name}}</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Email</div>
+        <div>{{user.email}}</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Phone</div>
+        <div>{{user.phone}}</div>
+    </div>
+    <div class="grid grid-cols-4 mt-5">
+        <div class="col-span-1">Age</div>
+        <div>{{user.age}} years</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Gender</div>
+        <div>{{user.gender}}</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Height</div>
+        <div>{{user.height}} cm</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Weight</div>
+        <div>{{user.weight}} kg</div>
+    </div>
+    <div class="grid grid-cols-4 mt-5">
+        <div class="col-span-1">Goal Weight</div>
+        <div>{{user.goalWeight}} kg</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Goal period</div>
+        <div>{{user.months}} Months</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Activity</div>
+        <div>{{user.activity}}</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Calorie Burn</div>
+        <div>{{user.caloriesBurn}} kcl</div>
+    </div>
+    <div class="grid grid-cols-4">
+        <div class="col-span-1">Calorie Need</div>
+        <div>{{user.caloriesNeed}} kcl</div>
+    </div>
+    
+</div>

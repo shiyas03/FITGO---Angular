@@ -36,7 +36,7 @@ export class UserAuthService {
   }
 
   registerUser(userData: Register): Observable<RegisterReturn> {
-    return this.http.post<RegisterReturn>(`${this.apiUrl}/register`, userData);
+    return this.http.post<RegisterReturn>(`${this.apiUrl}/`+activity.Register, userData);
   }
 
   sendMail(email: string): Observable<EmailReturn> {
@@ -97,6 +97,10 @@ export class UserAuthService {
 
   fetchPayments(userId: string): Observable<PaymentDetails[]> {
     return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/fetch/${userId}`)
+  }
+
+  fetchTrainerPayments(trainerId:string): Observable<PaymentDetails[]> {
+    return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/trainer/${trainerId}`)
   }
 
   uploadReview(data: { review: string, userId: string }, trainerId: string): Observable<boolean> {

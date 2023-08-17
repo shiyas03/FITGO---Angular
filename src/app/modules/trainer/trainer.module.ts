@@ -35,6 +35,7 @@ import { UpdateProfileComponent } from './templates/profile/update-profile/updat
 import { PaymentsComponent } from './templates/payments/payments.component';
 import { ChatComponent } from './templates/chat/chat.component';
 import { UsersComponent } from './templates/users/users.component';
+import { UserSingleViewComponent } from './templates/users/user-single-view/user-single-view.component';
 
 
 
@@ -60,6 +61,7 @@ import { UsersComponent } from './templates/users/users.component';
     PaymentsComponent,
     ChatComponent,
     UsersComponent,
+    UserSingleViewComponent,
   ],
   imports: [
     CommonModule,
