@@ -1,0 +1,52 @@
+<div class="absolute flex w-screen justify-center p-5 bg-gray-50 shadow lg:visible invisible">
+    <img src="assets/images/logo.png" alt="" class="w-28">
+</div>
+<div class="w-screen sm:h-screen flex sm:justify-center lg:items-center">
+    <div class="lg:w-3/5 bg-gray-200 lg:bg-gray-950 sm:flex m-5 sm:mt-0">
+        <div class="lg:w-1/4 sm:w-1/2 sm:m-10 h-[340px] min-h-max lg:-mt-16 bg-gray-50 sm:absolute shadow rounded ">
+            <div class="h-full flex justify-center items-center">
+                <div class="w-3/4 m-3">
+                    <p class="text-xl sm:text-3xl font text-red-500 text-center uppercase underline">Enter OTP</p>
+                    <form class="form mt-5" [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+                        <div class="inputs mt-10 mb-3 flex justify-center">
+                            <input id="input1" type="text" maxlength="1" class="w-1/6 mx-1 border border-black outline-none text-center px-2 py-2 text-xl"
+                                [class.border-red-500]="otpForm.controls['input1'].invalid && submit" formControlName="input1"
+                                (input)="onInput($event, 'input1')" #input1>
+                            <input id="input2" type="text" maxlength="1" class="w-1/6 mx-1 border border-black outline-none text-center px-2 py-2 text-xl"
+                                [class.border-red-500]="otpForm.controls['input2'].invalid && submit" formControlName="input2"
+                                (input)="onInput($event, 'input2')" #input2>
+                            <input id="input3" type="text" maxlength="1" class="w-1/6 mx-1 border border-black outline-none text-center px-2 py-2 text-xl"
+                                [class.border-red-500]="otpForm.controls['input3'].invalid && submit" formControlName="input3"
+                                (input)="onInput($event, 'input3')" #input3>
+                            <input id="input4" type="text" maxlength="1" class="w-1/6 mx-1 border border-black outline-none text-center px-2 py-2 text-xl"
+                                [class.border-red-500]="otpForm.controls['input4'].invalid && submit" formControlName="input4"
+                                (input)="onInput($event, 'input4')" #input4>
+                            <input id="input5" type="text" maxlength="1" class="w-1/6 mx-1 border border-black outline-none text-center px-2 py-2 text-xl"
+                                [class.border-red-500]="otpForm.controls['input5'].invalid && submit" formControlName="input5"
+                                (input)="onInput($event, 'input5')" #input5>
+                            <input id="input6" type="text" maxlength="1" class="w-1/6 mx-1 border border-black outline-none text-center px-2 py-2 text-xl"
+                                [class.border-red-500]="otpForm.controls['input6'].invalid && submit" formControlName="input6"
+                                (input)="onInput($event, 'input6')" #input6>
+                        </div>
+                        <p class="text-xs text-gray-500 font-medium text-center" *ngIf="!reset"><span class="text-gray-600">Resend otp in </span> {{ minutes }} : {{ seconds }}</p>
+                        <p class="cursor-pointer underline text-red-500 text-sm text-center" *ngIf="reset && !sent" (click)="resend()">Resend OTP</p>
+                        <div class="mt-5 flex justify-center">
+                            <button
+                                class="py-3 text-xs uppercase font-semibold rounded-md duration-300 bg-white font border-2 border-black w-2/3 hover:scale-105"
+                                type="submit">
+                                Verify
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="sm:w-1/2 sm:h-1/3 sm:flex items-center invisible lg:visible"></div>
+        <div class="w-1/2 h-1/3 flex items-center lg:visible invisible">
+            <div class="sm:m-10">
+                <p class="sm:text-2xl text-white font m-3">Verify using OTP</p>
+                <p class="text-white m-3 font">We have sent a verification otp code to your <br> Email address : <b class="text-red-500" *ngIf="userData">{{userData.email}}</b></p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+.moving {
+  transition: transform 0.5s ease-in-out;
+}
+
+
+@media (max-width: 768px) {
+  .move {
+    justify-content: center;
+    transform: translateX(0%);
+    transition: transform 0.5s ease-in-out;
+  }
+}
+
+@media (min-width: 768px) {
+  .move {
+    transform: translateX(110%);
+    transition: transform 0.5s ease-in-out;
+  }
+}
+
+p {
+  font-family: 'Abel', sans-serif;
+  font-family: 'Kanit', sans-serif;
+  font-family: 'REM', sans-serif;
+}

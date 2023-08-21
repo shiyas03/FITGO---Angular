@@ -44,6 +44,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     if (this.detailsForm.valid) {
       this.uploadDetails(this.detailsForm.value);
     }
+    this.destroyError()
   }
 
   uploadDetails(formDetails: Details) {
@@ -105,6 +106,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
       totalCalories = Math.floor(calories - caloriePerMonth);
     }
     return { caloriesBurn: calories, caloriesNeed: totalCalories };
+  }
+
+  destroyError(){
+    setTimeout(()=>{
+      this.submit = false
+    },2000)
   }
 
   ngOnDestroy(): void {

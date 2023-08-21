@@ -6,14 +6,13 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Register, User } from '../../store/user';
+import { Register } from '../../../store/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserAuthService } from '../../services/user-auth.service';
-import { fetchUserData } from '../../store/user.action';
-import { registeSelectorData, userSelectorData } from '../../store/user.selector';
-import { showError, swal, swalError } from '../../../../common/swal.popup';
+import { UserAuthService } from '../../../services/user-auth.service';
+import { registeSelectorData } from '../../../store/user.selector';
+import { showError, swal } from '../../../../../common/swal.popup';
 
 @Component({
   selector: 'app-otp',
@@ -21,6 +20,7 @@ import { showError, swal, swalError } from '../../../../common/swal.popup';
   styleUrls: ['./otp.component.css'],
 })
 export class OtpComponent implements OnInit, OnDestroy {
+  
   userData!: Register;
   otpForm!: FormGroup;
   email!: string;
@@ -63,8 +63,8 @@ export class OtpComponent implements OnInit, OnDestroy {
     this.store.pipe(select(registeSelectorData)).subscribe(data => {
       if (data) {
         this.userData = data
-      } else {
-        this.router.navigate(['/register'])
+      } else{
+        this.router.navigate(['/auth'])
       }
     })
   }

@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './templates/home/home.component';
 import { UserLoginGuard } from './guards/user-login.guard';
-import { LoginComponent } from './templates/login/login.component';
-import { RegisterComponent } from './templates/register/register.component';
 import { DetailsComponent } from './templates/details/details.component';
-import { OtpComponent } from './templates/otp/otp.component';
+import { OtpComponent } from './templates/auth/otp/otp.component';
 import { ProfileComponent } from './templates/profile/profile.component';
 import { UserAuthGuard } from './guards/user-auth.guard';
 import { EditUserComponent } from './templates/profile/edit-user/edit-user.component';
@@ -17,6 +15,7 @@ import { WorkoutViewComponent } from './templates/workouts/workout-view/workout-
 import { TrainerViewComponent } from './templates/trainers/trainer-view/trainer-view.component';
 import { PaymentsComponent } from './templates/payments/payments.component';
 import { ChatComponent } from './templates/chat/chat.component';
+import { AuthComponent } from './templates/auth/auth.component';
 
 const routes: Routes = [
   {
@@ -29,23 +28,16 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: 'auth',
     canActivate: [UserLoginGuard],
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    canActivate: [UserLoginGuard],
+    children: [
+      { path: '', component: AuthComponent },
+      { path: 'verify', component: OtpComponent }
+    ]
   },
   {
     path: 'details',
     component: DetailsComponent,
-  },
-  {
-    path: 'otp',
-    component: OtpComponent,
-    canActivate: [UserLoginGuard],
   },
   {
     path: 'profile',

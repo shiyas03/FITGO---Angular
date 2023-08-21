@@ -5,7 +5,6 @@ import { profileSelectorData } from '../../../store/user.selector';
 import { Store, select } from '@ngrx/store';
 import { ProfileDetails } from '../../../store/user';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SuccessComponent } from 'src/app/modules/trainer/templates/details/success/success.component';
 import { pattern } from 'src/app/common/regex.pattern';
 
 @Component({

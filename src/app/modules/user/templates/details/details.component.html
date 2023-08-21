@@ -1,138 +1,171 @@
-<app-background></app-background>
-<div class="sm:mx-auto sm:w-full sm:max-w-lg m-5 xs:m-16 my-10 pb-10">
-    <div class="bg-gray-100 py-8 px-4 shadow rounded-lg sm:px-10">
-        <form [formGroup]="detailsForm" (ngSubmit)="onSubmit()">
-            <div class="space-y-12">
-                <div class="border-gray-900/10 pb-6">
-                    <h2 class="text-2xl text-center font-semibold text-red-600">Personal Information</h2>
-                    <hr class="mt-2 border border-red-500">
-                    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
-                        <div class="sm:col-span-3">
-                            <label for="age" class="block text-sm font-medium text-gray-900">Age</label>
-                            <div class="m-1">
-                                <input type="text" name="age" id="age" autocomplete="given-age" formControlName="age" placeholder="in years"
-                                    class="px-3 block w-full outline-none rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm">
-                            </div>
-                            <div *ngIf="detailsForm.controls['age'].errors&&submit">
-                                <p *ngIf="detailsForm.controls['age'].hasError('required')"
-                                    class="text-xs text-red-500">Age required</p>
-                                <p *ngIf="detailsForm.controls['age'].hasError('pattern')" class="text-xs text-red-500">
-                                    Age in numerics</p>
-                            </div>
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label for="height" class="block text-sm font-medium text-gray-900">Height</label>
-                            <div class="m-1">
-                                <input type="text" name="height" id="height" autocomplete="given-height"
-                                    placeholder="in cm" formControlName="height"
-                                    class="px-3 block outline-none w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm">
-                            </div>
-                            <div *ngIf="detailsForm.controls['height'].errors&&submit">
-                                <p *ngIf="detailsForm.controls['height'].hasError('required')"
-                                    class="text-xs text-red-500">Height required</p>
-                                <p *ngIf="detailsForm.controls['height'].hasError('pattern')"
-                                    class="text-xs text-red-500">Height in numerics</p>
-                            </div>
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label for="weight" class="block text-sm font-medium text-gray-900">Weight</label>
-                            <div class="m-1">
-                                <input type="text" name="weight" id="weight" autocomplete="given-weight"
-                                    placeholder="in kg" formControlName="weight"
-                                    class="px-3 outline-none block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm">
-                            </div>
-                            <div *ngIf="detailsForm.controls['weight'].errors&&submit">
-                                <p *ngIf="detailsForm.controls['weight'].hasError('required')"
-                                    class="text-xs text-red-500">Weight required</p>
-                                <p *ngIf="detailsForm.controls['weight'].hasError('pattern')"
-                                    class="text-xs text-red-500">Weight in numerics</p>
+<div class="absolute flex w-screen justify-center p-5 bg-gray-50 shadow lg:visible invisible">
+    <img src="assets/images/logo.png" alt="" class="w-28">
+</div>
+<div class="w-screen sm:h-screen flex justify-center items-center">
+    <div class="sm:w-3/5 bg-gray-200 lg:bg-gray-950 sm:flex m-10 sm:m-0">
+        <div class="lg:w-1/3 sm:m-10 min-h-max sm:-mt-36 bg-gray-50 sm:absolute shadow rounded">
+            <div class="h-full flex justify-center items-center">
+                <div class="w-3/4 m-5">
+                    <p class="text-xl sm:text-3xl font text-red-500 text-center uppercase underline">Details</p>
+                    <form [formGroup]="detailsForm" (ngSubmit)="onSubmit()">
+                        <div class="border-gray-900/10">
+                            <div class="mt-5 grid grid-cols-1 gap-x-3 gap-y-3 sm:grid-cols-6">
+                                <div class="sm:col-span-3">
+                                    <label for="age"
+                                        class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Age</label>
+                                    <div class="m-1 shadow-sm">
+                                        <input type="text" name="age" id="age" autocomplete="given-age"
+                                            formControlName="age" placeholder="in years"
+                                            class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
+                                    </div>
+                                    <div *ngIf="detailsForm.controls['age'].errors&&submit">
+                                        <p *ngIf="detailsForm.controls['age'].hasError('required')"
+                                            class="text-xs text-red-500">Age required</p>
+                                        <p *ngIf="detailsForm.controls['age'].hasError('pattern')"
+                                            class="text-xs text-red-500">
+                                            Age in numerics</p>
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label for="height"
+                                        class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Height</label>
+                                    <div class="m-1">
+                                        <input type="text" name="height" id="height" autocomplete="given-height"
+                                            placeholder="in cm" formControlName="height"
+                                            class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
+                                    </div>
+                                    <div *ngIf="detailsForm.controls['height'].errors&&submit">
+                                        <p *ngIf="detailsForm.controls['height'].hasError('required')"
+                                            class="text-xs text-red-500">Height required</p>
+                                        <p *ngIf="detailsForm.controls['height'].hasError('pattern')"
+                                            class="text-xs text-red-500">Height in numerics</p>
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label for="weight"
+                                        class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Weight</label>
+                                    <div class="m-1">
+                                        <input type="text" name="weight" id="weight" autocomplete="given-weight"
+                                            placeholder="in kg" formControlName="weight"
+                                            class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
+                                    </div>
+                                    <div *ngIf="detailsForm.controls['weight'].errors&&submit">
+                                        <p *ngIf="detailsForm.controls['weight'].hasError('required')"
+                                            class="text-xs text-red-500">Weight required</p>
+                                        <p *ngIf="detailsForm.controls['weight'].hasError('pattern')"
+                                            class="text-xs text-red-500">Weight in numerics</p>
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label for="goal"
+                                        class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">
+                                        Goal
+                                    </label>
+                                    <div class="flex items-center gap-x-3 mt-2">
+                                        <input id="gain" name="goal" type="radio" formControlName="goal" value="gain"
+                                            class="h-4 w-4 border-gray-300 text-red-600 hover:ring-grey-900">
+                                        <label for="gain"
+                                            class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Gain</label>
+
+                                        <input id="loss" name="goal" type="radio" formControlName="goal" value="loss"
+                                            class="h-4 w-4 border-gray-300 text-red-600 hover:ring-grey-900">
+                                        <label for="loss"
+                                            class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Loss</label>
+                                    </div>
+                                    <p *ngIf="detailsForm.controls['goal'].hasError('required')&&submit"
+                                        class="text-xs text-red-500">
+                                        Goal requried</p>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label for="g-weight"
+                                        class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Goal
+                                        weight</label>
+                                    <div class="m-1">
+                                        <input type="text" nag-weight g-weight autocomplete="given-weight"
+                                            placeholder="in kg" formControlName="goalWeight"
+                                            class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
+                                    </div>
+                                    <div *ngIf="detailsForm.controls['goalWeight'].errors&&submit">
+                                        <p *ngIf="detailsForm.controls['goalWeight'].hasError('required')"
+                                            class="text-xs text-red-500">Weight required</p>
+                                        <p *ngIf="detailsForm.controls['goalWeight'].hasError('pattern')"
+                                            class="text-xs text-red-500">Weight in numerics</p>
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label for="months"
+                                        class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">No.of
+                                        Months</label>
+                                    <div class="m-1">
+                                        <input type="text" name="months" autocomplete="given-months"
+                                            formControlName="months" placeholder="in number"
+                                            class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
+                                    </div>
+                                    <div *ngIf="detailsForm.controls['months'].errors&&submit">
+                                        <p *ngIf="detailsForm.controls['months'].hasError('required')"
+                                            class="text-xs text-red-500">Months required</p>
+                                        <p *ngIf="detailsForm.controls['months'].hasError('pattern')"
+                                            class="text-xs text-red-500">Months in numerics</p>
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label for="gender"
+                                        class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Gender</label>
+                                    <div class="m-1">
+                                        <select id="gender" name="gender" formControlName="gender"
+                                            autocomplete="gender-name"
+                                            class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>
+                                    </div>
+                                    <p *ngIf="detailsForm.controls['gender'].hasError('required')&&submit"
+                                        class="text-xs text-red-500">
+                                        Gender required</p>
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <label for="activity"
+                                        class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Activity
+                                        level</label>
+                                    <div class="m-1">
+                                        <select id="activity" name="activity" formControlName="activity"
+                                            autocomplete="activity-name"
+                                            class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
+                                            <option>Sedentary</option>
+                                            <option>Lightly</option>
+                                            <option>Moderately</option>
+                                            <option>Hard</option>
+                                        </select>
+                                    </div>
+                                    <p *ngIf="detailsForm.controls['activity'].hasError('required')&&submit"
+                                        class="text-xs text-red-500">
+                                        Activity required</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="sm:col-span-3">
-                            <label for="goal" class="block text-sm font-medium text-gray-900">
-                                Goal
-                            </label>
-                            <div class="flex items-center gap-x-3 mt-2">
-                                <input id="gain" name="goal" type="radio" formControlName="goal" value="gain"
-                                    class="h-4 w-4 border-gray-300 text-red-600 hover:ring-grey-900">
-                                <label for="gain" class=" outline-none block text-sm font-medium text-gray-900">Gain</label>
-
-                                <input id="loss" name="goal" type="radio" formControlName="goal" value="loss"
-                                    class="h-4 w-4 border-gray-300 text-red-600 hover:ring-grey-900">
-                                <label for="loss" class=" outline-none block text-sm font-medium text-gray-900">Loss</label>
-                            </div>
-                            <p *ngIf="detailsForm.controls['goal'].hasError('required')&&submit" class="text-xs text-red-500">
-                                Goal requried</p>
+                        <div class="w-full mt-5 mb-5 flex justify-center">
+                            <button type="submit"
+                                class="text-black border-2 border-black w-full hover:w-1/2 py-2 rounded-md duration-150 font">
+                                Submit
+                            </button>
                         </div>
-
-                        <div class="sm:col-span-3">
-                            <label for="g-weight" class="block text-sm font-medium text-gray-900">Goal weight</label>
-                            <div class="m-1">
-                                <input type="text" nag-weight g-weight autocomplete="given-weight" placeholder="in kg"
-                                    formControlName="goalWeight"
-                                    class="px-3 outline-none block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm">
-                            </div>
-                            <div *ngIf="detailsForm.controls['goalWeight'].errors&&submit">
-                                <p *ngIf="detailsForm.controls['goalWeight'].hasError('required')"
-                                    class="text-xs text-red-500">Weight required</p>
-                                <p *ngIf="detailsForm.controls['goalWeight'].hasError('pattern')"
-                                    class="text-xs text-red-500">Weight in numerics</p>
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-3">
-                            <label for="months" class="block text-sm font-medium text-gray-900">No.of Months</label>
-                            <div class="m-1">
-                                <input type="text" name="months" autocomplete="given-months" formControlName="months"
-                                    class="px-3 block w-full outline-none rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm">
-                            </div>
-                            <div *ngIf="detailsForm.controls['months'].errors&&submit">
-                                <p *ngIf="detailsForm.controls['months'].hasError('required')"
-                                    class="text-xs text-red-500">Months required</p>
-                                <p *ngIf="detailsForm.controls['months'].hasError('pattern')"
-                                    class="text-xs text-red-500">Months in numerics</p>
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-3">
-                            <label for="gender" class="block text-sm font-medium text-gray-900">Gender</label>
-                            <div class="m-1">
-                                <select id="gender" name="gender" formControlName="gender" autocomplete="gender-name"
-                                    class="py-1.5 block w-full outline-none rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-grey-600 sm:max-w-xs sm:text-sm">
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                </select>
-                            </div>
-                            <p *ngIf="detailsForm.controls['gender'].hasError('required')&&submit" class="text-xs text-red-500">
-                                Gender required</p>
-                        </div>
-                        
-                        <div class="sm:col-span-3">
-                            <label for="activity" class="block text-sm font-medium text-gray-900">Activity level</label>
-                            <div class="m-1">
-                                <select id="activity" name="activity" formControlName="activity" autocomplete="activity-name"
-                                    class="py-1.5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-grey-600 sm:max-w-xs sm:text-sm">
-                                    <option>Sedentary</option>
-                                    <option>Lightly</option>
-                                    <option>Moderately</option>
-                                    <option>Hard</option>
-                                </select>
-                            </div>
-                            <p *ngIf="detailsForm.controls['activity'].hasError('required')&&submit" class="text-xs text-red-500">
-                                Activity required</p>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="mt-3 flex items-center">
-                <button type="submit"
-                    class="flex items-center justify-center w-full rounded-md bg-red-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-red-500 hover-visible:outline hover-visible:outline-2 hover-visible:outline-offset-2 hover-visible:outline-red-600">
-                    Submit
-                </button>
+        </div>
+        <div class="sm:w-1/2 sm:h-1/3 sm:flex items-center invisible lg:visible"></div>
+        <div class="w-1/2 h-1/3 flex items-center lg:visible invisible">
+            <div class="sm:m-10">
+                <p class="sm:text-2xl text-white font m-3">Fill Your Details</p>
+                <p class="text-white m-3 font">We're thrilled to have you! Enter your information below and let's
+                    kickstart your fitness transformation.</p>
             </div>
-        </form>
-
+        </div>
     </div>
 </div>

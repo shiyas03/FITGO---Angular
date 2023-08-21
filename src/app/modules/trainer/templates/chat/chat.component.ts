@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AllChat, Chat, ChatShow} from 'src/app/modules/user/services/user.interface';
+import { AllChat, Chat, ChatShow } from 'src/app/modules/user/services/user.interface';
 import { NgForm } from '@angular/forms';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
 @Component({
@@ -14,6 +14,7 @@ export class ChatComponent implements OnInit {
 
   chat$!: AllChat[]
   users = new Set<ChatShow>();
+  array: ChatShow[] = []
   trainer!: ChatShow;
   user!: ChatShow;
   addedUsers = new Map();
@@ -21,7 +22,7 @@ export class ChatComponent implements OnInit {
   trainerId!: string;
   userId!: string;
 
-  constructor( private _trainerService: TrainerAuthService) { }
+  constructor(private _trainerService: TrainerAuthService) { }
 
   ngOnInit() {
     this.trainerId = <string>localStorage.getItem('trainerId')
@@ -30,20 +31,17 @@ export class ChatComponent implements OnInit {
         if (datas) {
           this._trainerService.fetchUserConnections(this.trainerId).subscribe(
             (res) => {
-              if (res) {
-                for (let value of res) {
-                  if (!this.addedUsers.has(value.reciever)) {
-                    const foundData = datas.find(data => data.connections.user._id === value.reciever);
-                    if (foundData) {
-                      this.users.add(foundData.connections.user);
-                    }
-                    this.addedUsers.set(value.reciever, true);
+              for (let value of res) {
+                if (!this.addedUsers.has(value.reciever)) {
+                  const foundData = datas.find(data => data.connections.user._id === value.reciever);
+                  if (foundData) {
+                    this.users.add(foundData.connections.user);
                   }
+                  this.addedUsers.set(value.reciever, true);
                 }
-                this.trainer = datas[0].connections.trainer;
               }
+              this.trainer = datas[0].connections.trainer;
             }
-            
           )
         }
       }

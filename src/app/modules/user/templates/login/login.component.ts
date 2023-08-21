@@ -14,6 +14,8 @@ import { showError, swal } from '../../../../common/swal.popup';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnDestroy {
+
+  isMoved = false;
   loginForm!: FormGroup;
   submit: boolean = false;
   private subscription!: Subscription;
@@ -33,7 +35,7 @@ export class LoginComponent implements OnDestroy {
     });
   }
 
-  onSubmit() {
+  onSubmitLogin() {
     this.submit = true;
     if (this.loginForm.valid) {
       this.verifyUser(this.loginForm.value);
@@ -59,5 +61,9 @@ export class LoginComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+  }
+
+  moveDiv() {
+    this.isMoved = !this.isMoved;
   }
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserRoutingModule } from './user-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +28,7 @@ import { HomeComponent } from './templates/home/home.component';
 import { RegisterComponent } from './templates/register/register.component';
 import { BackgroundComponent } from './templates/background/background.component';
 import { DetailsComponent } from './templates/details/details.component';
-import { OtpComponent } from './templates/otp/otp.component';
+import { OtpComponent } from './templates/auth/otp/otp.component';
 import { ProfileComponent } from './templates/profile/profile.component';
 import { FooterComponent } from './templates/footer/footer.component';
 import { UserInfoComponent } from './templates/profile/user-info/user-info.component';
@@ -45,6 +44,7 @@ import { PaymentsComponent } from './templates/payments/payments.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ChatComponent } from './templates/chat/chat.component';
+import { AuthComponent } from './templates/auth/auth.component';
 @NgModule({
   declarations: [
     NavBarComponent,
@@ -67,6 +67,7 @@ import { ChatComponent } from './templates/chat/chat.component';
     WorkoutViewComponent,
     PaymentsComponent,
     ChatComponent,
+    AuthComponent,
   ],
   imports: [
     CommonModule,
