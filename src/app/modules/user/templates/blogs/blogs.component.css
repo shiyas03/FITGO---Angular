@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
-
 .cards {
   justify-content: center;
   -webkit-justify-content: center;
@@ -17,11 +14,15 @@
 }
 
 .card__category {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Abel', sans-serif;
+  font-family: 'Kanit', sans-serif;
+  font-family: 'REM', sans-serif;
 }
 
 .card__title {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Abel', sans-serif;
+  font-family: 'Kanit', sans-serif;
+  font-family: 'REM', sans-serif;
 }
 
 .card:hover .card__img--hover {

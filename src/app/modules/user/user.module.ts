@@ -23,9 +23,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { NavBarComponent } from './templates/nav-bar/nav-bar.component';
-import { LoginComponent } from './templates/login/login.component';
 import { HomeComponent } from './templates/home/home.component';
-import { RegisterComponent } from './templates/register/register.component';
 import { BackgroundComponent } from './templates/background/background.component';
 import { DetailsComponent } from './templates/details/details.component';
 import { OtpComponent } from './templates/auth/otp/otp.component';
@@ -45,12 +43,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ChatComponent } from './templates/chat/chat.component';
 import { AuthComponent } from './templates/auth/auth.component';
+
 @NgModule({
   declarations: [
     NavBarComponent,
-    LoginComponent,
     HomeComponent,
-    RegisterComponent,
     BackgroundComponent,
     DetailsComponent,
     OtpComponent,

@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaymentsComponent } from './templates/payments/payments.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { PaymentsComponent } from './templates/payments/payments.component';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
+    NgApexchartsModule,
     StoreModule.forFeature('users', usersReducer),
     StoreModule.forFeature('trainers', trainerReducer),
     StoreModule.forFeature('blogs', blogsReducer),

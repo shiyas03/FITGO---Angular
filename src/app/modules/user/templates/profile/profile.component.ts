@@ -15,6 +15,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  
   details: boolean = true;
   workouts: boolean = false;
   history: boolean = false;

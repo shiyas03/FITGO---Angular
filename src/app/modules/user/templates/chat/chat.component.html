@@ -1,14 +1,27 @@
 <div class="flex h-screen antialiased text-gray-800">
     <div class="flex flex-row h-full w-full overflow-x-hidden">
-        <div class="flex flex-col p-4 w-1/5 bg-white flex-shrink-0">
-            <div class="flex flex-row items-center justify-center w-full border bg-gray-100">
-                <div class="flex items-center justify-center w-32 px-3 py-2 w-28">
-                    <img src="assets/images/logo.png" alt="">
+        <div class="flex flex-col w-3/12 bg-gray-100 p-3">
+            <div class="flex flex-row items-center w-full p-3">
+                <div class="w-14 h-14 rounded-full overflow-hidden">
+                    <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt="" class="h-full">
                 </div>
+                <p class="mx-5 text-xl font-medium text-black">{{user.name}}</p>
+                <div class="flex w-full justify-end cursor-pointer" routerLink="/profile">
+                    <mat-icon class="text-red-500">edit</mat-icon>
+                </div>
+            </div>
+            <div>
+                <label class="relative block">
+                    <span class="sr-only">Search</span>
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-2 pr-2">
+                        <mat-icon class="text-gray-500">search</mat-icon>
+                    </span>
+                    <input class="px-5 placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-lg py-2 pl-9 pr-3 shadow-sm outline-none focus:border-red-300 focus:ring-red-300 focus:ring-1 sm:text-sm" placeholder="Search Here ..." type="text" name="search"/>
+                  </label>
             </div>
             <div class="flex flex-col mt-8" *ngIf="trainers; else trainerBlock">
                 <div class="flex flex-col overflow-y-auto" *ngFor="let value of trainers">
-                    <button class="flex items-center hover:bg-gray-100 rounded-xl px-2 py-1 focus:bg-gray-200"
+                    <button class="flex items-center hover:bg-gray-100 rounded-xl px-2 focus:bg-white"
                         (click)="selectChat(value._id)">
                         <img [src]="'http://localhost:3000/uploads/'+value.imageUrl" alt=""
                             class="h-10 w-10 rounded-full" *ngIf="value.imageUrl; else elseBlock">
@@ -18,39 +31,34 @@
                                 {{value.name[0]}}
                             </div>
                         </ng-template>
-                        <div class="m-4 text-md font-semibold">{{value.name}}</div>
+                        <div class="m-4"><p class="text-md font font-semibold text-black">{{value.name}}</p></div>
                     </button>
                 </div>
             </div>
             <ng-template #trainerBlock>
-               <p class="text-black"></p>
+                <p class="text-black"></p>
             </ng-template>
         </div>
-        <div class="flex flex-col flex-auto h-full p-5">
-            <div class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 shadow-lg h-full p-4"
+        <div class="flex flex-col flex-auto h-full w-full bg-white">
+            <div class="flex flex-col flex-auto flex-shrink-0 bg-white h-full"
                 *ngIf="trainerId; else messageBlock">
-                <div class="flex flex-col h-full overflow-x-auto mb-4" #chatContainer>
-                    <div class="flex flex-col h-full">
+                <div class="w-full bg-white border-b-2 border-gray-200 shadow p-4 flex items-center">
+                    <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="" class="w-12 h-12 rounded-full">
+                    <p class="px-3 text-black font">{{trainer.name}}</p>
+                </div>
+                <div class="flex flex-col h-4/5 overflow-x-auto shadow" #chatContainer>
+                    <div class="flex flex-col h-full p-5">
                         <div class="grid grid-cols-12 gap-y-2" *ngFor="let value of chat$">
                             <div class="col-start-6 col-end-13 p-3 rounded-lg"
                                 *ngIf="value.content !== '' && value.reciever === trainerId">
                                 <div class="flex items-center justify-start flex-row-reverse">
-                                    <div *ngIf="!user.imageUrl; else imageBlock"
-                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white uppercase">
-                                        {{user.name[0]}}
-                                    </div>
-                                    <ng-template #imageBlock>
-                                        <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt=""
-                                            class="h-10 w-10 rounded-full">
-                                    </ng-template>
-                                    <div class="relative mr-3 text-sm bg-red-100 py-2 px-4 shadow rounded-xl">
-                                        <div>
-                                            {{value.content}}
+                                    <div class="relative mr-3 text-sm bg-red-100 py-2 px-4 shadow-md rounded-xl">
+                                            <span class="text-lg p-1">{{value.content}}</span>
+                                            <sub class="text-xs p-1 tracking-tighter">{{value.timestamp | date:'hh:mm a'}}</sub>
+                                        <div class="absolute text-xs bottom-0 right-0 -mb-5 mr-2 text-gray-500">
+                                            {{value.timestamp | date:'dd/MM/yyyy'}}
                                         </div>
-                                        <!-- <div class="absolute text-xs bottom-0 right-0 -mb-5 mr-2 text-gray-500">
-                                            Seen
-                                        </div> -->
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>
                             <div class="col-start-1 col-end-8 p-3 rounded-lg"
@@ -64,17 +72,21 @@
                                         <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt=""
                                             class="h-10 w-10 rounded-full">
                                     </ng-template>
-                                    <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                                    <div class="relative ml-3 text-sm bg-gray-200 py-2 px-4 shadow-md rounded-xl">
                                         <div>
-                                            {{value.content}}
+                                            <span class="text-lg p-1">{{value.content}}</span>
+                                            <sub class="text-xs p-1 tracking-tighter">{{value.timestamp | date:'hh:mm a'}}</sub>
+                                        </div>
+                                        <div class="absolute text-xs bottom-0 right-0 -mb-5 mr-2 text-gray-500">
+                                            {{value.timestamp | date:'dd/MM/yyyy'}}
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
+                <div class="flex flex-row items-center h-20 bg-white w-full p-5 border-t-2 shadow border-gray-200">
                     <div>
                         <!-- <button class="flex items-center justify-center text-gray-400 hover:text-gray-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -90,7 +102,7 @@
                             <div class="flex">
                                 <div class="relative w-full">
                                     <input ngModel name="message" required type="text"
-                                        class="flex w-full border rounded-xl focus:outline-none focus:border-red-300 pl-4 h-10" />
+                                        class="flex w-full border border-gray-300 rounded-xl focus:outline-none shadow focus:border-red-300 pl-4 h-10" />
                                     <!-- <button
                                         class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
                                         <mat-icon>tag_faces</mat-icon>
@@ -109,9 +121,8 @@
             </div>
             <ng-template #messageBlock>
                 <div class="w-full h-full flex justify-center items-center">
-                    <p class="px-10 py-1 bg-red-100 rounded-2xl text-md">Select your chat</p>
+                    <p class="px-10 py-1 font-semibold font text-xl text-red-500">Select your chat</p>
                 </div>
             </ng-template>
         </div>
     </div>
-</div>

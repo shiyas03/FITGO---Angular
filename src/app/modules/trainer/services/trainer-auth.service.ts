@@ -110,4 +110,8 @@ export class TrainerAuthService {
   fetchAllConnections(id:string):Observable<Connections[]>{
     return this.http.get<Connections[]>(`${this.apiUrl}/chat/all/${id}`)
   }
+
+  getAllConnections(data:string[]):Observable<AllChat[]>{
+    return this.http.post<AllChat[]>(`${this.apiUrl}/chat/get_all`,data)
+  }
 }

@@ -17,11 +17,11 @@ import { Chat, PaymentDetails } from '../../../services/user.interface';
 })
 export class TrainerViewComponent implements OnInit, OnDestroy {
 
-  formData: { review: string } = { review: '' }
   currentIndex = 0;
   one_month_id: string = environment.stripKey.ONE_MONTH_PRICE_ID
   six_month_id: string = environment.stripKey.SIX_MONTH_PRICE_ID
   one_year_id: string = environment.stripKey.ONE_YEAR_PRICE_ID
+  formData: { review: string } = { review: '' }
 
   trainer$!: Observable<Trainer | undefined>
   expired: boolean = true
@@ -34,8 +34,8 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
   subscription2!: Subscription
   subscription3!: Subscription
 
-  uniqueUsers = new Set<string>();
   @ViewChild('carouselItems') carouselItems!: ElementRef;
+  uniqueUsers = new Set<string>();
   paymentHandler!: string;
 
   constructor(private _route: ActivatedRoute,
@@ -103,6 +103,8 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     const userId = <string>localStorage.getItem('userId')
     this._userService.fetchTrainerPayments(this.trainerId).subscribe(
       (res) => {
+        console.log(res);
+        
         for (let value of res) {
           if (value.trainerId._id === this.trainerId) {
             this.uniqueUsers.add(value.userId._id);

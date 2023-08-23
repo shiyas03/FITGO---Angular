@@ -27,21 +27,57 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
         </span>
-        <span
-          class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white" style="font-family: 'Kanit', sans-serif;">Join
+        <span class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white"
+          style="font-family: 'Kanit', sans-serif;">Join
           us today!</span>
       </a>
       <div class="flex items-center w-80 mt-4" *ngIf="islogged">
-        <p class="text-white lg:text-xl md:text-lg sm:text-md  animate-fade-left animate-once animate-ease-in p-1 uppercase">Change yourself</p>
-          <hr class="lg:w-1/4 xs:w-auto border border-red-500">
+        <p
+          class="text-white lg:text-xl md:text-lg sm:text-md  animate-fade-left animate-once animate-ease-in p-1 uppercase">
+          Change yourself</p>
+        <hr class="lg:w-1/4 xs:w-auto border border-red-500">
       </div>
     </div>
   </div>
 </div>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;700&display=swap" rel="stylesheet">
+<div class="w-full h-screen bg-gray-100">
+  <div class="w-2/5 h-1/6 flex justify-center items-center">
+    <p class="uppercase text-4xl text-red-500">services</p>
+  </div>
+  <div class="w-full h-3/5 flex justify-center">
+    <div class="grid grid-cols-8 gap-5 w-full h-full items-center">
+      <div class="w-full h-full bg-white col-start-2 col-span-2 rounded-lg overflow-hidden">
+        <div class="h-3/5">
+          <img src="assets/images/blog-thumb.jpg" alt="" class="h-full w-full">
+        </div>
+        <div class="p-5">
+          <p>Discover a wealth of workout wisdom and inspiration in our diverse collection of fitness blogs, tailored to elevate your routines and keep you motivated on your fitness journey.</p>
+        </div>
+      </div>
+      <div class="w-full h-full bg-white col-span-2 rounded-lg overflow-hidden">
+        <div class="h-3/5">
+          <img src="assets/images/workout-thumbnail.jpg" alt="" class="w-full h-full">
+        </div>
+        <div class="p-5">
+          <p>Our comprehensive collection of workout resources offers expert guidance, effective techniques, and motivation to help you achieve your fitness goals with confidence and success.</p>
+        </div>
+      </div>
+      <div class="w-full h-full bg-white  col-span-2 rounded-lg overflow-hidden">
+        <div class="h-3/5">
+          <img src="assets/images/trainer-thumb.jpg" alt="" class="w-full h-full">
+        </div>
+        <div class="p-5">
+          <p>Meet our team of dedicated trainers who are committed to guiding and supporting you on your fitness journey, bringing expertise, motivation, and personalized approaches to help you reach your goals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w-full h-screen bg-gray-100">
+  <div class="w-2/5 h-1/6 flex justify-center items-center">
+    <p class="uppercase text-4xl text-red-500">About Us</p>
+  </div>
+</div>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,700;1,200;1,300&display=swap" rel="stylesheet">
+
+<app-footer></app-footer>

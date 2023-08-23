@@ -13,12 +13,12 @@
         </a>
       </div>
       <div class="flex">
-        <div class="p-2 hover:bg-gray-200 rounded-full shadow flex jutify-center items-center">
-          <button routerLink="/trainer/chat">
+        <div class="mr-5">
+          <button routerLink="/trainer/chat" class="w-10 h-10 hover:bg-gray-200 rounded-full shadow flex justify-center items-center">
             <mat-icon> chat_bubble_outline</mat-icon>
           </button>
         </div> 
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button mat-button [matMenuTriggerFor]="menu" class="w-24 h-10">
           <mat-icon>person</mat-icon>
           <p>{{trainer.name}}</p>
         </button>

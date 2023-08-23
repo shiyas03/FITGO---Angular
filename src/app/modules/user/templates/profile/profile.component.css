@@ -1,6 +1,12 @@
-.active{
+.active {
     background-color: white;
     border-radius: 10px;
     box-shadow: 1px 1px 5px 0px gray;
     color: red;
+}
+
+* {
+    font-family: 'Abel', sans-serif;
+    font-family: 'Kanit', sans-serif;
+    font-family: 'REM', sans-serif;
 }

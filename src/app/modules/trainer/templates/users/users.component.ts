@@ -35,8 +35,7 @@ export class UsersComponent implements OnInit {
         this.dataSource$.data = data
       }, (error) => {
         swalError(error)
-      }
-    )
+      })
   }
 
   ngAfterViewInit() {

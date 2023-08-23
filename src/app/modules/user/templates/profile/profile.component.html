@@ -48,9 +48,9 @@
                             style="font-family: 'Kanit', sans-serif;">Details</a>
                     </li>
                     <li>
-                        <a [class.active]="activeLink === 'Status'" (click)="setActiveLink('Status')"
+                        <a [class.active]="activeLink === 'Goal'" (click)="setActiveLink('Goal')"
                             class="flex justify-center py-2 text-md cursor-pointer"
-                            style="font-family: 'Kanit', sans-serif;">Status</a>
+                            style="font-family: 'Kanit', sans-serif;">Goal</a>
                     </li>
                     <!-- <li>
                         <a [class.active]="activeLink === 'History'" (click)="setActiveLink('History')"
@@ -60,7 +60,7 @@
                 </ul>
             </div>
             <app-user-info *ngIf="activeLink == 'Details'" [userData$]="details$"></app-user-info>
-            <app-user-status *ngIf="activeLink == 'Status'" [userData$]="details$"></app-user-status>
+            <app-user-status *ngIf="activeLink == 'Goal'" [userData$]="details$"></app-user-status>
         </div>
 
         <div class="mt-6 mx-auto mb-3">

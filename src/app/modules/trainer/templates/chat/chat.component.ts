@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AllChat, Chat, ChatShow } from 'src/app/modules/user/services/user.interface';
+import { AllChat, Chat, ChatShow, Connections } from 'src/app/modules/user/services/user.interface';
 import { NgForm } from '@angular/forms';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
 @Component({
@@ -14,7 +14,7 @@ export class ChatComponent implements OnInit {
 
   chat$!: AllChat[]
   users = new Set<ChatShow>();
-  array: ChatShow[] = []
+  allUsers = new Set<ChatShow>();
   trainer!: ChatShow;
   user!: ChatShow;
   addedUsers = new Map();
@@ -24,32 +24,45 @@ export class ChatComponent implements OnInit {
 
   constructor(private _trainerService: TrainerAuthService) { }
 
-  ngOnInit() {
+  ngOnInit() { 
+    this.getAllConnections()
+    this._trainerService.getNewMessage().subscribe(() => {
+      this.selectChat(this.userId)
+    })
+  }
+
+  getAllConnections() {
+    let connections: string[] = []
     this.trainerId = <string>localStorage.getItem('trainerId')
     this._trainerService.fetchAllConnections(this.trainerId).subscribe(
       (datas) => {
-        if (datas) {
-          this._trainerService.fetchUserConnections(this.trainerId).subscribe(
-            (res) => {
-              for (let value of res) {
-                if (!this.addedUsers.has(value.reciever)) {
-                  const foundData = datas.find(data => data.connections.user._id === value.reciever);
-                  if (foundData) {
-                    this.users.add(foundData.connections.user);
-                  }
-                  this.addedUsers.set(value.reciever, true);
-                }
-              }
-              this.trainer = datas[0].connections.trainer;
-            }
-          )
+        for (let value of datas) {
+          connections.push(value._id)
         }
+        this._trainerService.getAllConnections(connections).subscribe(
+          (res: AllChat[]) => {
+            for (let value of res) {
+              if (value.sender !== this.trainerId) {
+                this.usersIdentify(datas, value.sender)
+              } else {
+                this.usersIdentify(datas, value.sender)
+              }
+            }
+          })
       }
     )
-    this._trainerService.getNewMessage().subscribe(() => {
-      this.selectChat(this.userId)
-      this.ngOnInit()
-    })
+  }
+
+  usersIdentify(datas: any, value: any) {
+    const foundData = datas.find((data: any) => data.connections.user._id === value);
+    if (foundData) {
+      if (this.allUsers.has(foundData.connections.user)) {
+        this.allUsers.delete(foundData.connections.user)
+      }
+      this.allUsers.add(foundData.connections.user)
+    }
+    const reversedArray = Array.from(this.allUsers).reverse();
+    this.users = new Set(reversedArray);
   }
 
   selectChat(userId: string) {

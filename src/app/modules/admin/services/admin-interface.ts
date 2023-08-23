@@ -8,7 +8,8 @@ export interface Users {
   name: string;
   email: string;
   access: boolean;
-  imageUrl: string
+  imageUrl: string;
+  joinDate:string;
 }
 
 export interface Trainers {
@@ -21,6 +22,7 @@ export interface Trainers {
   access: boolean;
   approve: boolean;
   imageUrl: string;
+  joinDate:Date;
 }
 
 export interface Blog {

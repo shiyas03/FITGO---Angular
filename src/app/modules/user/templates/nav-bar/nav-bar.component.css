@@ -68,4 +68,10 @@
     border-bottom: 1px solid;
     border-color: #e90000;
     transform: scale(1.05);
-  }
+}
+
+a,span {
+    font-family: 'Abel', sans-serif;
+    font-family: 'Kanit', sans-serif;
+    font-family: 'REM', sans-serif;
+}

@@ -37,7 +37,7 @@ export interface Blog {
   category: string
   blog: string
   template: string
-  trainerId: string
+  trainerId: Trainers
 }
 
 export interface EventData {
@@ -76,7 +76,8 @@ export interface Workout{
   overview:string;
   thumbnail:string
   video:string
-  trainerId?:{
+  trainerId:{
+    _id:string;
     name:string
   }
   publish:boolean;
@@ -103,6 +104,7 @@ export interface Users {
 }
 
 export interface Payment{
+  _id:string
   amount: number;
   paidDate: Date;
   expiryDate: Date;

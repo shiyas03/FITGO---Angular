@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
 import { UserAuthService } from '../../services/user-auth.service';
 import { NgForm } from '@angular/forms';
-import { AllChat, Chat, Messages } from '../../services/user.interface';
+import { AllChat, Chat } from '../../services/user.interface';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
