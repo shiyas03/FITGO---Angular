@@ -38,14 +38,14 @@ export class UserAuthService {
 
   togglePicker() {
     this.showPicker = !this.showPicker;
-  } 
+  }
 
   closePicker() {
     this.showPicker = false;
   }
 
   registerUser(userData: Register): Observable<RegisterReturn> {
-    return this.http.post<RegisterReturn>(`${this.apiUrl}/`+activity.Register, userData);
+    return this.http.post<RegisterReturn>(`${this.apiUrl}/` + activity.Register, userData);
   }
 
   sendMail(email: string): Observable<EmailReturn> {
@@ -108,7 +108,7 @@ export class UserAuthService {
     return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/fetch/${userId}`)
   }
 
-  fetchTrainerPayments(trainerId:string): Observable<PaymentDetails[]> {
+  fetchTrainerPayments(trainerId: string): Observable<PaymentDetails[]> {
     return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/trainer/${trainerId}`)
   }
 
@@ -120,7 +120,7 @@ export class UserAuthService {
     return this.http.post<boolean>(`${this.apiUrl}/chat/create`, data)
   }
 
-  fetchAllConnections(id:string):Observable<Connections[]>{
+  fetchAllConnections(id: string): Observable<Connections[]> {
     return this.http.get<Connections[]>(`${this.apiUrl}/chat/users/${id}`)
   }
 
@@ -132,7 +132,15 @@ export class UserAuthService {
     return this.socket.fromEvent<string>('newMessage')
   }
 
-  getAllChats(data:string[]):Observable<AllChat[]>{
-    return this.http.post<AllChat[]>(`${this.apiUrl}/chat/get_all`,data)
+  getAllChats(data: string[]): Observable<AllChat[]> {
+    return this.http.post<AllChat[]>(`${this.apiUrl}/chat/get_all`, data)
+  }
+
+  chageNotification(trainerId: string): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/trainer/notification`, { trainerId })
+  }
+
+  updateMessageSeen(connectionId?: string): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/chat/seen`, { connectionId })
   }
 }

@@ -128,51 +128,52 @@ export interface Chat {
 export interface Messages {
     _id: string;
     connection: string
-    sender:string
-    reciever:string
+    sender: string
+    reciever: string
     content?: string;
     timestamp: Date;
 }
 
-export interface AllChat{
-    _id:string;
-    connection:string,
-    sender:string,
-    reciever:string,
-    content:string;
-    timestamp:string;
-    seen:boolean
+export interface AllChat {
+    _id: string;
+    connection: string,
+    sender: string,
+    reciever: string,
+    content: string;
+    timestamp: string;
+    seen: boolean
 }
 
-export interface ChatShow{
-    _id: string, 
-    name: string, 
-    imageUrl: string
+export interface ChatShow {
+    _id: string,
+    name: string,
+    imageUrl: string,
+    notification: number
 }
 
-export interface Connections{
-    _id:string,
-    connections:{
-        user:ChatShow,
-        trainer:ChatShow
+export interface Connections {
+    _id: string,
+    connections: {
+        user: ChatShow,
+        trainer: ChatShow
     },
-    timestamp:Date
+    timestamp: Date
 }
 
 interface Connection {
     user: {
-      name: string;
-      _id: string;
-      imageUrl: string;
+        name: string;
+        _id: string;
+        imageUrl: string;
     };
     trainer: {
-      name: string;
-      _id: string;
-      imageUrl: string;
+        name: string;
+        _id: string;
+        imageUrl: string;
     };
-  }
-  
-export  interface Details {
+}
+
+export interface Details {
     _id: string;
     connections: Connection;
-  }
+}

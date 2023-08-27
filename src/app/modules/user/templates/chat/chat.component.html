@@ -6,7 +6,7 @@
                 <mat-icon class="text-red-500">home</mat-icon>
             </div>
         </div>
-        <div class="flex flex-col w-full sm:w-1/3 bg-gray-200 p-5" (click)="closeEmojiPicker()" [class.second]="trainerId">
+        <div class="flex flex-col w-full sm:w-1/4 bg-gray-200 p-5" (click)="closeEmojiPicker()" [class.second]="trainerId">
             <div class="">
                 <p class="text-center text-xl font-medium font mb-3">Messages</p>
             </div>
@@ -34,15 +34,18 @@
                     <button class="flex items-center hover:bg-gray-100 rounded-xl px-2"
                         [class.selected]="isSelected(value._id)" (click)="selectChat(value._id)">
                         <img [src]="'http://localhost:3000/uploads/'+value.imageUrl" alt=""
-                            class="h-10 w-10 rounded-full" *ngIf="value.imageUrl; else elseBlock">
+                            class="h-10 w-10 rounded-full w-1/4" *ngIf="value.imageUrl; else elseBlock">
                         <ng-template #elseBlock>
                             <div
-                                class="flex items-center justify-center h-10 w-10 bg-red-500 text-white rounded-full uppercase">
+                                class="flex items-center justify-center h-10 w-10 bg-red-500 text-white rounded-full uppercase w-1/4">
                                 {{value.name[0]}}
                             </div>
                         </ng-template>
-                        <div class="m-4">
+                        <div class="m-4 w-1/4">
                             <p class="text-md font font-semibold text-black">{{value.name}}</p>
+                        </div>
+                        <div class="w-2/4 flex justify-end items-center" *ngIf="value.notification !==0">
+                            <p class="w-5 h-5 rounded-full bg-red-500 text-center text-white text-sm">{{value.notification}}</p>
                         </div>
                     </button>
                 </div>
