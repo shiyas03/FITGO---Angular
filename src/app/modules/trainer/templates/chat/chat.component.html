@@ -1,9 +1,15 @@
 <!-- component -->
 <div class="flex h-screen antialiased text-gray-800">
     <div class="flex flex-row h-full w-full overflow-x-hidden">
-        <div class="flex flex-col w-3/12 bg-gray-100 p-3">
-            <div class="flex flex-row justify-center items-center w-full p-3">
-                <img src="assets/images/logo.png" alt="" class="w-20">
+        <div class="bg-white p-5 flex flex-row justify-center" (click)="closeEmojiPicker()">
+            <div class="w-10 h-10 rounded-full flex justify-center items-center bg-gray-100 cursor-pointer"
+                routerLink="/trainer/dashboard">
+                <mat-icon class="text-red-500">home</mat-icon>
+            </div>
+        </div>
+        <div class="flex flex-col w-4/12 bg-gray-200 p-3" (click)="closeEmojiPicker()">
+            <div class="">
+                <p class="text-center text-xl font-medium font mb-3">Messages</p>
             </div>
             <div>
                 <label class="relative block">
@@ -12,14 +18,22 @@
                         <mat-icon class="text-gray-500">search</mat-icon>
                     </span>
                     <input
-                        class="px-5 placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-lg py-2 pl-9 pr-3 shadow-sm outline-none focus:border-red-300 focus:ring-red-300 focus:ring-1 sm:text-sm"
-                        placeholder="Search Here ..." type="text" name="search" />
+                        class="px-5 placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-lg py-3 pl-9 pr-3 shadow-sm outline-none focus:border-red-300 focus:ring-red-300 focus:ring-1 sm:text-sm"
+                        placeholder="Search Here ..." type="text" name="search" (input)="filterUsers($event)"
+                        (blur)="isList(false)" (click)="isList(true)" />
+                    <ul *ngIf="showList && filteredUsers.length > 0"
+                        class="w-full mt-2 border border-gray-300 bg-white rounded-lg shadow-sm absolute">
+                        <li *ngFor="let user of filteredUsers" class="px-4 py-2 cursor-pointer hover:bg-gray-100 font"
+                            (click)="selectChat(user._id)">
+                            {{ user.name }}
+                        </li>
+                    </ul>
                 </label>
             </div>
             <div class="flex flex-col mt-8" *ngIf="users; else userBlock">
                 <div class="flex flex-col overflow-y-auto" *ngFor="let value of users">
                     <button class="flex items-center hover:bg-gray-100 rounded-xl px-2 focus:bg-white"
-                        (click)="selectChat(value._id)">
+                        (click)="selectChat(value._id)" [class.selected]="isSelected(value._id)">
                         <img [src]="'http://localhost:3000/uploads/'+value.imageUrl" alt=""
                             class="h-10 w-10 rounded-full" *ngIf="value.imageUrl; else elseBlock">
                         <ng-template #elseBlock>
@@ -39,25 +53,39 @@
                 </div>
             </ng-template>
         </div>
-        <div class="flex flex-col flex-auto h-full w-full bg-white">
+        <div class="flex flex-col flex-auto h-full w-full bg-white" >
             <div class="flex flex-col flex-auto flex-shrink-0 bg-white h-full" *ngIf="userId; else messageBlock">
-                <div class="w-full bg-white border-b-2 border-gray-200 shadow p-4 flex items-center">
-                    <div *ngIf="!user.imageUrl"
-                        class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white uppercase">
-                        {{user.name[0]}}
+                <div class="w-full bg-white border-b-2 border-gray-200 shadow p-4 flex items-center" (click)="closeEmojiPicker()">
+                    <div class="mx-3 cursor-pointer" (click)="back()">
+                        <mat-icon class="text-red-500">keyboard_backspace</mat-icon>
                     </div>
-                    <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt="" class="w-12 h-12 rounded-full"
-                        *ngIf="user.imageUrl">
+                    <div *ngIf="user.imageUrl; else imageBlock">
+                        <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt=""
+                            class="w-12 h-12 rounded-full">
+                    </div>
+                    <ng-template #imageBlock>
+                        <div
+                            class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white uppercase">
+                            {{user.name[0]}}
+                        </div>
+                    </ng-template>
                     <p class="px-3 text-black font">{{user.name}}</p>
                 </div>
-                <div class="flex flex-col h-full overflow-x-auto mb-4">
+                <div #chatContainer class="flex flex-col h-full overflow-x-auto mb-4" (click)="closeEmojiPicker()">
                     <div class="flex flex-col h-full">
                         <div class="grid grid-cols-12 gap-y-2" *ngFor="let value of chat$">
                             <div class="col-start-6 col-end-13 p-3 rounded-lg"
                                 *ngIf="value.content !== '' && value.reciever === userId">
                                 <div class="flex items-center justify-start flex-row-reverse">
                                     <div class="relative mr-3 text-sm bg-red-100 py-2 px-4 shadow-md rounded-xl">
-                                        <span class="text-lg p-1">{{value.content}}</span>
+                                        <div class="w-80"
+                                            *ngIf="!isImageOverlayOpen && value.content.includes('https://firebasestorage.googleapis.com'); else contentBlock">
+                                            <img [src]="value.content" alt="" class="w-full"
+                                                (click)="openImageOverlay(value.content)">
+                                        </div>
+                                        <ng-template #contentBlock>
+                                            <span class="text-lg p-1">{{value.content}}</span>
+                                        </ng-template>
                                         <sub class="text-xs p-1 tracking-tighter">{{value.timestamp | date:'hh:mm a'}}</sub>
                                         <div class="absolute text-xs bottom-0 right-0 -mb-5 mr-2 text-gray-500">
                                             {{value.timestamp | date:'dd/MM/yyyy'}}
@@ -77,7 +105,15 @@
                                             class="h-10 w-10 rounded-full">
                                     </ng-template>
                                     <div class="relative ml-3 text-sm bg-gray-200 py-2 px-4 shadow-md rounded-xl">
-                                        <span class="text-lg p-1">{{value.content}}</span>
+
+                                        <div class="w-80"
+                                            *ngIf="!isImageOverlayOpen && value.content.includes('https://firebasestorage.googleapis.com'); else contentBlock">
+                                            <img [src]="value.content" alt="" class="w-full"
+                                                (click)="openImageOverlay(value.content)">
+                                        </div>
+                                        <ng-template #contentBlock>
+                                            <span class="text-lg p-1">{{value.content}}</span>
+                                        </ng-template>
                                         <sub class="text-xs p-1 tracking-tighter">{{value.timestamp | date:'hh:mm a'}}</sub>
                                         <div class="absolute text-xs bottom-0 right-0 -mb-5 mr-2 text-gray-500">
                                             {{value.timestamp | date:'dd/MM/yyyy'}}
@@ -86,32 +122,45 @@
                                 </div>
                             </div>
                         </div>
+                        <div [ngClass]="isImageOverlayOpen ? 'image-overlay': 'overlay-hidden'"
+                            (click)="closeImageOverlay()">
+                            <img [src]="viewImage" alt="" class="w-full" *ngIf="isImageOverlayOpen"
+                                (click)="$event.stopPropagation()">
+                        </div>
                     </div>
                 </div>
                 <div class="flex flex-row items-center h-20 bg-white w-full p-5 border-t-2 shadow border-gray-200">
-                    <div>
-                        <!-- <button class="flex items-center justify-center text-gray-400 hover:text-gray-600">
+                    <div (click)="closeEmojiPicker()">
+                        <a class="cursor-pointer flex items-center justify-center text-gray-400 hover:text-gray-600"
+                            [matMenuTriggerFor]="aboveMenu">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
                                 </path>
                             </svg>
-                        </button> -->
+                        </a>
+                        <mat-menu #aboveMenu="matMenu" yPosition="above">
+                            <button mat-menu-item mat-menu-item (click)="openFileInput()">
+                                <mat-icon>add_photo_alternate</mat-icon> Image Upload
+                            </button>
+                            <input type="file" #fileInput style="display: none" (change)="handleFileInput($event)">
+                        </mat-menu>
                     </div>
                     <div class="flex-grow ml-4">
                         <form #form="ngForm" (ngSubmit)="onSubmit(userId)">
                             <div class="flex">
                                 <div class="relative w-full">
-                                    <input ngModel name="message" required type="text"
+                                    <input [(ngModel)]="inputValue" required type="text" name="file"
+                                        [value]="selectedFile?.name" [disabled]="selectedFile?.name !== null"
                                         class="flex w-full border border-gray-300 rounded-xl focus:outline-none focus:border-red-300 pl-4 h-10" />
-                                    <!-- <button
-                                        class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
+                                    <a class="cursor-pointer absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600"
+                                        (click)="openEmojiPicker()">
                                         <mat-icon>tag_faces</mat-icon>
-                                    </button> -->
+                                    </a>
                                 </div>
                                 <div class="ml-4">
-                                    <button type="submit" [disabled]="!form.valid"
+                                    <button type="submit"
                                         class="flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-full text-white p-2 flex-shrink-0">
                                         <mat-icon>send</mat-icon>
                                     </button>
@@ -126,6 +175,22 @@
                     <p class="px-10 py-1 font-semibold font text-xl text-red-500">Select your chat</p>
                 </div>
             </ng-template>
+        </div>
+        <div class="w-80 bg-gray-100 absolute bottom-0 right-0 m-20 flex">
+            <div *ngIf="selectedFile">
+                <div class="cursor-pointer absolute right-0 p-3" (click)="removeImage()">
+                    <mat-icon class="text-red-500 bg-red-200">close</mat-icon>
+                </div>
+                <div class="absolute w-full h-full flex justify-center items-center" *ngIf="isLoading">
+                    <div class="lds-dual-ring"></div>
+                </div>
+                <div class="p-3">
+                    <img *ngIf="selectedImage" [src]="selectedImage" alt="Selected Image" class="w-full h-full">
+                </div>
+            </div>
+            <div *ngIf="openEmoji">
+                <app-emoji-picker (emitEmoji)="addEmoji($event)"></app-emoji-picker>
+            </div>
         </div>
     </div>
 </div>

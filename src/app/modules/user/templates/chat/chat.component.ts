@@ -1,100 +1,231 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
 import { UserAuthService } from '../../services/user-auth.service';
 import { NgForm } from '@angular/forms';
-import { AllChat, Chat } from '../../services/user.interface';
+import { AllChat, Chat, ChatShow, Details } from '../../services/user.interface';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFireStorage } from '@angular/fire/compat/storage'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild('form') form!: NgForm
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   chat$!: AllChat[]
-  trainers = new Set<{ name: string, _id: string, imageUrl: string }>();
-  trainer!: { name: string, _id: string, imageUrl: string };
-  user!: { name: string, _id: string, imageUrl: string };
+  allChat$!: AllChat[]
+  trainers = new Set<ChatShow>();
+  allTrainers = new Set<ChatShow>();
+  filteredTrainers: ChatShow[] = [];
+  trainer!: ChatShow;
+  user!: ChatShow;
   addedTrainers = new Map();
   connectionId!: string;
   trainerId!: string;
   userId!: string;
-  connections!: { _id: string, connections: { user: { name: string, _id: string, imageUrl: string }, trainer: { name: string, _id: string, imageUrl: string } } }
+  showList: boolean = false;
+  connections!: Details
+  selectedImage: string | ArrayBuffer | null = null;
+  selectedFile!: File | null;
+  isLoading: boolean = false;
+  inputValue: string = ''
+  openEmoji: boolean = false
+  isImageOverlayOpen = false;
+  viewImage: string = ''
 
-  constructor(private _userService: UserAuthService, private _route: ActivatedRoute) { }
+  subscription1!: Subscription
+  subscription2!: Subscription
+
+  constructor(private _userService: UserAuthService, private storage: AngularFireStorage) { }
 
   ngOnInit() {
     this.userId = <string>localStorage.getItem('userId')
-    this._userService.fetchAllConnections(this.userId).subscribe(
-      (datas) => {
-        if (datas) {
-          this._userService.fetchTrainersConnections(this.userId).subscribe((res) => {
-            if (res) {
-              for (let value of res) {
-                if (!this.addedTrainers.has(value.reciever)) {
-                  const foundData = datas.find(data => data.connections.trainer._id === value.reciever);
-                  if (foundData) {
-                    this.trainers.add(foundData.connections.trainer);
-                  }
-                  this.addedTrainers.set(value.reciever, true);
-                }
-              }
-              this.user = datas[0].connections.user
-            }
-          })
-        }
-      }
-    )
-
+    this.getConnections()
     this._userService.getNewMessage().subscribe(() => {
       this.selectChat(this.trainerId)
+      this.allTrainers.clear()
+      this.getConnections()
     })
-
   }
 
-  selectChat(trainerId: string) {
-    this.trainerId = trainerId
-    const data = {
-      trainerId: trainerId,
-      userId: this.userId
-    }
-    this._userService.getAllMessage(data).subscribe((res: AllChat[]) => {
-      if (res) {
-        for (let value of this.trainers) {
-          if (value._id == trainerId) {
-            this.trainer = value
-          }
+  getConnections() {
+    let connections: string[] = []
+    this.subscription1 = this._userService.fetchAllConnections(this.userId).subscribe(
+      (data) => {
+        for (let value of data) {
+          connections.push(value._id)
         }
-        this.chat$ = res
+        this.subscription2 = this._userService.getAllChats(connections).subscribe(
+          (res) => {
+            this.chat$ = res
+            for (let value of res) {
+              if (value.sender !== this.userId) {
+                this.trainerDetails(data, value.sender)
+              } else {
+                this.trainerDetails(data, value.reciever)
+              }
+            }
+            const reverse = Array.from(this.allTrainers).reverse()
+            this.trainers = new Set(reverse)
+          })
       }
-    })
+    )
   }
 
-  onSubmit(trainerId: string) {
+  trainerDetails(details: any, id: string) {
+    const foundData = details.find((data: any) => data.connections.trainer._id == id)
+    if (foundData) {
+      if (this.allTrainers.has(foundData.connections.trainer)) {
+        this.allTrainers.delete(foundData.connections.trainer)
+      }
+      this.allTrainers.add(foundData.connections.trainer)
+    }
+  }
+
+  selectChat(trainerId: string): void {
+    this.trainerId = trainerId
+    const trainer = Array.from(this.trainers).find(data => data._id === trainerId)
+    if (trainer) {
+      this.trainer = trainer
+    }
+  }
+
+  filterTrainers(event: Event): void {
+    const searchTerm = (event.target as HTMLInputElement)?.value || '';
+    const lowercaseSearchTerm = searchTerm.toLowerCase();
+    if (lowercaseSearchTerm === '') {
+      this.filteredTrainers = [];
+    } else {
+      const lowercaseSearchTerm = searchTerm.toLowerCase();
+      this.filteredTrainers = Array.from(this.trainers).filter(
+        (trainer) => trainer.name.toLowerCase().includes(lowercaseSearchTerm)
+      );
+    }
+    this.showList = true
+  }
+
+  async onSubmit(trainerId: string) {
+    this.isLoading = true
     const userId = <string>localStorage.getItem('userId')
-    const { message } = this.form.value
+    let content: string;
+    if (this.selectedFile) {
+      const path = `chat/${this.selectedFile.name}`
+      const uploadTask = await this.storage.upload(path, this.selectedFile)
+      content = <string>await uploadTask.ref.getDownloadURL()
+      this.isLoading = false
+    } else {
+      content = this.inputValue
+    }
+
     const data: Chat = {
       sender: userId,
       reciever: trainerId,
-      content: message
+      content: content
     }
     this._userService.sendMessage(data)
     this.form.reset()
     this.selectChat(this.trainerId)
+    this.selectedFile = null
+    this.openEmoji = false
+  }
+
+
+  isList(change: boolean): void {
+    setTimeout(() => {
+      this.showList = change
+    }, 100)
+  }
+
+  hideListOnMouseLeave(): void {
+    this.showList = false;
+  }
+
+  openFileInput(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  openImageOverlay(url: string): void {
+    this.viewImage = url
+    this.isImageOverlayOpen = true;
+  }
+
+  closeImageOverlay(): void {
+    this.isImageOverlayOpen = false;
+  }
+
+  removeImage() {
+    this.selectedFile = null
+  }
+
+  handleFileInput(event: any): void {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target) {
+          this.selectedImage = e.target.result;
+        }
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  addEmoji(event: string) {
+    this.inputValue += event
+  }
+
+  openEmojiPicker() {
+    if (!this.selectedFile) {
+      this.openEmoji = !this.openEmoji
+    }
+  }
+
+  closeEmojiPicker() {
+    this.openEmoji = false
+    this._userService.closePicker()
+  }
+
+  back() {
+    this.trainerId = ''
+    this.closeEmojiPicker()
+  }
+
+  isToday(timestamp: string): boolean {
+    const today = new Date();
+    const date = new Date(timestamp).toDateString()
+    return date === today.toDateString();
+  }
+
+  isYesterday(timestamp: string): boolean {
+    const today = new Date();
+    const date = new Date(timestamp).toDateString()
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    return date === yesterday.toDateString();
+  }
+
+  isSelected(trainerId: string): boolean {
+    return this.trainerId === trainerId;
   }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
-
   scrollToBottom(): void {
-    try {
+    if (this.chatContainer) {
       this.chatContainer.nativeElement.scrollTop =
         this.chatContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription1) this.subscription1.unsubscribe()
+    if (this.subscription2) this.subscription2.unsubscribe()
   }
 }

@@ -14,6 +14,7 @@ import { AllChat, Chat, Connections, Messages } from '../../user/services/user.i
 export class TrainerAuthService {
 
   apiUrl: string = environment.apiURL
+  showPicker = false;
 
   constructor(private http: HttpClient, private socket: Socket) { }
 
@@ -21,6 +22,14 @@ export class TrainerAuthService {
     const token = <string>localStorage.getItem('trainerToken');
     const { id } = decodeToken(token);
     return id
+  }
+
+  togglePicker() {
+    this.showPicker = !this.showPicker;
+  } 
+
+  closePicker() {
+    this.showPicker = false;
   }
 
   trainerLogin(trainerData: Trainer): Observable<Verify> {
@@ -95,23 +104,15 @@ export class TrainerAuthService {
     return this.socket.fromEvent<string>('newMessage')
   }
 
-  getAllMessage(data: { trainerId: string, userId: string }):Observable<AllChat[]>{
-    return this.http.post<AllChat[]>(`${this.apiUrl}/chat`,data)
-  }
-
   createConnection(data: { user: string, trainer: string }): Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}/chat/create`, data)
   }
 
-  fetchUserConnections(id: string): Observable<AllChat[]> {
-    return this.http.get<AllChat[]>(`${this.apiUrl}/chat/users/${id}`)
+  fetchAllConnections(trainerId:string):Observable<Connections[]>{
+    return this.http.get<Connections[]>(`${this.apiUrl}/chat/trainers/${trainerId}`)
   }
 
-  fetchAllConnections(id:string):Observable<Connections[]>{
-    return this.http.get<Connections[]>(`${this.apiUrl}/chat/all/${id}`)
-  }
-
-  getAllConnections(data:string[]):Observable<AllChat[]>{
+  getAllChats(data:string[]):Observable<AllChat[]>{
     return this.http.post<AllChat[]>(`${this.apiUrl}/chat/get_all`,data)
   }
 }

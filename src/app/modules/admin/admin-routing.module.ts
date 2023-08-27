@@ -9,6 +9,7 @@ import { BlogsComponent } from './templates/blogs/blogs.component';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { WorkoutsComponent } from './templates/workouts/workouts.component';
 import { PaymentsComponent } from './templates/payments/payments.component';
+import { ReportComponent } from './templates/report/report.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
   {
     path: 'payments',
     component: PaymentsComponent,
+    canActivate: [AdminAuthGuard]
+  },
+  {
+    path: 'report',
+    component: ReportComponent,
     canActivate: [AdminAuthGuard]
   },
 ];

@@ -114,6 +114,7 @@ export interface Payment{
   userId: UserFull;
   trainerId: Trainers;
   status: string;
+  trainer_status: boolean;
 }
 
 export interface UserFull {

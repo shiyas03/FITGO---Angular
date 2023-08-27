@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit,AfterViewInit } from '@angular/core';
 import { Blog } from '../../store/user';
 import { Store, select } from '@ngrx/store';
 import { fetchBlogData } from '../../store/user.action';
@@ -11,12 +11,12 @@ import { NavigationExtras, Router } from '@angular/router';
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css'],
 })
-export class BlogsComponent implements OnInit {
+export class BlogsComponent implements OnInit,AfterViewInit {
   blogs$!: Observable<Blog[]>;
   show: boolean = false;
   notFound:boolean = true;
 
-  constructor(private store: Store<Blog>, private router: Router) {}
+  constructor(private store: Store<Blog>, private router: Router,private elementRef: ElementRef) {}
 
   ngOnInit(): void {
     this.store.dispatch(fetchBlogData());
@@ -28,6 +28,15 @@ export class BlogsComponent implements OnInit {
         } 
       }
     })
+  }
+  
+  ngAfterViewInit(): void {
+    this.scrollToTop()
+  }
+
+  private scrollToTop(): void {
+    const element = this.elementRef.nativeElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
   showBlog(id: string) {

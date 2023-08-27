@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
@@ -25,6 +25,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaymentsComponent } from './templates/payments/payments.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ReportComponent } from './templates/report/report.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 @NgModule({
@@ -38,16 +43,22 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ViewBlogComponent,
     WorkoutsComponent,
     ShowWorkoutComponent,
-    PaymentsComponent
+    PaymentsComponent,
+    ReportComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatDatepickerModule, 
+    MatNativeDateModule,
     NgApexchartsModule,
     StoreModule.forFeature('users', usersReducer),
     StoreModule.forFeature('trainers', trainerReducer),

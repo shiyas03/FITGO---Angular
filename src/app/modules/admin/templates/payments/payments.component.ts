@@ -7,7 +7,6 @@ import { fetchPaymentData } from '../../store/admin.action';
 import { paymentSelectorData } from '../../store/admin.selector';
 import { swal, swalConfirm, swalError } from 'src/app/common/swal.popup';
 import { AdminAuthService } from '../../services/admin-auth.service';
-import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-payments',

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef,AfterViewInit } from '@angular/core';
 import { Workout } from '../../services/user.interface';
 import { Store, select } from '@ngrx/store';
 import { fetchWorkoutsData } from '../../store/user.action';
@@ -11,13 +11,13 @@ import { NavigationExtras, Router } from '@angular/router';
   templateUrl: './workouts.component.html',
   styleUrls: ['./workouts.component.css']
 })
-export class WorkoutsComponent implements OnInit, OnDestroy {
+export class WorkoutsComponent implements OnInit, OnDestroy,AfterViewInit {
 
   workouts$!: Observable<Workout[]>
   notFound:boolean = true
   subcription!:Subscription
 
-  constructor(private store: Store<Workout[]>, private router: Router) { }
+  constructor(private store: Store<Workout[]>, private router: Router,private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.store.dispatch(fetchWorkoutsData())
@@ -30,6 +30,16 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  ngAfterViewInit(): void {
+  this.scrollToTop()      
+  }
+
+  private scrollToTop(): void {
+    const element = this.elementRef.nativeElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+  }
+
 
   showWorkout(id: string) {
     const data = { id: id };

@@ -44,6 +44,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ChatComponent } from './templates/chat/chat.component';
 import { AuthComponent } from './templates/auth/auth.component';
 
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { GenericModule } from 'src/app/generic/generic.module';
+
 @NgModule({
   declarations: [
     NavBarComponent,
@@ -68,6 +71,7 @@ import { AuthComponent } from './templates/auth/auth.component';
   ],
   imports: [
     CommonModule,
+    GenericModule,
     UserRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -81,6 +85,7 @@ import { AuthComponent } from './templates/auth/auth.component';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
+    PickerComponent,
     StoreModule.forFeature('register', registerReducer),
     StoreModule.forFeature('user', userReducer),
     StoreModule.forFeature('profile', profileReducer),

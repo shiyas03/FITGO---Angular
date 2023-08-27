@@ -21,8 +21,10 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
-import { NotFoundPageComponent } from './modules/not-found-page/not-found-page.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+
+import { NotFoundPageComponent } from './generic/not-found-page/not-found-page.component';
+
 
 const config: SocketIoConfig = { url: environment.apiURL, options: {} };
 
@@ -49,6 +51,6 @@ const config: SocketIoConfig = { url: environment.apiURL, options: {} };
     { provide: HTTP_INTERCEPTORS, useClass: JwtTrainerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

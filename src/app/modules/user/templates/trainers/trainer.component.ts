@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { Trainer } from '../../store/user';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { fetchTrainersData } from '../../store/user.action';
 import { trainerSelectorData } from '../../store/user.selector';
-import { UserAuthService } from '../../services/user-auth.service';
-import { PaymentData } from '../../services/user.interface';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
@@ -13,16 +11,25 @@ import { NavigationExtras, Router } from '@angular/router';
   templateUrl: './trainer.component.html',
   styleUrls: ['./trainer.component.css']
 })
-export class TrainerComponent implements OnInit {
+export class TrainerComponent implements OnInit, AfterViewInit {
 
   trainers$!: Observable<Trainer[]>
   notFound: boolean = true
 
-  constructor(private store: Store<Trainer[]>, private userService: UserAuthService, private router: Router) { }
+  constructor(private store: Store<Trainer[]>, private elementRef: ElementRef, private router: Router) { }
   ngOnInit(): void {
     this.store.dispatch(fetchTrainersData())
     this.trainers$ = this.store.pipe(select(trainerSelectorData))
     this.available()
+  }
+
+  ngAfterViewInit(): void {
+    this.scrollToTop()
+  }
+
+  private scrollToTop(): void {
+    const element = this.elementRef.nativeElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
   showTrainer(id: string) {

@@ -1,4 +1,4 @@
-<nav class="relative top-0 z-50 w-full bg-gray-900">
+<nav class="sticky top-0 z-50 w-full bg-gray-900">
   <div class="px-3 py-5 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
@@ -70,6 +70,13 @@
           class="flex items-center p-2 text-white rounded-lg hover:scale-105 duration-300">
           <mat-icon>account_balance</mat-icon>
           <span class="ml-3">Payments</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/report" routerLinkActive="active"
+          class="flex items-center p-2 text-white rounded-lg hover:scale-105 duration-300">
+          <mat-icon> pie_chart</mat-icon>
+          <span class="ml-3">Report</span>
         </a>
       </li>
     </ul>

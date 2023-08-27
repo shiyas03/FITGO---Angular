@@ -50,6 +50,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.showToggle = false;
   }
 
+  toggleDropdownClose(){
+    this.isDropdownOpen = false
+  }
+
   signOut() {
     localStorage.removeItem('userToken');
     localStorage.removeItem('userId');

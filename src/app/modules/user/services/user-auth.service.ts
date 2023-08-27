@@ -28,11 +28,20 @@ import { Socket } from 'ngx-socket-io';
 export class UserAuthService {
 
   private apiUrl: string = environment.apiURL
+  showPicker = false;
   constructor(private http: HttpClient, private socket: Socket) { }
 
   getTokenData() {
     const token = <string>localStorage.getItem('userToken')
     return decodeToken(token)
+  }
+
+  togglePicker() {
+    this.showPicker = !this.showPicker;
+  } 
+
+  closePicker() {
+    this.showPicker = false;
   }
 
   registerUser(userData: Register): Observable<RegisterReturn> {
@@ -111,12 +120,8 @@ export class UserAuthService {
     return this.http.post<boolean>(`${this.apiUrl}/chat/create`, data)
   }
 
-  fetchTrainersConnections(id: string): Observable<Messages[]> {
-    return this.http.get<Messages[]>(`${this.apiUrl}/chat/trainers/${id}`)
-  }
-
   fetchAllConnections(id:string):Observable<Connections[]>{
-    return this.http.get<Connections[]>(`${this.apiUrl}/chat/connections/${id}`)
+    return this.http.get<Connections[]>(`${this.apiUrl}/chat/users/${id}`)
   }
 
   sendMessage(data: Chat): void {
@@ -127,9 +132,7 @@ export class UserAuthService {
     return this.socket.fromEvent<string>('newMessage')
   }
 
-  getAllMessage(data: { trainerId: string, userId: string }): Observable<AllChat[]> {
-    return this.http.post<AllChat[]>(`${this.apiUrl}/chat`,data)
+  getAllChats(data:string[]):Observable<AllChat[]>{
+    return this.http.post<AllChat[]>(`${this.apiUrl}/chat/get_all`,data)
   }
-
- 
 }

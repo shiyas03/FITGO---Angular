@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { DetailsComponent } from './templates/details/details.component';
 import { DashboardComponent } from './templates/dashboard/dashboard.component';
@@ -36,8 +37,7 @@ import { PaymentsComponent } from './templates/payments/payments.component';
 import { ChatComponent } from './templates/chat/chat.component';
 import { UsersComponent } from './templates/users/users.component';
 import { UserSingleViewComponent } from './templates/users/user-single-view/user-single-view.component';
-
-
+import { GenericModule } from 'src/app/generic/generic.module';
 
 @NgModule({
   declarations: [
@@ -65,6 +65,7 @@ import { UserSingleViewComponent } from './templates/users/user-single-view/user
   ],
   imports: [
     CommonModule,
+    GenericModule,
     TrainerRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -74,6 +75,7 @@ import { UserSingleViewComponent } from './templates/users/user-single-view/user
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
+    NgApexchartsModule,
     StoreModule.forFeature('blogs', blogsReducer),
     StoreModule.forFeature('profile', profileReducer),
     StoreModule.forFeature('workouts', workoutReducer),

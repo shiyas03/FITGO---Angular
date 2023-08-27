@@ -141,6 +141,7 @@ export interface AllChat{
     reciever:string,
     content:string;
     timestamp:string;
+    seen:boolean
 }
 
 export interface ChatShow{
@@ -157,3 +158,21 @@ export interface Connections{
     },
     timestamp:Date
 }
+
+interface Connection {
+    user: {
+      name: string;
+      _id: string;
+      imageUrl: string;
+    };
+    trainer: {
+      name: string;
+      _id: string;
+      imageUrl: string;
+    };
+  }
+  
+export  interface Details {
+    _id: string;
+    connections: Connection;
+  }
