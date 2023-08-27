@@ -45,13 +45,13 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.getAllConnections()
     this._trainerService.getNewMessage().subscribe(() => {
       this.selectChat(this.userId)
-      this.allUsers.clear()
       this.getAllConnections()
     })
   }
 
   getAllConnections() {
     let connections: string[] = []
+    this.allUsers.clear()
     this.trainerId = <string>localStorage.getItem('trainerId')
     this.subscription1 = this._trainerService.fetchAllConnections(this.trainerId).subscribe(
       (datas) => {
@@ -70,6 +70,7 @@ export class ChatComponent implements OnInit, OnDestroy {
             }
             const reversedArray = Array.from(this.allUsers).reverse();
             this.users = new Set(reversedArray);
+            this.notifications()
           })
       }
     )
@@ -87,8 +88,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   selectChat(userId: string) {
     this.userId = userId
+    const connection = Array.from(this.chat$).find(data => data.sender === userId)
+    this._trainerService.updateMessageSeen(userId,connection?.connection).subscribe()
     const user = Array.from(this.allUsers).find(data=> data._id === userId)
     if(user){
+      user.notification = 0
       this.user = user
     }
   }
@@ -185,6 +189,29 @@ export class ChatComponent implements OnInit, OnDestroy {
   closeEmojiPicker() {
     this.openEmoji = false
     this._trainerService.closePicker()
+  }
+
+  isToday(timestamp: string): boolean {
+    const today = new Date();
+    const date = new Date(timestamp).toDateString()
+    return date === today.toDateString();
+  }
+
+  isYesterday(timestamp: string): boolean {
+    const today = new Date();
+    const date = new Date(timestamp).toDateString()
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    return date === yesterday.toDateString();
+  }
+
+  notifications() {
+    for (let value of this.chat$) {
+      if (value.seen === false) {
+        const find = Array.from(this.users).find(data => data._id === value.sender)
+        if (find) find.notification++
+      }
+    }
   }
 
 

@@ -136,11 +136,7 @@ export class UserAuthService {
     return this.http.post<AllChat[]>(`${this.apiUrl}/chat/get_all`, data)
   }
 
-  chageNotification(trainerId: string): Observable<boolean> {
-    return this.http.patch<boolean>(`${this.apiUrl}/trainer/notification`, { trainerId })
-  }
-
-  updateMessageSeen(connectionId?: string): Observable<boolean> {
-    return this.http.patch<boolean>(`${this.apiUrl}/chat/seen`, { connectionId })
+  updateMessageSeen(senderId: string, connectionId?: string): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/chat/seen`, { senderId, connectionId })
   }
 }

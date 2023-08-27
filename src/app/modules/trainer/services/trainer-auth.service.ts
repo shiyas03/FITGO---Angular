@@ -26,7 +26,7 @@ export class TrainerAuthService {
 
   togglePicker() {
     this.showPicker = !this.showPicker;
-  } 
+  }
 
   closePicker() {
     this.showPicker = false;
@@ -88,19 +88,19 @@ export class TrainerAuthService {
     return this.http.patch<boolean>(`${this.apiUrl}/trainer/service_remove?id=${id}`, { data })
   }
 
-  updateProfile(id: string, data: Udpate):Observable<boolean> {
+  updateProfile(id: string, data: Udpate): Observable<boolean> {
     return this.http.put<boolean>(`${this.apiUrl}/trainer/update?id=${id}`, data)
   }
 
-  fetchPayments(trainerId:string):Observable<Payment[]>{
+  fetchPayments(trainerId: string): Observable<Payment[]> {
     return this.http.get<Payment[]>(`${this.apiUrl}/payment/trainer/${trainerId}`)
-  } 
+  }
 
-  sendMessage(data:Chat): void { 
+  sendMessage(data: Chat): void {
     this.socket.emit('message', data)
   }
 
-  getNewMessage():Observable<string>{
+  getNewMessage(): Observable<string> {
     return this.socket.fromEvent<string>('newMessage')
   }
 
@@ -108,11 +108,15 @@ export class TrainerAuthService {
     return this.http.post<boolean>(`${this.apiUrl}/chat/create`, data)
   }
 
-  fetchAllConnections(trainerId:string):Observable<Connections[]>{
+  fetchAllConnections(trainerId: string): Observable<Connections[]> {
     return this.http.get<Connections[]>(`${this.apiUrl}/chat/trainers/${trainerId}`)
   }
 
-  getAllChats(data:string[]):Observable<AllChat[]>{
-    return this.http.post<AllChat[]>(`${this.apiUrl}/chat/get_all`,data)
+  getAllChats(data: string[]): Observable<AllChat[]> {
+    return this.http.post<AllChat[]>(`${this.apiUrl}/chat/get_all`, data)
+  }
+
+  updateMessageSeen(senderId: string, connectionId?: string): Observable<boolean> {
+    return this.http.patch<boolean>(`${this.apiUrl}/chat/seen`, { senderId, connectionId })
   }
 }

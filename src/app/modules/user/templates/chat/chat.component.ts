@@ -90,7 +90,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   selectChat(trainerId: string): void {
     this.trainerId = trainerId
     const connection = Array.from(this.chat$).find(data => data.sender === trainerId)
-    this._userService.updateMessageSeen(connection?.connection).subscribe()
+    this._userService.updateMessageSeen(trainerId, connection?.connection).subscribe()
     const trainer = Array.from(this.trainers).find(data => data._id === trainerId)
     if (trainer) {
       trainer.notification = 0
@@ -217,11 +217,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   notifications() {
-    let total = 0
     for (let value of this.chat$) {
       if (value.seen === false) {
         const find = Array.from(this.trainers).find(data => data._id === value.sender)
         if (find) find.notification++
+
       }
     }
   }
