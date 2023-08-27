@@ -54,3 +54,21 @@
     display: none;
 }
 
+
+@media (max-width: 800px) {
+    .first {
+        display: none;
+    }
+}
+
+@media (max-width: 639px) {
+    .second-hide {
+        display: none;
+    }
+}
+
+@media (max-width: 639px) {
+    .third-hide {
+        display: none;
+    }
+}

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked, OnDestroy, HostListener } from '@angular/core';
 import { UserAuthService } from '../../services/user-auth.service';
 import { NgForm } from '@angular/forms';
 import { AllChat, Chat, ChatShow, Details } from '../../services/user.interface';
@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
+
 
   @ViewChild('form') form!: NgForm
   @ViewChild('chatContainer') private chatContainer!: ElementRef;

@@ -61,14 +61,15 @@
 }
 
 @media (max-width: 639px) {
-    .third {
+    .second-hide {
         display: none;
     }
 }
 
 @media (max-width: 639px) {
-    .second {
+    .third-hide {
         display: none;
     }
 }
-    
+
+  
