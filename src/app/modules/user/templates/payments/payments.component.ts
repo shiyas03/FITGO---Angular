@@ -20,12 +20,15 @@ export class PaymentsComponent implements OnInit,AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ['position', 'payment_id', 'validity', 'trainer', 'amount','status'];
 
+  payments$!:Observable<PaymentDetails[]>
+
   constructor(private _store: Store<PaymentDetails>) { }
 
   ngOnInit(): void {
     const userId = <string>localStorage.getItem('userId');
     this._store.dispatch(fetchPaymentData({ userId }))
-    this._store.pipe(select(paymentSelectorData)).subscribe((data) => {
+    this.payments$ = this._store.pipe(select(paymentSelectorData))
+    this.payments$.subscribe((data) => {
       this.dataSource$.data = data
       if (data) {
         data.length === 0 ? this.isPayment = false : this.isPayment = true

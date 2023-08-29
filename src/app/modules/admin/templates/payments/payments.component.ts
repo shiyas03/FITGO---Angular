@@ -29,23 +29,6 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
     this.dataSource$.paginator = this.paginator;
   }
 
-  payTrainer(trainerId: string) {
-    swalConfirm().then((res)=>{
-      if(res.isConfirmed){
-        this._adminService.payToTrainer(trainerId).subscribe(
-          (res) => {
-            if (res) {
-              swal('success', 'paid successfully')
-              this.fetchData()
-            }
-          }, (error) => {
-            swalError(error)
-          }
-        )
-      }
-    })
-  }
-
   fetchData() {
     this._store.dispatch(fetchPaymentData())
     this._store.pipe(select(paymentSelectorData)).subscribe(

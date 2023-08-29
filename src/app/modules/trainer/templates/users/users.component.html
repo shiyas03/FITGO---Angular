@@ -1,62 +1,65 @@
 <app-sidebar-layout></app-sidebar-layout>
 
-<div class="absolute lg:w-4/5 mt-10 lg:mx-72 w-full overflow-hidden overflow-y-auto overflow-x-auto">
-    <table mat-table [dataSource]="dataSource$" class="mat-elevation-z8">
-        <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let i = index"> {{i+1}} </td>
-        </ng-container>
+<div class="absolute top-20 right-0 sm:w-4/5 w-full overflow-hidden overflow-y-auto overflow-x-auto p-5">
+    <div class="w-full">
+        <table mat-table [dataSource]="dataSource$" class="mat-elevation-z8">
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let i = index"> {{i+1}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="user">
-            <th mat-header-cell *matHeaderCellDef> User </th>
-            <td mat-cell *matCellDef="let payment">{{payment.userId.name}}</td>
-        </ng-container>
+            <ng-container matColumnDef="user">
+                <th mat-header-cell *matHeaderCellDef> User </th>
+                <td mat-cell *matCellDef="let payment">{{payment.userId.name}}</td>
+            </ng-container>
 
-        <ng-container matColumnDef="contact">
-            <th mat-header-cell *matHeaderCellDef> Contact</th>
-            <td mat-cell *matCellDef="let payment">{{payment.userId.email}}</td>
-        </ng-container>
+            <ng-container matColumnDef="contact">
+                <th mat-header-cell *matHeaderCellDef> Contact</th>
+                <td mat-cell *matCellDef="let payment">{{payment.userId.email}}</td>
+            </ng-container>
 
-        <ng-container matColumnDef="validity">
-            <th mat-header-cell *matHeaderCellDef>Validity </th>
-            <td mat-cell *matCellDef="let payment">
-                <p>Paid Date: <span class="text-green-500 font-medium">{{payment.paidDate| date:
-                        'dd-MM-yyyy'}}</span>
-                </p>
-                <p>Expiry Date : <span class="text-red-500 font-medium">{{payment.expiryDate| date:
-                        'dd-MM-yyyy'}}</span></p>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="validity">
+                <th mat-header-cell *matHeaderCellDef>Validity </th>
+                <td mat-cell *matCellDef="let payment">
+                    <p>Paid Date: <span class="text-green-500 font-medium">{{payment.paidDate| date:
+                            'dd-MM-yyyy'}}</span>
+                    </p>
+                    <p>Expiry Date : <span class="text-red-500 font-medium">{{payment.expiryDate| date:
+                            'dd-MM-yyyy'}}</span></p>
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> More </th>
-            <td mat-cell *matCellDef="let payment" class="text-md font-medium">
-                <button (click)="viewUser(payment.userId._id)"
-                    class="py-2 m-1 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2">
-                    <span
-                        class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"></span>
-                    <span
-                        class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-blue-600 to-blue-500"></span>
-                    <span
-                        class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-blue-500 from-blue-500"></span>
-                    <span class="relative">View</span>
-                </button>
-                <button (click)="chatWith(payment.userId._id)"
-                    class="py-2 m-1 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2">
-                    <span
-                        class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"></span>
-                    <span
-                        class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"></span>
-                    <span
-                        class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"></span>
-                    <span class="relative">Chat</span>
-                </button>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> More </th>
+                <td mat-cell *matCellDef="let payment" class="text-md font-medium">
+                    <button (click)="viewUser(payment.userId._id)"
+                        class="py-2 m-1 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2">
+                        <span
+                            class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-blue-600 to-blue-500"></span>
+                        <span
+                            class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-blue-600 to-blue-500"></span>
+                        <span
+                            class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-blue-500 from-blue-500"></span>
+                        <span class="relative">View</span>
+                    </button>
+                    <button (click)="chatWith(payment.userId._id)"
+                        class="py-2 m-1 relative rounded group font-medium text-white font-medium inline-block w-20 mx-2">
+                        <span
+                            class="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-green-600 to-green-500"></span>
+                        <span
+                            class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-green-600 to-green-500"></span>
+                        <span
+                            class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-green-500 from-green-500"></span>
+                        <span class="relative">Chat</span>
+                    </button>
+                </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic payments">
-    </mat-paginator>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic payments">
+        </mat-paginator>
+    </div>
 </div>

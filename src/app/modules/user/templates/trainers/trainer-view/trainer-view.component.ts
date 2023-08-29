@@ -103,8 +103,6 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
     const userId = <string>localStorage.getItem('userId')
     this._userService.fetchTrainerPayments(this.trainerId).subscribe(
       (res) => {
-        console.log(res);
-        
         for (let value of res) {
           if (value.trainerId._id === this.trainerId) {
             this.uniqueUsers.add(value.userId._id);

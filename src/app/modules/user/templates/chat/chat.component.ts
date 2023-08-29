@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked, OnDestroy, HostListener } from '@angular/core';
 import { UserAuthService } from '../../services/user-auth.service';
 import { NgForm } from '@angular/forms';
-import { AllChat, Chat, ChatShow, Details } from '../../services/user.interface';
+import { AllChat, Chat, ChatShow, Connections, Details } from '../../services/user.interface';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { Subscription } from 'rxjs';
@@ -78,8 +78,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     )
   }
 
-  trainerDetails(details: any, id: string) {
-    const foundData = details.find((data: any) => data.connections.trainer._id == id)
+  trainerDetails(details: Connections[], id: string) {
+    const foundData = details.find((data) => data.connections.trainer._id == id)
     if (foundData) {
       if (this.allTrainers.has(foundData.connections.trainer)) {
         this.allTrainers.delete(foundData.connections.trainer)
@@ -166,8 +166,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.selectedFile = null
   }
 
-  handleFileInput(event: any): void {
-    this.selectedFile = event.target.files[0];
+  handleFileInput(event: Event): void {
+    this.selectedFile = <File>(event.target as HTMLInputElement)?.files?.[0];
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.onload = (e) => {

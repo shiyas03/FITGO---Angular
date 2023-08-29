@@ -3,7 +3,7 @@
   <div class="absolute top-5 left-0 w-full">
     <app-nav-bar></app-nav-bar>
     <div class="lg:m-20 m-10 lg:p-20 md:p-15 sm:p-10 sm:p-5 xs:p-0">
-      <div class="flex items-center w-60">
+      <div class="flex items-center w-60"><a href=""></a>
         <hr class="lg:w-1/4 xs:w-auto border border-red-500">
         <p class="text-white lg:text-xl md:text-lg sm:text-md animate-fade-down animate-once animate-ease-in p-1">WITH
           FITGO</p>
@@ -40,13 +40,52 @@
     </div>
   </div>
 </div>
-<div class="w-full h-screen bg-gray-100">
-  <div class="w-2/5 h-1/6 flex justify-center items-center">
-    <p class="uppercase text-4xl text-red-500">About Us</p>
+<div class="w-full h-screen flex justify-center items-center bg-gray-100">
+  <div class="w-2/3 h-2/4">
+    <div class="grid grid-cols-2 gap-3 h-full">
+      <div class="h-full w-full overflow-hidden border border-red-400"><img src="assets/images/fitgo-image.png"
+          alt="fitgo" class="w-full h-full"></div>
+      <div class="flex justify-center">
+        <div class="p-8">
+          <p class="uppercase text-3xl text-red-500 mb-8 mt-5">About Us</p>
+          <p>Welcome to FitGo, your virtual fitness haven where passion meets performance. With a legacy spanning over
+            five years, we've empowered countless individuals to realize their health and fitness aspirations. Our
+            journey
+            has been enriched by the trust of over 50+ customers who've experienced transformative results and
+            unwavering
+            support.</p>
+          <a *ngIf="!islogged" class="relative inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-white
+        transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 border border-red-500 group mt-5
+        animate-fade-left animate-once animate-ease-in w-5 h-5 sm:w-44 sm:h-12" routerLink="/auth">
+            <span
+              class="absolute bottom-0 left-0 w-full transition-all duration-150 ease-in-out bg-red-600 group-hover:h-full "></span>
+            <span class="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
+              <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                </path>
+              </svg>
+            </span>
+            <span class="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                </path>
+              </svg>
+            </span>
+            <span
+              class="relative text-black w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white"
+              style="font-family: 'Kanit', sans-serif;">Join
+              us today!</span>
+          </a>
+          <p class="text-xl text-medium mt-5 text-red-400" *ngIf="islogged">Thankyou for joining us!</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="w-full h-screen bg-gray-100 flex items-center" id="services">
-  <div class="w-1/4 m-5">
+  <div class="w-1/4 m-10">
     <p class="uppercase text-4xl text-white m-2">services</p>
     <p class="text-gray-200 m-2 mt-2 text-sm tracking-wider">Experience a holistic fitness approach through our
       services, offering
@@ -60,7 +99,8 @@
   <div class="w-2/3 h-1/2 flex">
     <div class="grid grid-cols-6 gap-5 w-full h-full items-center">
       <div
-        class="w-full h-full bg-white col-span-2 rounded-2xl overflow-hidden hover:-mt-5 hover:scale-102 duration-300 cursor-pointer relative" routerLink="/blogs">
+        class="w-full h-full bg-white col-span-2 rounded-2xl overflow-hidden hover:-mt-5 hover:scale-102 duration-300 cursor-pointer relative"
+        routerLink="/blogs">
         <div class="h-full">
           <img src="assets/images/blog-thumb2.jpg" alt="" class="h-full w-full">
         </div>
@@ -77,9 +117,9 @@
           </div>
         </div>
       </div>
-
       <div
-        class="w-full h-full bg-white col-span-2 rounded-lg overflow-hidden hover:-mt-5 hover:scale-102 duration-300 cursor-pointer relative" routerLink="/workouts">
+        class="w-full h-full bg-white col-span-2 rounded-lg overflow-hidden hover:-mt-5 hover:scale-102 duration-300 cursor-pointer relative"
+        routerLink="/workouts">
         <div class="h-full">
           <img src="assets/images/workout-thumbnail.jpg" alt="" class="w-full h-full">
         </div>
@@ -97,7 +137,8 @@
         </div>
       </div>
       <div
-        class="w-full h-full bg-white col-span-2 rounded-lg overflow-hidden hover:-mt-5 hover:scale-102 duration-300 cursor-pointer relative" routerLink="/trainers">
+        class="w-full h-full bg-white col-span-2 rounded-lg overflow-hidden hover:-mt-5 hover:scale-102 duration-300 cursor-pointer relative"
+        routerLink="/trainers">
         <div class="h-full">
           <img src="assets/images/trainer-thumb.jpg" alt="" class="w-full h-full">
         </div>
@@ -117,11 +158,78 @@
     </div>
   </div>
 </div>
-<div class="w-full h-screen bg-gray-100" id="about">
-  <div class="w-2/5 h-1/6 flex justify-center items-center">
-    <p class="uppercase text-4xl text-red-500">About Us</p>
+<div class="w-full h-screen bg-gray-100 flex justify-center">
+  <div class="w-2/3 h-1/6 flex justify-center ">
+    <div class="mt-10">
+      <p class="text-center text-3xl m-10 text-medium text-red-500">Feel free to contact!</p>
+      <form class="w-full max-w-lg" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+              First Name
+            </label>
+            <input formControlName="fn"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="grid-first-name" type="text" placeholder="Jane">
+            <div *ngIf="submit&&contactForm.controls['fn'].errors">
+              <p class="text-red-500 text-xs" *ngIf="contactForm.controls['fn'].hasError('required')">Please fill out
+                this field.</p>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+              Last Name
+            </label>
+            <input formControlName="sn"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 mb-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="grid-last-name" type="text" placeholder="Doe">
+            <div *ngIf="submit&&contactForm.controls['sn'].errors">
+              <p class="text-red-500 text-xs" *ngIf="contactForm.controls['sn'].hasError('required')">Please fill out
+                this field.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+              E-mail
+            </label>
+            <input formControlName="email"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="email" type="email">
+            <div *ngIf="contactForm.controls['email'].errors">
+              <p class="text-red-500 text-xs" *ngIf="submit&&contactForm.controls['email'].hasError('required')">Please
+                fill out
+                this field.</p>
+              <p class="text-red-500 text-xs" *ngIf="submit&&contactForm.controls['email'].hasError('email')">Incorrect
+                email format</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+              Message
+            </label>
+            <textarea formControlName="message"
+              class=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
+              id="message"></textarea>
+            <div *ngIf="submit&&contactForm.controls['message'].errors">
+              <p class="text-red-500 text-xs" *ngIf="contactForm.controls['message'].hasError('required')">Please fill
+                out this field.</p>
+            </div>
+          </div>
+        </div>
+        <div class="md:flex md:items-center">
+          <div class="md:w-1/3">
+            <button
+              class="shadow bg-red-400 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+              Send
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
-
-
 <app-footer></app-footer>

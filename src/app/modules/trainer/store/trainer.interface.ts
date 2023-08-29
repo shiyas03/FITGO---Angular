@@ -8,19 +8,20 @@ export interface Blog {
 }
 
 export interface Profile {
-  _id:string
+  _id: string
   name: string;
   email: string;
-  phone:number;
+  phone: number;
   about: string;
   experience: string;
-  specialized:string;
+  specialized: string;
   joinDate: Date;
-  imageUrl:string;
-  services:string[];
-  payments:[{
-    amount:number;
-    date:Date
+  imageUrl: string;
+  services: string[];
+  payments: [{
+    _id: string;
+    amount: number;
+    date: Date
   }]
 }
 
@@ -28,8 +29,8 @@ export interface InitailProfile {
   trainer: Profile | null;
 }
 
-export interface Udpate{
-  name:string;
-  phone:string;
-  about:string;
+export interface Udpate {
+  name: string;
+  phone: string;
+  about: string;
 }

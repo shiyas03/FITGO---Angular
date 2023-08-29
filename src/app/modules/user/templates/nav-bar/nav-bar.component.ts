@@ -55,6 +55,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   signOut() {
+    console.log("working");
+    
     localStorage.removeItem('userToken');
     localStorage.removeItem('userId');
     this.router.navigate(['/auth']);

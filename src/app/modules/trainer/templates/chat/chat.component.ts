@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { AllChat, Chat, ChatShow } from 'src/app/modules/user/services/user.interface';
+import { AllChat, Chat, ChatShow, Connections } from 'src/app/modules/user/services/user.interface';
 import { NgForm } from '@angular/forms';
 import { TrainerAuthService } from '../../services/trainer-auth.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -76,8 +76,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     )
   }
 
-  usersIdentify(datas: any, value: any) {
-    const foundData = datas.find((data: any) => data.connections.user._id === value);
+  usersIdentify(datas: Connections[], value: string) {
+    const foundData = datas.find((data: Connections) => data.connections.user._id === value);
     if (foundData) {
       if (this.allUsers.has(foundData.connections.user)) {
         this.allUsers.delete(foundData.connections.user)
@@ -150,8 +150,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.fileInput.nativeElement.click();
   }
 
-  handleFileInput(event: any): void {
-    this.selectedFile = event.target.files[0];
+  handleFileInput(event: Event): void {
+    this.selectedFile = <File>(event.target as HTMLInputElement)?.files?.[0];
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.onload = (e) => {

@@ -28,7 +28,7 @@
 
         <div class="flex lg:flex-1 lg:justify-end" *ngIf="islogged; else logBlock"> 
             <button class="px-2 mx-3 border border-red-500 flex items-center m-button" routerLink="/chat"><mat-icon class="text-white z-10"> chat</mat-icon></button>
-            <button class="m-button md:h-10 sm:h-8 xs:h-8 lg:h-10 2xl:h-10" (click)="toggleDropdown()" (blur)="toggleDropdownClose()">
+            <button class="m-button md:h-10 sm:h-8 xs:h-8 lg:h-10 2xl:h-10" (click)="toggleDropdown()">
                 <span class="xs:text-xs sm:text-sm md:text-sm lg:text-sm 2xl:text-sm text-xs uppercase" *ngIf="(user$|async) as user">Hey! {{user?.name}}</span>
             </button>
             <div [class.hidden]="!isDropdownOpen" class="absolute top-14 hs-dropdown-menu hidden transform origin-top transition duration-300 ease-out hs-dropdown-open:opacity-100 min-w-5  lg:min-w-[6.5rem] 

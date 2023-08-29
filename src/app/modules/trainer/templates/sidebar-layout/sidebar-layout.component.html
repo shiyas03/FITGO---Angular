@@ -1,5 +1,55 @@
-<nav class="sticky top-0 z-10 w-full bg-gray-100 shadow-md">
-  <div class="px-3 py-3 lg:px-5 lg:pl-3">
+
+<aside id="logo-sidebar"
+  class="fixed top-0 left-0 w-1/5 h-screen pt-5 transition-transform -translate-x-full bg-white sm:translate-x-0"
+  aria-label="Sidebar">
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
+    <div class="flex justify-center mb-8">
+      <a class="flex ml-2 md:mr-24">
+        <img src="assets/images/logo.png" class="h-6 lg:h-8 mr-3 px-0 lg:px-3" alt="logo" />
+      </a>
+    </div>
+    <ul class="space-y-2 font-medium">
+      <li>
+        <a routerLink="/trainer/dashboard" routerLinkActive="active"
+          class="flex items-center p-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon>home</mat-icon>
+          <span class="ml-3">Dashboard</span>
+        </a>
+      </li>
+      <li>  
+        <a routerLink="/trainer/blogs" routerLinkActive="active"
+          class="flex items-center p-3 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon> mode_comment</mat-icon>
+          <span class="ml-3">Blogs</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/trainer/workouts" routerLinkActive="active"
+          class="flex items-center p-3 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon>fitness_center</mat-icon>
+          <span class="ml-3">Workouts</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/trainer/payments" routerLinkActive="active"
+          class="flex items-center p-3 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon>account_balance</mat-icon>
+          <span class="ml-3">Transactions</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/trainer/users" routerLinkActive="active"
+          class="flex items-center p-3 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
+          <mat-icon>supervised_user_circle</mat-icon>
+          <span class="ml-3">Users</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
+
+<nav class="absolute top-0 right-0 sm:w-4/5 w-full">
+  <div class="px-3 py-3 lg:px-5 lg:pl-3 bg-white fixed sm:w-4/5 w-full z-10">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
         <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
@@ -8,9 +58,6 @@
           <span class="sr-only">Open sidebar</span>
           <mat-icon>toc</mat-icon>
         </button>
-        <a href="" class="flex ml-2 md:mr-24">
-          <img src="assets/images/logo.png" class="h-6 lg:h-8 mr-3 px-0 lg:px-3" alt="logo" />
-        </a>
       </div>
       <div class="flex">
         <div class="mr-5">
@@ -30,58 +77,14 @@
             </p>
           </div>
           <button mat-menu-item routerLink="/trainer/profile">Profile</button>
-          <button mat-menu-item (click)="singOut()">Sign out</button>
+          <button mat-menu-item (click)="singOut()">Log out</button>
         </mat-menu>
       </div>
     </div>
   </div>
 </nav>
 
-<aside id="logo-sidebar"
-  class="absolute top-0 left-0 w-64 h-screen max-h-[1300px] pt-20 transition-transform -translate-x-full bg-gray-100 shadow-lg sm:translate-x-0"
-  aria-label="Sidebar">
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-100">
-    <ul class="space-y-2 font-medium">
-      <li>
-        <a routerLink="/trainer/dashboard" routerLinkActive="active"
-          class="flex items-center p-2 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
-          <mat-icon>home</mat-icon>
-          <span class="ml-3">Dashboard</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/trainer/blogs" routerLinkActive="active"
-          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
-          <mat-icon> mode_comment</mat-icon>
-          <span class="ml-3">Blogs</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/trainer/workouts" routerLinkActive="active"
-          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
-          <mat-icon>fitness_center</mat-icon>
-          <span class="ml-3">Workouts</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/trainer/payments" routerLinkActive="active"
-          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
-          <mat-icon>account_balance</mat-icon>
-          <span class="ml-3">Transactions</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/trainer/users" routerLinkActive="active"
-          class="flex items-center p-2 mt-3 text-black rounded-lg hover:bg-white hover:scale-105 duration-300 side-bars">
-          <mat-icon>supervised_user_circle</mat-icon>
-          <span class="ml-3">Users</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</aside>
-
-<div class="relative bg-gray-200 lg:hidden" [class.hidden]="!showToggle">
+<div class="relative top-12 bg-white lg:hidden z-10" [class.hidden]="!showToggle">
   <div class="flex flex-col gap-y-4 p-4 text-white">
     <a routerLink="/trainer/dashboard" routerLinkActive="active" class="hover:text-red-400 text-gray-900">Dashboard</a>
   </div>

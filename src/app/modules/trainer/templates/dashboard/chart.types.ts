@@ -40,5 +40,5 @@ export type ChartOptions = {
     series: ApexNonAxisChartSeries;
     chart: ApexChart;
     responsive: ApexResponsive[];
-    labels: any;
+    labels: string[];
   };

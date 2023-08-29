@@ -108,6 +108,7 @@ export interface Workout {
 }
 
 export interface PaymentDetails {
+    _id:string;
     amount: number;
     paidDate: Date;
     expiryDate: Date;
@@ -116,7 +117,7 @@ export interface PaymentDetails {
     sessionId: string;
     userId: User;
     trainerId: Trainer;
-    status: string;
+    user_status: string;
 }
 
 export interface Chat {
@@ -176,4 +177,11 @@ interface Connection {
 export interface Details {
     _id: string;
     connections: Connection;
+}
+
+export interface contact{
+    fname:string;
+    sname:string;
+    email:string;
+    message:string;
 }

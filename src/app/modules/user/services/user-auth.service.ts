@@ -16,7 +16,8 @@ import {
   Chat,
   Messages,
   AllChat,
-  Connections
+  Connections,
+  contact
 } from './user.interface';
 import { activity } from './user.enum';
 import { decodeToken } from 'src/app/common/token.decode';
@@ -138,5 +139,9 @@ export class UserAuthService {
 
   updateMessageSeen(senderId: string, connectionId?: string): Observable<boolean> {
     return this.http.patch<boolean>(`${this.apiUrl}/chat/seen`, { senderId, connectionId })
+  }
+
+  contactMessage(data: contact): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/contact`, data)
   }
 }

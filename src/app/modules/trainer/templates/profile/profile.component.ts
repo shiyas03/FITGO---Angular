@@ -19,14 +19,15 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
+  @ViewChild('fileInput', { static: false }) fileInputRef: ElementRef | undefined;
   trainer$!: Observable<Profile | null>;
   private subscription1!: Subscription;
   private subscription2!: Subscription;
   private subscription3!: Subscription;
-  @ViewChild('fileInput', { static: false }) fileInputRef: ElementRef | undefined;
   form!: FormGroup
   submit: boolean = false;
   revenue: number = 0
+  transaction: boolean = false
 
   constructor(private _store: Store<Profile>,
     private _trainerService: TrainerAuthService,
@@ -66,6 +67,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const id = this._trainerService.trainerId()
     this._store.dispatch(fetchTrainerData({ id }));
     this.trainer$ = this._store.pipe(select(profileSelectorData));
+    this.trainer$.subscribe(data => {
+      console.log(data);
+
+    })
   }
 
   services() {
@@ -134,6 +139,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isValidFileType(file: File): boolean {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     return allowedTypes.includes(file.type);
+  }
+
+  showTransactions() {
+    this.transaction = !this.transaction
   }
 
 

@@ -60,9 +60,6 @@ export class AdminAuthService {
     return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/get_all`)
   }
 
-  payToTrainer(trainerId: string): Observable<boolean> {
-    return this.http.patch<boolean>(`${this.apiUrl}/payment/pay_to_trainer`, { trainerId })
-  }
 }
 
 
