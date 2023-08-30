@@ -144,4 +144,8 @@ export class UserAuthService {
   contactMessage(data: contact): Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}/contact`, data)
   }
+
+  updateWorkout(userId: string, workoutId: string): Observable<boolean> {
+    return this.http.put<boolean>(`${this.apiUrl}/workouts`, { userId, workoutId })
+  }
 }

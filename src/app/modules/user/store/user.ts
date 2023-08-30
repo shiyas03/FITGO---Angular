@@ -1,3 +1,5 @@
+import { Workout } from "../services/user.interface";
+
 export interface Register {
     name: string;
     email: string;
@@ -40,6 +42,12 @@ export interface Login {
     password: string;
 }
 
+interface works {
+    _id: string
+    workouts: Workout;
+    date: Date
+}
+
 export interface ProfileDetails {
     _id: string;
     name: string;
@@ -57,7 +65,8 @@ export interface ProfileDetails {
     caloriesNeed: number;
     imageUrl: string;
     isUpload?: boolean;
-    joinDate?: Date
+    joinDate?: Date;
+    workouts: works[]
 }
 
 export interface profileInital {
@@ -95,8 +104,8 @@ export interface Trainer {
     reviews: [{
         review: string;
         userId: {
-            _id:string;
-            name:string;
+            _id: string;
+            name: string;
             imageUrl: string;
         }
     }]

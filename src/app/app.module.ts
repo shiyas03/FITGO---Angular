@@ -24,12 +24,14 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 import { NotFoundPageComponent } from './generic/not-found-page/not-found-page.component';
+import { SpinnerComponent } from './generic/spinner/spinner.component';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 
 const config: SocketIoConfig = { url: environment.apiURL, options: {} };
 
 @NgModule({
-  declarations: [AppComponent, NotFoundPageComponent],
+  declarations: [AppComponent, NotFoundPageComponent,SpinnerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -50,6 +52,7 @@ const config: SocketIoConfig = { url: environment.apiURL, options: {} };
     { provide: HTTP_INTERCEPTORS, useClass: JwtAdminInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtTrainerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

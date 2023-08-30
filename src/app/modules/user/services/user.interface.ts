@@ -23,6 +23,12 @@ export interface LoginReturn {
     message: string
 }
 
+interface works {
+    _id: string
+    workouts: Workout;
+    date: Date
+}
+
 export interface ProfileDetails {
     _id: string;
     name: string;
@@ -41,6 +47,7 @@ export interface ProfileDetails {
     imageUrl: string;
     isUpload?: boolean;
     joinDate?: Date;
+    workouts: works[]
 }
 
 export interface UpdateDetails {

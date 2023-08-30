@@ -8,6 +8,7 @@ import { UserAuthService } from '../../services/user-auth.service';
 import Swal from 'sweetalert2';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  
+
   details: boolean = true;
   workouts: boolean = false;
   history: boolean = false;
@@ -29,7 +30,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _store: Store<ProfileDetails>,
     private _userServices: UserAuthService,
     private _dialog: MatDialog,
-  ) {}
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
     const id = <string>localStorage.getItem('userId')
@@ -76,6 +78,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+  toWorkout(id: string) {
+    const data = { id: id };
+    const navigationExtras: NavigationExtras = {
+      state: data,
+    };
+    this._router.navigate(['workouts/view'], navigationExtras);
   }
 
   fetchData(id: string) {

@@ -5,8 +5,8 @@
     </div>
 </div>
 
-<div class="lg:px-40 md:px-20 px-10">
-    <div class="relative flex flex-col min-w-0 break-words bg-gray-100 w-full shadow-sm rounded-lg lg:-my-64 "
+<div class="lg:px-40 md:px-20 px-5">
+    <div class="relative flex flex-col min-w-0 break-words bg-gray-100 w-full shadow-sm rounded-lg lg:-my-64 my-20"
         *ngIf="(details$ | async) as user">
         <div class="flex flex-wrap justify-center">
             <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
@@ -14,8 +14,10 @@
                     <label for="imageInput" class="items-center bg-black">
                         <div class="lg:w-40 lg:h-40 w-20 h-20 rounded-full cursor-pointer ">
                             <img src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-image-700-205124837.jpg"
-                                class="w-full h-full rounded-full -mt-16 border-2 border-red-500" *ngIf="user.imageUrl == '' || !user.imageUrl">
-                                <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt="image" *ngIf="user.imageUrl" class="w-full h-full rounded-full -mt-16 border-2 border-red-500">
+                                class="w-full h-full rounded-full -mt-16 border-2 border-red-500"
+                                *ngIf="user.imageUrl == '' || !user.imageUrl">
+                            <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt="image"
+                                *ngIf="user.imageUrl" class="w-full h-full rounded-full -mt-16 border-2 border-red-500">
                             <input id="imageInput" type="file" class="hidden" (change)="onFileSelected($event)">
                         </div>
                     </label>
@@ -29,10 +31,11 @@
             <!-- <button type="button"
                 class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-sm px-5 py-2 text-center" (click)="removeImage(user._id)">Remove</button> -->
             <button type="button"
-                class="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-500 font-medium rounded-lg text-sm mx-3 px-5 py-2 text-center" (click)="editUser(user._id)">Edit Profile</button>
+                class="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-400 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-500 font-medium rounded-lg text-sm mx-3 px-5 py-2 text-center"
+                (click)="editUser(user._id)">Edit Profile</button>
         </div>
         <div class="text-center mt-10">
-            <h3 class="text-4xl font-bold" style="font-family: 'Kanit', sans-serif;">
+            <h3 class="lg:text-4xl text-xl font-bold" style="font-family: 'Kanit', sans-serif;">
                 {{user.name}}
             </h3>
             <div class="text-md mt-2" style="font-family: 'Kanit', sans-serif;">
@@ -40,7 +43,7 @@
             </div>
         </div>
         <div class="mt-10" *ngIf="user.isUpload == true">
-            <div class="mx-auto w-2/4">
+            <div class="mx-auto md:w-2/4">
                 <ul class="bg-gray-300 grid grid-flow-col gap-10 text-center text-gray-500 bg-gray-100 rounded-lg p-1">
                     <li>
                         <a [class.active]="activeLink === 'Details'" (click)="setActiveLink('Details')"
@@ -52,20 +55,37 @@
                             class="flex justify-center py-2 text-md cursor-pointer"
                             style="font-family: 'Kanit', sans-serif;">Goal</a>
                     </li>
-                    <!-- <li>
+                    <li>
                         <a [class.active]="activeLink === 'History'" (click)="setActiveLink('History')"
                             class="flex justify-center py-2 text-md cursor-pointer"
                             style="font-family: 'Kanit', sans-serif;">History</a>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
             <app-user-info *ngIf="activeLink == 'Details'" [userData$]="details$"></app-user-info>
             <app-user-status *ngIf="activeLink == 'Goal'" [userData$]="details$"></app-user-status>
+            <div class="md:w-2/4 mx-auto bg-white rounded-md mt-5 p-5" *ngIf="activeLink === 'History'">
+
+                <div class="grid grid-cols-3 text-center">
+                    <div>Date</div>
+                    <div>Workout</div>
+                    <div>Time taken</div>
+                </div>
+                <hr class="border-1 border-black">
+                <div class="grid grid-cols-3 text-center mt-1" *ngFor="let value of user.workouts">
+                    <div>
+                        <p>{{value.date | date: 'dd-MM-yyyy'}}</p>
+                    </div>
+                    <div><span class="cursor-pointer text-blue-500" (click)="toWorkout(value.workouts._id)">{{value.workouts.title}}</span></div>
+                    <div>{{value.workouts.duration}} min</div>
+                </div>
+            </div>
         </div>
 
         <div class="mt-6 mx-auto mb-3">
             <button type="button" *ngIf="user.isUpload == false"
-                class="text-white bg-red-500 font-medium rounded-lg text-sm mx-3 px-5 py-2 text-center" routerLink="/details">upload your details</button>
+                class="text-white bg-red-500 font-medium rounded-lg text-sm mx-3 px-5 py-2 text-center"
+                routerLink="/details">upload your details</button>
         </div>
     </div>
 
