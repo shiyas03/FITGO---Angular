@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnInit,AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { Blog } from '../../store/user';
 import { Store, select } from '@ngrx/store';
 import { fetchBlogData } from '../../store/user.action';
 import { blogSelectorData } from '../../store/user.selector';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
@@ -11,25 +11,57 @@ import { NavigationExtras, Router } from '@angular/router';
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css'],
 })
-export class BlogsComponent implements OnInit,AfterViewInit {
+export class BlogsComponent implements OnInit, AfterViewInit {
+
   blogs$!: Observable<Blog[]>;
   show: boolean = false;
-  notFound:boolean = true;
+  notFound: boolean = true;
+  searchQuery: string = '';
+  selectedBlog: string = 'all';
 
-  constructor(private store: Store<Blog>, private router: Router,private elementRef: ElementRef) {}
+  constructor(private store: Store<Blog>, private router: Router, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.store.dispatch(fetchBlogData());
     this.blogs$ = this.store.pipe(select(blogSelectorData));
-    this.blogs$.subscribe(data=>{
-      for(let value of data){
-        if(value.approve == true){
+    this.blogs$.subscribe(data => {
+      for (let value of data) {
+        if (value.approve == true) {
           this.notFound = false
-        } 
+        }
       }
     })
   }
-  
+
+  applySearchFilter() {
+    const trimmedQuery = this.searchQuery.trim();
+    if (trimmedQuery === '') {
+      this.blogs$ = this.store.pipe(select(blogSelectorData));
+    }else{
+      this.blogs$ = this.blogs$.pipe(
+        map(blogs =>
+          blogs.filter(blog =>
+            blog.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+          )
+        )
+      );
+    }
+  }
+
+  applyCategoryFilter() {
+    if (this.selectedBlog === 'all') {
+      this.blogs$ = this.store.pipe(select(blogSelectorData));
+    } else {
+      this.blogs$ = this.blogs$.pipe(
+        map(blogs =>
+          blogs.filter(blog =>
+            blog.category === this.selectedBlog
+          )
+        )
+      );
+    }
+  }
+
   ngAfterViewInit(): void {
     this.scrollToTop()
   }

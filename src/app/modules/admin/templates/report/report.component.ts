@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaymentDetails } from '../../services/admin-interface';
 import { Store, select } from '@ngrx/store';
-import { fetchPaymentData } from '../../store/admin.action';
-import { paymentSelectorData } from '../../store/admin.selector';
+import { fetchPaymentData, fetchTrainersData, fetchUsersAction } from '../../store/admin.action';
+import { paymentSelectorData, trainersSelectorData, usersSelectorData } from '../../store/admin.selector';
 import { swalError } from 'src/app/common/swal.popup';
 
 @Component({
@@ -16,11 +16,11 @@ export class ReportComponent implements OnInit, OnDestroy, AfterViewInit {
 
   fromDate!: Date;
   toDate!: Date;
+  dateError:boolean = false
 
-  details!: { users: number[], trainers: number[], payments: number[] };
-  dataSource$ = new MatTableDataSource<{ users: number[], trainers: number[], payments: number[] }>();
+  dataSource$ = new MatTableDataSource<PaymentDetails>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns: string[] = ['position', 'date', 'users', 'trainers', 'payments'];
+  displayedColumns: string[] = ['position', 'date', 'user', 'trainer', 'payment'];
 
   constructor(private _store: Store<PaymentDetails[]>,) { }
 
@@ -31,7 +31,11 @@ export class ReportComponent implements OnInit, OnDestroy, AfterViewInit {
     this.fetchData()
   }
   handleSubmit() {
-    this.fetchData()
+   if(this.fromDate > this.toDate){
+    this.dateError = true
+   }else{
+     this.fetchData()
+   }
   }
 
   ngAfterViewInit() {
@@ -42,20 +46,16 @@ export class ReportComponent implements OnInit, OnDestroy, AfterViewInit {
     this._store.dispatch(fetchPaymentData())
     this._store.pipe(select(paymentSelectorData)).subscribe(
       (data) => {
-        let paymentCount = 0
-        data.forEach(data => {
+        const filteredData = data.filter(data => {
           const paidDate = new Date(data.paidDate);
-          if (paidDate >= this.fromDate && paidDate <= this.toDate) {
-            paymentCount++
-          }
-        })
-        this.details.payments.push(paymentCount)
+          return paidDate >= this.fromDate && paidDate <= this.toDate;
+        });
+        this.dataSource$.data = filteredData
       }, (error) => {
         swalError(error)
       })
   }
 
   ngOnDestroy() {
-
   }
 }

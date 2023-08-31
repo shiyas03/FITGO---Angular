@@ -5,29 +5,51 @@
   </div>
 </div>
 
-<div *ngIf="blogs$ | async as blogs" class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:m-10 md:mx-20 h-screen">
-  <div *ngFor="let b of blogs; let i = index">
-    <div *ngIf="b.approve == true" class="m-5">
-      <div class="justify-center cursor-pointer" (click)="showBlog(b._id)">
-        <article
-          class="card hover:text-white overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl duration-200 hover:scale-110"
-          [style.background-image]="
+<div class="h-screen">
+  <div class="md:w-1/2 mx-auto m-5">
+    <div class=" bg-white rounded-md flex items-center w-full p-3 shadow border border-gray-200">
+      <button class="outline-none focus:outline-none"><svg class=" w-5 text-gray-600 h-5 cursor-pointer" fill="none"
+          stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg></button>
+      <input type="search" name="" id="" placeholder="search Here..." x-model="q" [(ngModel)]="searchQuery"
+        class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent"
+        (ngModelChange)="applySearchFilter()">
+      <div class="select">
+        <select name="" id="" x-model="image_type" [(ngModel)]="selectedBlog"
+          class="text-sm outline-none focus:outline-none bg-transparent cursor-pointer" (ngModelChange)="applyCategoryFilter()">
+          <option value="all" selected>All</option>
+          <option value="workouts">Workouts</option>
+          <option value="diet">Diet</option>
+          <option value="nutritions">Nutritions</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="blogs$ | async as blogs" class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:m-10 md:mx-20">
+    <div *ngFor="let b of blogs; let i = index">
+      <div *ngIf="b.approve == true" class="m-5">
+        <div class="justify-center cursor-pointer" (click)="showBlog(b._id)">
+          <article
+            class="card hover:text-white overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl duration-200 hover:scale-110"
+            [style.background-image]="
               'url(http://localhost:3000/uploads/' + b.template + ')'
             ">
-          <div class="card__info-hover absolute p-20"></div>
-          <div class="card__img h-60 rounded-2xl hover:absolute hover:scale-110"></div>
-          <a href="#" class="card_link">
-            <div class="card__img--hover"></div>
-          </a>
-          <div class="card__info bg-white p-6">
-            <span class="card__category uppercase text-sm tracking-widest text-red-600">{{ b.category }}</span>
-            <h3 class="card__title mt-2 mb-2 h-12 overflow-hidden">{{ b.title }}</h3>
-            <span class="font-thin text-xs h-5">
-              by
-              <a href="#" class="text-red-700 text-xs font-semibold" title="author">{{ b.trainerId.name }}</a>
-            </span>
-          </div>
-        </article>
+            <div class="card__info-hover absolute p-20"></div>
+            <div class="card__img h-60 rounded-2xl hover:absolute hover:scale-110"></div>
+            <a href="#" class="card_link">
+              <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info bg-white p-6">
+              <span class="card__category uppercase text-sm tracking-widest text-red-600">{{ b.category }}</span>
+              <h3 class="card__title mt-2 mb-2 h-12 overflow-hidden">{{ b.title }}</h3>
+              <span class="font-thin text-xs h-5">
+                by
+                <a href="#" class="text-red-700 text-xs font-semibold" title="author">{{ b.trainerId.name }}</a>
+              </span>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </div>

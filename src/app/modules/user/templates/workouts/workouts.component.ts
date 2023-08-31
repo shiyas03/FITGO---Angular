@@ -3,7 +3,7 @@ import { Workout } from '../../services/user.interface';
 import { Store, select } from '@ngrx/store';
 import { fetchWorkoutsData } from '../../store/user.action';
 import { workoutsSelectorData } from '../../store/user.selector';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
@@ -16,6 +16,8 @@ export class WorkoutsComponent implements OnInit, OnDestroy,AfterViewInit {
   workouts$!: Observable<Workout[]>
   notFound:boolean = true
   subcription!:Subscription
+  searchQuery: string = '';
+  selectedMuscle: string = 'All';
 
   constructor(private store: Store<Workout[]>, private router: Router,private elementRef: ElementRef) { }
 
@@ -30,6 +32,31 @@ export class WorkoutsComponent implements OnInit, OnDestroy,AfterViewInit {
       }
     })
   }
+
+  applySearchFilter() {
+    this.workouts$ = this.workouts$.pipe(
+      map(workouts =>
+        workouts.filter(workout =>
+          workout.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        )
+      )
+    );
+  }
+
+  applyMuscleFilter() {
+    if (this.selectedMuscle === 'All') {
+      this.workouts$ = this.store.pipe(select(workoutsSelectorData))
+    } else {
+      this.workouts$ = this.workouts$.pipe(
+        map(workouts =>
+          workouts.filter(workout =>
+            workout.muscle === this.selectedMuscle
+          )
+        )
+      );
+    }
+  }
+
 
   ngAfterViewInit(): void {
   this.scrollToTop()      
