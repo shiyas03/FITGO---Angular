@@ -33,7 +33,7 @@
                 <div class="flex flex-col overflow-y-auto" *ngFor="let value of users">
                     <button class="flex items-center hover:bg-gray-100 rounded-xl px-2 focus:bg-white"
                         (click)="selectChat(value._id)" [class.selected]="isSelected(value._id)">
-                        <img [src]="'http://localhost:3000/uploads/'+value.imageUrl" alt=""
+                        <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+value.imageUrl" alt=""
                             class="h-10 w-10 rounded-full" *ngIf="value.imageUrl; else elseBlock">
                         <ng-template #elseBlock>
                             <div
@@ -64,7 +64,7 @@
                         <mat-icon class="text-red-500">keyboard_backspace</mat-icon>
                     </div>
                     <div *ngIf="user.imageUrl; else imageBlock">
-                        <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt=""
+                        <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+user.imageUrl" alt=""
                             class="w-12 h-12 rounded-full">
                     </div>
                     <ng-template #imageBlock>
@@ -107,7 +107,7 @@
                                         {{user.name[0]}}
                                     </div>
                                     <ng-template #imageBlock>
-                                        <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt=""
+                                        <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+user.imageUrl" alt=""
                                             class="h-10 w-10 rounded-full">
                                     </ng-template>
                                     <div class="relative ml-3 text-sm bg-gray-200 py-2 px-4 shadow-md rounded-xl">
@@ -159,7 +159,7 @@
                         <form #form="ngForm" (ngSubmit)="onSubmit(userId)">
                             <div class="flex">
                                 <div class="relative w-full">
-                                    <input [(ngModel)]="inputValue" required type="text" name="file"
+                                    <input [(ngModel)]="inputValue" required type="text" name="file" [ngClass]="{ 'border-red-300': isEmpty }"
                                         [value]="selectedFile?.name" [disabled]="selectedFile?.name !== null"
                                         class="flex w-full border border-gray-300 rounded-xl focus:outline-none focus:border-red-300 pl-4 h-10" />
                                     <a class="cursor-pointer absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600"
@@ -168,7 +168,7 @@
                                     </a>
                                 </div>
                                 <div class="ml-4">
-                                    <button type="submit"
+                                    <button type="submit" 
                                         class="flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-full text-white p-2 flex-shrink-0">
                                         <mat-icon>send</mat-icon>
                                     </button>

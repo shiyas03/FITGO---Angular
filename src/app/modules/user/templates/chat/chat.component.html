@@ -33,18 +33,18 @@
                 <div class="flex flex-col overflow-y-auto" *ngFor="let value of trainers">
                     <button class="flex items-center hover:bg-gray-100 rounded-xl px-2"
                         [class.selected]="isSelected(value._id)" (click)="selectChat(value._id)">
-                        <img [src]="'http://localhost:3000/uploads/'+value.imageUrl" alt=""
+                        <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+value.imageUrl" alt=""
                             class="h-10 w-10 rounded-full w-1/4" *ngIf="value.imageUrl; else elseBlock">
                         <ng-template #elseBlock>
-                            <div
+                            <div 
                                 class="flex items-center justify-center h-10 w-10 bg-red-500 text-white rounded-full uppercase w-1/4">
                                 {{value.name[0]}}
                             </div>
                         </ng-template>
-                        <div class="m-4 w-1/3">
+                        <div class="m-4 w-1/3" >
                             <p class="text-md font font-semibold text-black">{{value.name}}</p>
                         </div>
-                        <div class="w-2/4 flex justify-end items-center" *ngIf="value.notification !==0">
+                        <div class="w-2/4 flex justify-end items-center" *ngIf="value.notification !== 0">
                             <p class="w-5 h-5 rounded-full bg-red-500 text-center text-white text-sm">{{value.notification}}</p>
                         </div>
                     </button>
@@ -60,7 +60,7 @@
                     <div class="mx-3 cursor-pointer" (click)="back()">
                         <mat-icon class="text-red-500">keyboard_backspace</mat-icon>
                     </div>
-                    <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt=""
+                    <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+trainer.imageUrl" alt=""
                         class="w-12 h-12 rounded-full">
                     <p class="px-3 text-black font">{{trainer.name}}</p>
                 </div>
@@ -95,7 +95,7 @@
                                         {{trainer.name[0]}}
                                     </div>
                                     <ng-template #imageBlock>
-                                        <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt=""
+                                        <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+trainer.imageUrl" alt=""
                                             class="h-10 w-10 rounded-full">
                                     </ng-template>
                                     <div class="relative ml-3 text-sm bg-gray-200 py-2 px-4 shadow-md rounded-xl">
@@ -146,7 +146,7 @@
                             <div class="flex">
                                 <div class="relative w-full">
                                     <input [(ngModel)]="inputValue" name="file" type="text" [value]="selectedFile?.name"
-                                        [disabled]="selectedFile?.name !== null"
+                                        [disabled]="selectedFile?.name !== null" [ngClass]="{ 'border-red-300': isEmpty }"
                                         class="flex w-full border border-gray-300 rounded-xl focus:outline-none shadow focus:border-red-300 pl-4 h-10" />
                                     <a (click)="openEmojiPicker()"
                                         class="cursor-pointer absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
@@ -154,7 +154,7 @@
                                     </a>
                                 </div>
                                 <div class="ml-4">
-                                    <button type="submit"
+                                    <button type="submit" 
                                         class="flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-full text-white p-2 flex-shrink-0">
                                         <mat-icon>send</mat-icon>
                                     </button>

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,10 +26,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaymentsComponent } from './templates/payments/payments.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ReportComponent } from './templates/report/report.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -55,9 +55,9 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    MatFormFieldModule, 
-    MatInputModule, 
-    MatDatepickerModule, 
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
     MatNativeDateModule,
     NgApexchartsModule,
     StoreModule.forFeature('users', usersReducer),
@@ -66,7 +66,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     StoreModule.forFeature('workouts', workoutReducer),
     StoreModule.forFeature('payments', paymentReducer),
     EffectsModule.forFeature([AdminEffect])
-  ]
-
+  ],
+  providers: [DatePipe, CurrencyPipe]
 })
 export class AdminModule { }

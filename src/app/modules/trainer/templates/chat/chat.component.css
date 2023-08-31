@@ -72,3 +72,9 @@
         display: none;
     }
 }
+
+.border-red-300 {
+    border-color: red; 
+  }
+
+  

@@ -34,13 +34,20 @@ export class WorkoutsComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
   applySearchFilter() {
-    this.workouts$ = this.workouts$.pipe(
-      map(workouts =>
-        workouts.filter(workout =>
-          workout.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+    const trimmedQuery = this.searchQuery.trim();
+    if (trimmedQuery === '') {
+      this.workouts$ = this.store.pipe(select(workoutsSelectorData))
+    }else{
+      this.workouts$ = this.workouts$.pipe(
+        map(workouts =>
+          workouts.filter(workout =>
+            workout.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+          )
         )
-      )
-    );
+      );
+    }
+    console.log(this.notFound);
+    
   }
 
   applyMuscleFilter() {

@@ -5,14 +5,14 @@
         <p class="m-3">From: </p>
         <mat-form-field>
             <mat-label>From Date</mat-label>
-            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate">
+            <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate" readonly>
             <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
             <mat-datepicker #fromPicker></mat-datepicker>
         </mat-form-field>
         <p class="m-3">To:</p>
         <mat-form-field>
             <mat-label>To Date</mat-label>
-            <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate">
+            <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate" readonly>
             <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
             <mat-datepicker #toPicker></mat-datepicker>
         </mat-form-field>
@@ -27,8 +27,20 @@
             <span class="relative">Submit</span>
         </a>
     </div>
+    <div class="flex justify-end"> 
+        <button (click)="exportToPDF()"
+            class="px-5 py-2 relative rounded-lg group font-medium text-white font-medium inline-block m-2">
+            <span
+                class="absolute top-0 left-0 w-full h-full rounded-lg opacity-50 filter blur-sm bg-gradient-to-br from-red-600 to-red-500"></span>
+            <span
+                class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-lg shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-red-600 to-red-500"></span>
+            <span
+                class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-lg bg-gradient-to-br to-red-500 from-red-500"></span>
+            <span class="relative flex items-center">Print  <mat-icon class="mx-1">print</mat-icon></span>
+        </button>
+    </div>
 
-    <table mat-table [dataSource]="dataSource$" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource$" class="mat-elevation-z8 printable-content">
         <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef> No. </th>
             <td mat-cell *matCellDef="let i = index"> {{i+1}} </td>

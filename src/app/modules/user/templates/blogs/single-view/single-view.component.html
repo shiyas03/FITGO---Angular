@@ -15,7 +15,7 @@
         <p class="md:text-3xl text-xl font-semibold text-center text-gray-900 tracking-tight">{{blog.title}}</p>
       </div>
       <div class="mt-10">
-        <img [src]="'http://localhost:3000/uploads/' + blog.template" alt="" class="w-full md:h-[400px] h-40">
+        <img [src]="'https://fitgo-fitgo.onrender.com/uploads/' + blog.template" alt="" class="w-full md:h-[400px] h-40">
       </div>
       <div class="mt-20">
         <div class="mt-1" *ngFor="let b of blogs; let i = index">
@@ -28,7 +28,7 @@
           <div class="md:w-1/2 bg-red-500 p-5 rounded-l">
             <p class="text-xs underline mb-5 text-white text-center">Blog by</p>  
             <div class="mhd:w-40 md:h-40 w-15 h-15 rounded-full bg-gray-300 overflow-hidden">
-              <img [src]="'http://localhost:3000/uploads/'+blog.trainerId.imageUrl" alt="" class="w-fit h-fit">
+              <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+blog.trainerId.imageUrl" alt="" class="w-fit h-fit">
             </div>
           </div>
           <div class="mx-5">

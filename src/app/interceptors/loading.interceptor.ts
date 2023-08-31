@@ -18,6 +18,12 @@ export class LoadingInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    
+    console.log(request.url);
+    if (request.url.includes('/chat')) {
+      return next.handle(request);
+    }
+
     this.totalRequests++;
     this.loadingService.setLoading(true);
     return next.handle(request).pipe(

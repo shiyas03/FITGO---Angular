@@ -10,20 +10,20 @@
                     <p class="text-xl sm:text-3xl font text-red-500 text-center uppercase underline">login</p>
                     <form [formGroup]="loginForm" (ngSubmit)="SubmitLogin()">
                         <div class="mt-5 w-full">
-                            <label for="email" class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">
+                            <label for="lemail" class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">
                                 Email address
                             </label>
                             <div class="mt-1 shadow-sm">
-                                <input id="email" name="email" placeholder="user@example.com" type="email"
-                                    formControlName="email"
+                                <input id="lemail" name="lemail" placeholder="user@example.com" type="email"
+                                    formControlName="loginEmail"
                                     class="w-full px-3 py-2 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
                             </div>
-                            <div *ngIf="loginForm.controls['email'].errors">
-                                <p *ngIf="loginSubmit&&loginForm.controls['email'].hasError('required')"
+                            <div *ngIf="loginForm.controls['loginEmail'].errors">
+                                <p *ngIf="loginSubmit&&loginForm.controls['loginEmail'].hasError('required')"
                                     class="text-red-500 text-xs">Email
                                     Required
                                 <p>
-                                <p *ngIf="loginForm.controls['email'].hasError('email')" class="text-red-500 text-xs">
+                                <p *ngIf="loginForm.controls['loginEmail'].hasError('email')" class="text-red-500 text-xs">
                                     Invalid email format!
                                 <p>
                             </div>
@@ -33,16 +33,16 @@
                                 Password
                             </label>
                             <div class="mt-1 shadow-sm">
-                                <input id="password" name="password" type="password" placeholder="..........."
-                                    formControlName="password"
+                                <input id="lpassword" name="lpassword" type="password" placeholder="..........."
+                                    formControlName="loginPassword"
                                     class="w-full px-3 py-2 rounded-md placeholder-gray-400 focus:border-0 border border-b-2 border-gray-900 transition duration-150 ease-in-out font">
                             </div>
-                            <div *ngIf="loginForm.controls['password'].errors">
+                            <div *ngIf="loginForm.controls['loginPassword'].errors">
                                 <p *ngIf="loginSubmit&&loginForm.controls['password'].hasError('required')"
                                     class="text-red-500 text-xs">Password
                                     Required
                                 </p>
-                                <p *ngIf="loginForm.controls['password'].hasError('pattern')"
+                                <p *ngIf="loginForm.controls['loginPassword'].hasError('pattern')"
                                     class="text-red-500 text-xs">Invalid Password
                                     Format!</p>
                             </div>

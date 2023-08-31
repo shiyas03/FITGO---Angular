@@ -1,10 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked, OnDestroy, HostListener } from '@angular/core';
 import { UserAuthService } from '../../services/user-auth.service';
 import { NgForm } from '@angular/forms';
-import { AllChat, Chat, ChatShow, Connections, Details } from '../../services/user.interface';
+import { AllChat, Chat, ChatShow, Connections, Details, PaymentDetails } from '../../services/user.interface';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { Subscription } from 'rxjs';
+import { fetchPaymentData } from '../../store/user.action';
+import { paymentSelectorData } from '../../store/user.selector';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-chat',
@@ -37,11 +40,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   openEmoji: boolean = false
   isImageOverlayOpen = false;
   viewImage: string = ''
+  isEmpty:boolean = false
 
   subscription1!: Subscription
   subscription2!: Subscription
 
-  constructor(private _userService: UserAuthService, private storage: AngularFireStorage) { }
+  constructor(private _userService: UserAuthService,
+    private storage: AngularFireStorage) { }
 
   ngOnInit() {
     this.userId = <string>localStorage.getItem('userId')
@@ -126,16 +131,22 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       content = this.inputValue
     }
 
-    const data: Chat = {
-      sender: userId,
-      reciever: trainerId,
-      content: content
+
+    if(!content.trim()){
+      this.isEmpty = true
+    }else{
+      this.isEmpty = false
+      const data: Chat = {
+        sender: userId,
+        reciever: trainerId,
+        content: content
+      }
+      this._userService.sendMessage(data)
+      this.form.reset()
+      this.selectChat(this.trainerId)
+      this.selectedFile = null
+      this.openEmoji = false
     }
-    this._userService.sendMessage(data)
-    this.form.reset()
-    this.selectChat(this.trainerId)
-    this.selectedFile = null
-    this.openEmoji = false
   }
 
 

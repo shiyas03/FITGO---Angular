@@ -41,8 +41,8 @@ export class AuthComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(pattern.password)]],
+      loginEmail: ['', [Validators.required, Validators.email]],
+      loginPassword: ['', [Validators.required, Validators.pattern(pattern.password)]],
     });
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],

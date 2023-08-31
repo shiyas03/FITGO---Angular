@@ -57,7 +57,7 @@ export class AdminAuthService {
   }
 
   fetchAllPayments(): Observable<PaymentDetails[]> {
-    return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/get_all`)
+    return this.http.get<PaymentDetails[]>(`${this.apiUrl}/payment/fetch_all`)
   }
 
 }

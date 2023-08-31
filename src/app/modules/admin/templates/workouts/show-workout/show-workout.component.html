@@ -2,12 +2,12 @@
     <div class="border border-gray-900 p-5" *ngIf="(workout$|async) as workout">
         <div class="m-2">
             <p class="text-md font-semibold mb-1">Thumbnail</p>
-            <img [src]="'http://localhost:3000/uploads/'+workout.thumbnail" width="200px" alt="">
+            <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+workout.thumbnail" width="200px" alt="">
         </div>
         <div class="m-2">
             <p class="text-md font-semibold mb-1">video</p>
             <video controls width="300px">
-                <source [src]="'http://localhost:3000/uploads/'+workout.video" type="video/mp4">
+                <source [src]="'https://fitgo-fitgo.onrender.com/uploads/'+workout.video" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
         </div>

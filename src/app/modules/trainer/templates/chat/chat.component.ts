@@ -34,6 +34,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   openEmoji: boolean = false
   isImageOverlayOpen = false;
   viewImage: string = ''
+  isEmpty:boolean = false
 
   subscription1!: Subscription
   subscription2!: Subscription
@@ -123,16 +124,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     } else {
       content = this.inputValue
     }
-    const data: Chat = {
-      sender: this.trainerId,
-      reciever: userId,
-      content: content,
+
+    if(!content.trim()){
+      this.isEmpty = true
+    }else{
+      this.isEmpty = false
+      const data: Chat = {
+        sender: this.trainerId,
+        reciever: userId,
+        content: content,
+      }
+      this._trainerService.sendMessage(data)
+      this.form.reset()
+      this.selectChat(this.userId)
+      this.selectedFile = null
+      this.closeEmojiPicker()
     }
-    this._trainerService.sendMessage(data)
-    this.form.reset()
-    this.selectChat(this.userId)
-    this.selectedFile = null
-    this.closeEmojiPicker()
   }
 
   isList(change: boolean) {

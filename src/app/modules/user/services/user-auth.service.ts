@@ -130,7 +130,7 @@ export class UserAuthService {
   }
 
   getNewMessage(): Observable<string> {
-    return this.socket.fromEvent<string>('newMessage')
+    return this.socket.fromEvent<string>('newMessage')  
   }
 
   getAllChats(data: string[]): Observable<AllChat[]> {

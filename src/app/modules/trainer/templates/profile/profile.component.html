@@ -20,7 +20,7 @@
                 </label>
                 <div *ngIf="trainer.imageUrl">
                     <input #fileInput id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)" />
-                    <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="image" class="w-full h-full">
+                    <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+trainer.imageUrl" alt="image" class="w-full h-full">
                     <div>
                         Add new photo
                         <button (click)="openFileInput()"

@@ -16,7 +16,7 @@
                             <img src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-image-700-205124837.jpg"
                                 class="w-full h-full rounded-full -mt-16 border-2 border-red-500"
                                 *ngIf="user.imageUrl == '' || !user.imageUrl">
-                            <img [src]="'http://localhost:3000/uploads/'+user.imageUrl" alt="image"
+                            <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+user.imageUrl" alt="image"
                                 *ngIf="user.imageUrl" class="w-full h-full rounded-full -mt-16 border-2 border-red-500">
                             <input id="imageInput" type="file" class="hidden" (change)="onFileSelected($event)">
                         </div>

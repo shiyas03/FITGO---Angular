@@ -1,0 +1,11 @@
+@media print {
+    /* Hide non-printable elements */
+    body * {
+      display: none;
+    }
+    
+    /* Show the printable content */
+    .printable-content {
+      display: block;
+    }
+  }

@@ -13,7 +13,7 @@
             <div class="md:flex justify-center">
                 <div class="lg:w-[18rem] m-2">
                     <div class="h-[20rem] bg-red-500 rounded-md shadow-md overflow-hidden">
-                        <img [src]="'http://localhost:3000/uploads/'+trainer.imageUrl" alt="" class="w-full h-full" *ngIf="trainer.imageUrl">
+                        <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+trainer.imageUrl" alt="" class="w-full h-full" *ngIf="trainer.imageUrl">
                     </div>
                     <div class="flex justify-center" *ngIf="!expired">
                         <a  (click)="chatWith(trainer._id)"
@@ -83,7 +83,7 @@
                                 <div class="flex justify-center p-3">
                                     <img src="assets/images/avatar.jpg" alt=""
                                         class="md:w-20 md:h-20 w-8 h-8 rounded-full" *ngIf="!item.userId.imageUrl">
-                                    <img [src]="'http://localhost:3000/uploads/'+item.userId.imageUrl" alt=""
+                                    <img [src]="'https://fitgo-fitgo.onrender.com/uploads/'+item.userId.imageUrl" alt=""
                                         class="md:w-20 md:h-20 w-8 h-8 rounded-full" *ngIf="item.userId.imageUrl">
                                 </div>
                                 <p class="text-center mb-1 text-lg">{{item.userId.name}}</p>
