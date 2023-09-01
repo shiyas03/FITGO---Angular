@@ -64,7 +64,7 @@
             </div>
             <app-user-info *ngIf="activeLink == 'Details'" [userData$]="details$"></app-user-info>
             <app-user-status *ngIf="activeLink == 'Goal'" [userData$]="details$"></app-user-status>
-            <div class="md:w-2/4 mx-auto bg-white rounded-md mt-5 p-5" *ngIf="activeLink === 'History'">
+            <div class="md:w-2/4 mx-auto bg-white rounded-md mt-5 p-5 h-fit max-h-80 overflow-hidden overflow-y-auto" *ngIf="activeLink === 'History'">
 
                 <div class="grid grid-cols-3 text-center">
                     <div>Date</div>
@@ -72,7 +72,7 @@
                     <div>Time taken</div>
                 </div>
                 <hr class="border-1 border-black">
-                <div class="grid grid-cols-3 text-center mt-1" *ngFor="let value of user.workouts">
+                <div class="grid grid-cols-3 text-center mt-1" *ngFor="let value of workouts">
                     <div>
                         <p>{{value.date | date: 'dd-MM-yyyy'}}</p>
                     </div>

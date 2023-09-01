@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProfileDetails } from '../../store/user';
+import { ProfileDetails, works } from '../../store/user';
 import { Store, select } from '@ngrx/store';
 import { fetchProfileDetails } from '../../store/user.action';
 import { Observable, Subscription } from 'rxjs';
@@ -18,7 +18,7 @@ import { NavigationExtras, Router } from '@angular/router';
 export class ProfileComponent implements OnInit, OnDestroy {
 
   details: boolean = true;
-  workouts: boolean = false;
+  workouts!: works[];
   history: boolean = false;
   activeLink: string = 'Details';
   details$!: Observable<ProfileDetails | null>;
@@ -91,6 +91,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   fetchData(id: string) {
     this._store.dispatch(fetchProfileDetails({ id }));
     this.details$ = this._store.pipe(select(profileSelectorData));
+    this.details$.subscribe(data => {
+      if (data) {
+       this.workouts = [...data.workouts].reverse()
+      }
+    }); 
   }
 
   isValidFileType(file: File): boolean {

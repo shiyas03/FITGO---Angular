@@ -119,11 +119,7 @@ export class OtpComponent implements OnInit, OnDestroy {
             localStorage.setItem('userToken', res.token);
             localStorage.removeItem('otp');
           }
-        },
-        (error) => {
-          showError(error)
-        },
-      );
+        });
     } else {
       swal('error', 'Incorrect OTP');
     }

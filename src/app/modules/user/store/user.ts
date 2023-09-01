@@ -42,7 +42,7 @@ export interface Login {
     password: string;
 }
 
-interface works {
+export interface works {
     _id: string
     workouts: Workout;
     date: Date

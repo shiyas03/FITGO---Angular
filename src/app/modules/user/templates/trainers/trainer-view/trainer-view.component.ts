@@ -101,14 +101,16 @@ export class TrainerViewComponent implements OnInit, OnDestroy {
 
   paymentgDetails() {
     const userId = <string>localStorage.getItem('userId')
-    this._userService.fetchTrainerPayments(this.trainerId).subscribe(
-      (res) => {
-        for (let value of res) {
-          if (value.trainerId._id === this.trainerId) {
-            this.uniqueUsers.add(value.userId._id);
+    if (this.trainerId) {
+      this._userService.fetchTrainerPayments(this.trainerId).subscribe(
+        (res) => {
+          for (let value of res) {
+            if (value.trainerId._id === this.trainerId) {
+              this.uniqueUsers.add(value.userId._id);
+            }
           }
-        }
-      })
+        })
+    }
     this.__store.dispatch(fetchPaymentData({ userId: userId }))
     this.__store.pipe(select(paymentSelectorData)).subscribe((data) => {
       const date: Date = new Date()

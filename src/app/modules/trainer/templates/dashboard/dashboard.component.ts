@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
 import { ChartOptions, ColumnChartOptions, PieChartOptions } from './chart.types';
 import { Blog, Payment, Workout } from '../../services/trainer.interface';
@@ -34,13 +34,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.trainerId = <string>localStorage.getItem('trainerId');
-    this.totalUsers()
-    this.totalBlogs()
-    this.totalWorkouts()
+    if (this.trainerId) {
+      this.totalUsers(this.trainerId)
+      this.totalBlogs(this.trainerId)
+      this.totalWorkouts(this.trainerId)
+    }
   }
 
-  totalUsers() {
-    const trainerId = this.trainerId
+  totalUsers(trainerId: string) {
     this._userStore.dispatch(fetchPaymentData({ trainerId }))
     this._userStore.pipe(select(paymentSelectorData)).subscribe(
       (data) => {
@@ -65,14 +66,14 @@ export class DashboardComponent implements OnInit {
           ]
           if (obj.trainer_status === true) {
             this.profitIncome += obj.amount
-          } 
+          }
           this.GrandTotal += obj.amount
-          
+
           const found = uniqueSet.find(data => data === obj.userId._id)
           if (!found) {
             uniqueSet.push(obj.userId._id)
           }
-        }) 
+        })
 
         this.userChartOptions.series = [
           {
@@ -80,40 +81,37 @@ export class DashboardComponent implements OnInit {
             data: userCountsByMonth
           }
         ];
-        
+
         this.pendingIncome = this.GrandTotal - this.profitIncome
-        this.pieChartOptions.series = [this.GrandTotal,this.pendingIncome,this.profitIncome]
+        this.pieChartOptions.series = [this.GrandTotal, this.pendingIncome, this.profitIncome]
         this.users = uniqueSet.length
       })
   }
 
-  totalBlogs() {
+  totalBlogs(trainerId: string) {
     this._blogStore.dispatch(fetchBlogData());
     this._blogStore.pipe(select(blogSelectorData)).subscribe(data => {
       this.blogs = 0
       data.forEach(data => {
-        if (data.trainerId._id === this.trainerId) {
+        if (data.trainerId._id === trainerId) {
           this.blogs++
         }
       })
     })
   }
 
-  totalWorkouts() {
+  totalWorkouts(trainerId: string) {
     this._workoutStore.dispatch(fetchWorkoutsData())
     this._workoutStore.pipe(select(workoutsSelectorData)).subscribe(data => {
       this.workouts = 0
       data.forEach(data => {
-        if (data.trainerId._id === this.trainerId) {
+        if (data.trainerId._id === trainerId) {
           this.workouts++
         }
       })
     })
   }
 
-  totalIncome() {
-
-  }
 
   columnChartOptions(): Partial<ColumnChartOptions> {
     return {

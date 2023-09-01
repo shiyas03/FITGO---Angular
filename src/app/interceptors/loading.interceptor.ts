@@ -19,8 +19,7 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     
-    console.log(request.url);
-    if (request.url.includes('/chat')) {
+    if (request.url.includes('/chat/get_all')) {
       return next.handle(request);
     }
 
@@ -32,7 +31,7 @@ export class LoadingInterceptor implements HttpInterceptor {
         if (this.totalRequests == 0) {
           setTimeout(()=>{
             this.loadingService.setLoading(false);
-          },300)
+          },100)
         }
       })
     );
