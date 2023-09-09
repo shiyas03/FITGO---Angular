@@ -26,13 +26,12 @@
       </div>
     </div>
   </div>
-  <div class="w-3/4 mx-auto" *ngIf="blogs$ | async as blogs">
+  <div class="w-3/4 mx-auto" *ngIf="blogs">
     <div *ngIf="blogs.length === 0" class="text-center">
       No Data Found
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:m-10">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 md:m-8">
       <div *ngFor="let b of blogs; let i = index">
-        <div *ngIf="b.approve == true" class="m-5">
           <div class="justify-center cursor-pointer" (click)="showBlog(b._id)">
             <article
               class="card hover:text-white overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl duration-200 hover:scale-110"
@@ -55,7 +54,6 @@
             </article>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </div>

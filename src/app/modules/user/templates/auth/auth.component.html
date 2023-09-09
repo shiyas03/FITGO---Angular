@@ -33,10 +33,11 @@
                                 Password
                             </label>
                             <div class="mt-1 shadow-sm">
-                                <input id="lpassword" name="lpassword" type="password" placeholder="..........."
+                                <input id="lpassword" name="lpassword" type="password" placeholder="Must be 8 characters"
                                     formControlName="loginPassword"
-                                    class="w-full px-3 py-2 rounded-md placeholder-gray-400 focus:border-0 border border-b-2 border-gray-900 transition duration-150 ease-in-out font">
+                                    class="w-full px-3 py-2 rounded-md text-sm placeholder-gray-400 focus:border-0 border border-b-2 border-gray-900 transition duration-150 ease-in-out font">
                             </div>
+                            <p class="text-xs font text-gray-500">includes atleast one capital, special character & number</p>
                             <div *ngIf="loginForm.controls['loginPassword'].errors">
                                 <p *ngIf="loginSubmit&&loginForm.controls['password'].hasError('required')"
                                     class="text-red-500 text-xs">Password
@@ -115,10 +116,11 @@
                                 Password
                             </label>
                             <div class="shadow-sm">
-                                <input id="password" name="password" type="password" placeholder="..........."
+                                <input id="password" name="password" type="password" placeholder="Must be 8 characters"
                                     formControlName="password"
                                     class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border border-b-2 border-gray-900 transition duration-150 ease-in-out font">
                             </div>
+                            <p class="text-xs font text-gray-500">includes atleast one capital, special character & number</p>
                             <div *ngIf="registerForm.controls['password'].errors">
                                 <p *ngIf="signupSubmit&&registerForm.controls['password'].hasError('required')"
                                     class="text-red-500 text-xs">Password
@@ -134,7 +136,7 @@
                                 Confirm Password
                             </label>
                             <div class="shadow-sm">
-                                <input id="cpassword" name="cpassword" type="password" placeholder="..........."
+                                <input id="cpassword" name="cpassword" type="password" placeholder="Must be 8 characters"
                                     formControlName="cpassword"
                                     class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border border-b-2 border-gray-900 transition duration-150 ease-in-out font">
                             </div>
@@ -147,6 +149,7 @@
                                     class="text-red-500 text-xs">Invalid Password
                                     Format</p>
                             </div>
+                            <p *ngIf="inCorrect" class="text-red-500 text-xs">Password not match</p>
                         </div>
                         <div class="mt-5 flex justify-center">
                             <button

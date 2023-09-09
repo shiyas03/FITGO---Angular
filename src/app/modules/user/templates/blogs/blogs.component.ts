@@ -14,6 +14,7 @@ import { NavigationExtras, Router } from '@angular/router';
 export class BlogsComponent implements OnInit, AfterViewInit {
 
   blogs$!: Observable<Blog[]>;
+  blogs: Blog[] = []
   show: boolean = false;
   notFound: boolean = true;
   searchQuery: string = '';
@@ -24,10 +25,16 @@ export class BlogsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.store.dispatch(fetchBlogData());
     this.blogs$ = this.store.pipe(select(blogSelectorData));
+    this.approvedBlogs()
+  }
+
+  approvedBlogs(){
     this.blogs$.subscribe(data => {
+      this.blogs = []
       for (let value of data) {
         if (value.approve == true) {
           this.notFound = false
+          this.blogs.push(value)
         }
       }
     })
@@ -37,7 +44,7 @@ export class BlogsComponent implements OnInit, AfterViewInit {
     const trimmedQuery = this.searchQuery.trim();
     if (trimmedQuery === '') {
       this.blogs$ = this.store.pipe(select(blogSelectorData));
-    }else{
+    } else {
       this.blogs$ = this.blogs$.pipe(
         map(blogs =>
           blogs.filter(blog =>
@@ -46,6 +53,7 @@ export class BlogsComponent implements OnInit, AfterViewInit {
         )
       );
     }
+    this.approvedBlogs()
   }
 
   applyCategoryFilter() {
@@ -60,6 +68,7 @@ export class BlogsComponent implements OnInit, AfterViewInit {
         )
       );
     }
+    this.approvedBlogs()
   }
 
   ngAfterViewInit(): void {
