@@ -21,23 +21,20 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private userService: UserAuthService,
     private router: Router,
-  ) {
+  ) { }
+
+  ngOnInit(): void { 
     this.detailsForm = this.fb.group({
       age: ['', [Validators.required, Validators.pattern(pattern.numeric)]],
       height: ['', [Validators.required, Validators.pattern(pattern.numeric)]],
       weight: ['', [Validators.required, Validators.pattern(pattern.numeric)]],
-      goalWeight: [
-        '',
-        [Validators.required, Validators.pattern(pattern.numeric)],
-      ],
+      goalWeight: ['',[Validators.required, Validators.pattern(pattern.numeric)]],
       months: ['', [Validators.required, Validators.pattern(pattern.numeric)]],
       goal: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       activity: ['', [Validators.required]],
     });
   }
-
-  ngOnInit(): void { }
 
   onSubmit() {
     this.submit = true;

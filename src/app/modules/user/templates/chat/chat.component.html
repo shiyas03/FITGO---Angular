@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                             <div class="col-start-1 col-end-8 p-3 rounded-lg"
-                                *ngIf="value.content !== '' && value.reciever === userId">
+                                *ngIf="value.content !== '' && value.reciever === userId && value.sender === trainerId">
                                 <div class="flex flex-row items-center">
                                     <div *ngIf="!trainer.imageUrl; else imageBlock"
                                         class="flex items-center justify-center h-10 w-10 rounded-full bg-red-500 flex-shrink-0 text-white uppercase">

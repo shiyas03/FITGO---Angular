@@ -56,6 +56,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.trainerId = <string>localStorage.getItem('trainerId')
     this.subscription1 = this._trainerService.fetchAllConnections(this.trainerId).subscribe(
       (datas) => {
+        console.log(datas);
+        
         for (let value of datas) {
           connections.push(value._id)
         }

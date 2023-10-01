@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnDestroy, OnInit {
+export class AuthComponent implements OnDestroy, OnInit,AfterViewInit {
 
   inCorrect: boolean = false;
   emailUsed: boolean = false;
@@ -36,7 +36,8 @@ export class AuthComponent implements OnDestroy, OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserAuthService,
-    private router: Router,private store: Store<Register>
+    private router: Router,private store: Store<Register>,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -152,7 +153,16 @@ export class AuthComponent implements OnDestroy, OnInit {
     if (this.subscription2) this.subscription2.unsubscribe();
   }
 
+  private scrollToTop(): void {
+    const element = this.elementRef.nativeElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+  }
+
   moveDiv() {
     this.isMoved = !this.isMoved;
+  }
+
+  ngAfterViewInit(): void {
+    this.scrollToTop()
   }
 }

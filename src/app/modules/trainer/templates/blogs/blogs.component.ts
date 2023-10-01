@@ -83,7 +83,7 @@ export class BlogsComponent implements OnInit, OnDestroy, AfterViewInit {
         width: '600px',
         data: { id: id },
       },
-    );
+    )
     dialogRef.afterClosed().subscribe(res => {
       if (res == true) {
         this.fetchData();

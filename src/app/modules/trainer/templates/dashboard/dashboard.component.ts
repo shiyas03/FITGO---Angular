@@ -49,7 +49,6 @@ export class DashboardComponent implements OnInit {
         const userCountsByMonth = new Array(12).fill(null);
         const uniqueSet: string[] = []
         data.filter(obj => {
-
           const joinDate = new Date(obj.paidDate);
           const joinMonth = joinDate.getMonth();
           userCountsByMonth[joinMonth]++;
@@ -71,7 +70,8 @@ export class DashboardComponent implements OnInit {
 
           const found = uniqueSet.find(data => data === obj.userId._id)
           if (!found) {
-            uniqueSet.push(obj.userId._id)
+            console.log(obj.userId);  
+            uniqueSet.push()
           }
         })
 
@@ -81,7 +81,6 @@ export class DashboardComponent implements OnInit {
             data: userCountsByMonth
           }
         ];
-
         this.pendingIncome = this.GrandTotal - this.profitIncome
         this.pieChartOptions.series = [this.GrandTotal, this.pendingIncome, this.profitIncome]
         this.users = uniqueSet.length

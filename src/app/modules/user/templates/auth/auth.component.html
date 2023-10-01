@@ -48,7 +48,7 @@
                                     Format!</p>
                             </div>
                         </div>
-                        <div class="mt-8 flex justify-center">
+                        <div class="sm:mt-8 mt-4 flex justify-center">
                             <button
                                 class="w-full py-3 text-xs uppercase font-semibold rounded-md duration-300 bg-white font border-2 border-black hover:w-1/2 hover:scale-105"
                                 type="submit">
@@ -57,7 +57,7 @@
                         </div>
                     </form>
                     <p class="visible sm:invisible text-xs font mt-3">Don't have an account?
-                        <span class="cursor-pointer uppercase underline font" (click)="moveDiv()">Signup</span></p>
+                        <span class="cursor-pointer uppercase underline font" (click)="moveDiv()">Signup</span></p> 
                 </div>
                 <div class="w-3/4 m-3" [class.hidden]="isMoved">
                     <p class="text-xl sm:text-3xl font text-red-500 text-center uppercase underline mt-3">signup</p>
@@ -68,7 +68,7 @@
                             </label>
                             <div class="shadow-sm">
                                 <input id="name" name="name" placeholder="John Doe" type="name" formControlName="name"
-                                    class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
+                                    class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 text-xs sm:text-base transition duration-150 ease-in-out font">
                             </div>
                             <p *ngIf="nameError" class="text-red-500 text-xs">Name required</p>
                         </div>
@@ -95,7 +95,7 @@
                         <div class="mt-2">
                             <label for="phone"
                                 class="block text-sm font-medium leading-5 mx-1 text-gray-700 font">Phone</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="relative rounded-md shadow-sm">
                                 <input id="phone" name="phone" placeholder="+91 9876543210" type="text" required=""
                                     maxlength="10" formControlName="phone"
                                     class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border-b-2 border border-gray-900 transition duration-150 ease-in-out font">
@@ -120,7 +120,6 @@
                                     formControlName="password"
                                     class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border border-b-2 border-gray-900 transition duration-150 ease-in-out font">
                             </div>
-                            <p class="text-xs font text-gray-500">includes atleast one capital, special character & number</p>
                             <div *ngIf="registerForm.controls['password'].errors">
                                 <p *ngIf="signupSubmit&&registerForm.controls['password'].hasError('required')"
                                     class="text-red-500 text-xs">Password
@@ -140,6 +139,7 @@
                                     formControlName="cpassword"
                                     class="w-full px-3 py-1.5 rounded-md placeholder-gray-400 focus:border-0 border border-b-2 border-gray-900 transition duration-150 ease-in-out font">
                             </div>
+                            <p class="text-xs font text-gray-500">One capital, special character & number</p>
                             <div *ngIf="registerForm.controls['cpassword'].errors">
                                 <p *ngIf="signupSubmit&&registerForm.controls['cpassword'].hasError('required')"
                                     class="text-red-500 text-xs">Password
@@ -151,9 +151,9 @@
                             </div>
                             <p *ngIf="inCorrect" class="text-red-500 text-xs">Password not match</p>
                         </div>
-                        <div class="mt-5 flex justify-center">
+                        <div class="sm:mt-5 mt-3 flex justify-center">
                             <button
-                                class="w-full py-3 text-xs uppercase font-semibold rounded-md duration-300 bg-white font border-2 border-black hover:w-1/2 hover:scale-105"
+                                class="w-full py-2 text-xs uppercase font-semibold rounded-md duration-300 bg-white font border-2 border-black hover:w-1/2 hover:scale-105"
                                 type="submit">
                                 Login Here
                             </button>
