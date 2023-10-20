@@ -1,5 +1,5 @@
 <header>
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8" aria-label="Global">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div class="flex lg:hidden">
             <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-300"
                 (click)="toggle()">
@@ -19,17 +19,22 @@
             </a>
         </div>
         <div class="hidden lg:flex lg:gap-x-12" *ngIf="islogged">
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/home" routerLinkActive="active">Home</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/workouts" routerLinkActive="active">Workouts</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/blogs" routerLinkActive="active">Blogs</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/trainers" routerLinkActive="active">Trainers</a>
-            <!-- <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/about" routerLinkActive="active">About</a> -->
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}">Home</a>
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/workouts"
+                routerLinkActive="active">Workouts</a>
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/blogs"
+                routerLinkActive="active">Blogs</a>
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-300" routerLink="/trainers"
+                routerLinkActive="active">Trainers</a>
         </div>
 
-        <div class="flex lg:flex-1 lg:justify-end" *ngIf="islogged; else logBlock"> 
-            <button class="px-2 mx-3 border border-red-500 flex items-center m-button" routerLink="/chat"><mat-icon class="text-white z-10"> chat</mat-icon></button>
+        <div class="flex lg:flex-1 lg:justify-end" *ngIf="islogged; else logBlock">
+            <button class="px-2 mx-3 border border-red-500 flex items-center m-button" routerLink="/chat"><mat-icon
+                    class="text-white z-10"> chat</mat-icon></button>
             <button class="m-button md:h-10 sm:h-8 xs:h-8 lg:h-10 2xl:h-10" (click)="toggleDropdown()">
-                <span class="xs:text-xs sm:text-sm md:text-sm lg:text-sm 2xl:text-sm text-xs uppercase" *ngIf="(user$|async) as user">Hey! {{user?.name}}</span>
+                <span class="xs:text-xs sm:text-sm md:text-sm lg:text-sm 2xl:text-sm text-xs uppercase"
+                    *ngIf="(user$|async) as user">Hey! {{user?.name}}</span>
             </button>
             <div [class.hidden]="!isDropdownOpen" class="absolute top-14 hs-dropdown-menu hidden transform origin-top transition duration-300 ease-out hs-dropdown-open:opacity-100 min-w-5  lg:min-w-[6.5rem] 
               bg-gray-950 shadow-md p-2 mt-2 divide-y border border-red-500"
@@ -53,7 +58,8 @@
         <ng-template #logBlock>
             <div class="flex lg:flex lg:flex-1 lg:justify-end">
                 <button class="m-button md:h-10 sm:h-8 xs:h-8 lg:h-10 2xl:h-10" (click)="toggleDropdown()">
-                    <span class="xs:text-xs sm:text-sm md:text-sm lg:text-sm 2xl:text-sm text-xs uppercase" style="font-family: 'Kanit', sans-serif;">Join the
+                    <span class="xs:text-xs sm:text-sm md:text-sm lg:text-sm 2xl:text-sm text-xs uppercase"
+                        style="font-family: 'Kanit', sans-serif;">Join the
                         team</span>
                 </button>
                 <div [class.hidden]="!isDropdownOpen" class="absolute top-14 md:top-16 hs-dropdown-menu hidden transform origin-top transition duration-300 ease-out hs-dropdown-open:opacity-100 min-w-8  lg:min-w-[8rem] 
@@ -71,7 +77,7 @@
                     </div>
                 </div>
             </div>
-        </ng-template>  
+        </ng-template>
     </nav>
 </header>
 
@@ -86,4 +92,5 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,700;1,200;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,700;1,200;1,300&display=swap"
+    rel="stylesheet">
